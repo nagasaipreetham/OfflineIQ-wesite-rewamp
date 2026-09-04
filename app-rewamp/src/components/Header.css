@@ -1,0 +1,670 @@
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out);
+}
+
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom-color: var(--border-strong);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+}
+
+/* blue progress hairline riding the bottom edge */
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--blue-primary);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left center;
+  transition: transform 90ms linear;
+  pointer-events: none;
+}
+
+.site-header__inner {
+  position: relative;
+  height: var(--header-h);
+  max-width: calc(var(--container) + var(--container-pad) * 2);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ---------- entrance ---------- */
+
+/*
+ * Uses `translate` rather than `transform` so the locked-in end state of the
+ * animation still leaves `transform` free for the :active press effect.
+ */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 -9px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.brand,
+.site-nav__link,
+.site-header__actions > * {
+  animation: rise-in var(--dur-slow) var(--ease-out) both;
+}
+
+.brand {
+  animation-delay: 40ms;
+}
+
+.site-nav__link {
+  animation-delay: calc(110ms + var(--i) * 55ms);
+}
+
+.site-header__actions > *:nth-child(1) {
+  animation-delay: 150ms;
+}
+
+.site-header__actions > *:nth-child(2) {
+  animation-delay: 210ms;
+}
+
+.site-header__actions > *:nth-child(3) {
+  animation-delay: 270ms;
+}
+
+/* ---------- brand ---------- */
+
+/* Brand is the only element set in Space Grotesk */
+.brand {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.brand__accent {
+  transition: color var(--dur) var(--ease-out);
+}
+
+.brand:hover .brand__accent {
+  color: var(--blue-primary);
+}
+
+/* ---------- centred nav ---------- */
+
+/*
+ * The nav is taken out of flow and pinned to the true centre of the header,
+ * so it is unaffected by the differing widths of the brand and the actions.
+ */
+.site-nav {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-nav__link {
+  position: relative;
+  padding: 4px 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease-out);
+}
+
+/* hairline underline draws out from the left */
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--blue-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.site-nav__link:hover {
+  color: var(--blue-primary);
+}
+
+.site-nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+.site-nav__link:active {
+  transform: translateY(1px);
+}
+
+.site-header__actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* --- secondary --- */
+
+.btn--secondary {
+  padding: 0 18px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+
+.btn--secondary:hover {
+  background: var(--bg);
+  border-color: var(--blue-primary);
+  color: var(--blue-primary);
+}
+
+/*
+ * Blueprint corner ticks snap into place on hover, echoing the selection
+ * handles used throughout the reference design.
+ */
+.btn--secondary::before,
+.btn--secondary::after,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--blue-primary);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur) var(--ease-back);
+  pointer-events: none;
+}
+
+.btn--secondary::before,
+.hamburger::before {
+  top: -5px;
+  left: -5px;
+  border-right: 0;
+  border-bottom: 0;
+  transform: translate(5px, 5px);
+}
+
+.btn--secondary::after,
+.hamburger::after {
+  right: -5px;
+  bottom: -5px;
+  border-left: 0;
+  border-top: 0;
+  transform: translate(-5px, -5px);
+}
+
+.btn--secondary:hover::before,
+.btn--secondary:hover::after,
+.hamburger:hover::before,
+.hamburger:hover::after,
+.hamburger.is-active::before,
+.hamburger.is-active::after {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- primary --- */
+
+.btn--primary {
+  overflow: hidden;
+  background: var(--blue-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--blue-hover);
+}
+
+/* white flash on press */
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+
+.btn--primary:active::after {
+  opacity: 0.24;
+  transition-duration: 0ms;
+}
+
+/* label and arrow are separate buttons, sitting flush against each other */
+.btn-split {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.btn-split__label {
+  padding: 0 16px;
+  min-width: 0;
+}
+
+.btn-split__arrow {
+  flex: 0 0 auto;
+  width: 34px;
+  padding: 0;
+  border-left: 1px solid var(--on-blue-divider);
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+/* hovering either half lights both and drives the arrow */
+.btn-split:hover .btn--primary {
+  background: var(--blue-hover);
+}
+
+.btn-split:hover .btn-split__arrow {
+  border-left-color: rgba(255, 255, 255, 0.4);
+}
+
+.arrow-swap {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+}
+
+.arrow-swap svg {
+  position: absolute;
+  inset: 0;
+  width: 15px;
+  height: 15px;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.arrow-swap svg:nth-child(1) {
+  transform: translateX(0);
+}
+
+.arrow-swap svg:nth-child(2) {
+  transform: translateX(-140%);
+}
+
+.btn-split:hover .arrow-swap svg:nth-child(1) {
+  transform: translateX(140%);
+}
+
+.btn-split:hover .arrow-swap svg:nth-child(2) {
+  transform: translateX(0);
+}
+
+/* ---------- hamburger ---------- */
+
+.hamburger {
+  position: relative;
+  display: none;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.hamburger:hover,
+.hamburger.is-active {
+  background: var(--bg);
+  border-color: var(--blue-primary);
+}
+
+.hamburger:active {
+  transform: translateY(1px);
+}
+
+.hamburger:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.hamburger__bars {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 10px;
+}
+
+.hamburger__bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--ink);
+  /* closed: unrotate first, then travel back out */
+  transition: top var(--dur) var(--ease-out) 130ms,
+    bottom var(--dur) var(--ease-out) 130ms, transform var(--dur) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out) 130ms,
+    background-color var(--dur) var(--ease-out);
+}
+
+.hamburger:hover .hamburger__bars span,
+.hamburger.is-active .hamburger__bars span {
+  background: var(--blue-primary);
+}
+
+.hamburger__bars span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger__bars span:nth-child(2) {
+  top: 50%;
+  margin-top: -0.75px;
+}
+
+.hamburger__bars span:nth-child(3) {
+  bottom: 0;
+}
+
+/* open: travel to the middle first, then rotate into the cross */
+.hamburger.is-active .hamburger__bars span {
+  transition: top var(--dur) var(--ease-out), bottom var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out) 130ms, opacity var(--dur-fast) var(--ease-out),
+    background-color var(--dur) var(--ease-out);
+}
+
+.hamburger.is-active .hamburger__bars span:nth-child(1) {
+  top: 4.25px;
+  transform: rotate(45deg);
+}
+
+.hamburger.is-active .hamburger__bars span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+
+.hamburger.is-active .hamburger__bars span:nth-child(3) {
+  bottom: 4.25px;
+  transform: rotate(-45deg);
+}
+
+/* ---------- collapsed menu panel ---------- */
+
+.site-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  max-height: calc(100svh - var(--header-h));
+  overflow-y: auto;
+  padding: 8px var(--container-pad) 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  /* blind-style wipe from the top edge */
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  visibility: hidden;
+  transition: clip-path var(--dur-slow) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out),
+    visibility 0s linear var(--dur-slow);
+}
+
+.site-menu.is-open {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  visibility: visible;
+  transition: clip-path var(--dur-slow) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out), visibility 0s;
+}
+
+.site-menu__nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-menu__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 2px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border);
+  /* closed: everything leaves together */
+  opacity: 0;
+  translate: 0 -8px;
+  transition: opacity var(--dur-fast) var(--ease-out),
+    translate var(--dur-fast) var(--ease-out), color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out);
+}
+
+/* open: links cascade in one after another */
+.site-menu.is-open .site-menu__link,
+.site-menu.is-open .site-menu__actions {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity var(--dur) var(--ease-out) calc(90ms + var(--i) * 55ms),
+    translate var(--dur-slow) var(--ease-out) calc(90ms + var(--i) * 55ms),
+    color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+}
+
+.site-menu__label {
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.site-menu__link:hover {
+  color: var(--blue-primary);
+  border-bottom-color: var(--blue-primary);
+}
+
+.site-menu__link:hover .site-menu__label {
+  transform: translateX(5px);
+}
+
+.site-menu__chevron {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  color: var(--text-faint);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.site-menu__chevron svg {
+  width: 15px;
+  height: 15px;
+}
+
+.site-menu__link:hover .site-menu__chevron {
+  opacity: 1;
+  transform: none;
+  color: var(--blue-primary);
+}
+
+/*
+ * Panel actions mirror whatever has been dropped from the header: Support
+ * appears here first, the CTA only once it too has run out of room.
+ */
+.site-menu__actions {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding-top: 20px;
+  opacity: 0;
+  translate: 0 -8px;
+  transition: opacity var(--dur-fast) var(--ease-out),
+    translate var(--dur-fast) var(--ease-out);
+}
+
+.site-menu__actions .btn {
+  height: 42px;
+}
+
+.site-menu__cta {
+  display: none;
+}
+
+.site-menu__cta .btn-split__label {
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.site-menu__scrim {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(10, 20, 35, 0.28);
+  border: none;
+  cursor: default;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur) var(--ease-out), visibility 0s linear var(--dur);
+}
+
+.site-menu__scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--dur) var(--ease-out), visibility 0s;
+}
+
+/* ---------- breakpoints ---------- */
+
+/* tighten the centred nav before it has to collapse */
+@media (max-width: 1280px) {
+  .site-nav {
+    gap: 16px;
+  }
+}
+
+/*
+ * Below this width the centred nav would collide with the actions,
+ * so it is replaced by the hamburger on the right.
+ */
+@media (max-width: 1119px) {
+  .site-nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: inline-flex;
+  }
+}
+
+/* step 1: Support is the first thing to go, the CTA stays in the header */
+@media (max-width: 640px) {
+  .site-header__support {
+    display: none;
+  }
+
+  .site-menu__actions {
+    display: flex;
+  }
+}
+
+/* step 2: the CTA follows, leaving just the brand and the hamburger */
+@media (max-width: 480px) {
+  .site-header__cta {
+    display: none;
+  }
+
+  .site-menu__cta {
+    display: flex;
+  }
+}
+
+/* large monitors */
+@media (min-width: 1800px) {
+  .brand {
+    font-size: 24px;
+  }
+
+  .site-nav {
+    gap: 24px;
+  }
+
+  .site-nav__link,
+  .btn {
+    font-size: 14px;
+  }
+
+  .btn {
+    height: 40px;
+  }
+
+  .btn-split__arrow {
+    width: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-menu {
+    clip-path: none;
+  }
+}
