@@ -1,0 +1,219 @@
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* larger variant used in the hero */
+.btn--lg {
+  height: 42px;
+  font-size: 14px;
+}
+
+/* ---------- secondary ---------- */
+
+.btn--secondary {
+  padding: 0 18px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  color: var(--ink);
+}
+
+.btn--secondary.btn--lg {
+  padding: 0 22px;
+}
+
+.btn--secondary:hover {
+  background: var(--bg);
+  border-color: var(--blue-primary);
+  color: var(--blue-primary);
+}
+
+/*
+ * Blueprint corner ticks snap into place on hover, echoing the selection
+ * handles used throughout the reference design. `.tick-frame` lets other
+ * bordered controls opt into the same treatment.
+ */
+.btn--secondary::before,
+.btn--secondary::after,
+.tick-frame::before,
+.tick-frame::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--blue-primary);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur) var(--ease-back);
+  pointer-events: none;
+}
+
+.btn--secondary::before,
+.tick-frame::before {
+  top: -5px;
+  left: -5px;
+  border-right: 0;
+  border-bottom: 0;
+  transform: translate(5px, 5px);
+}
+
+.btn--secondary::after,
+.tick-frame::after {
+  right: -5px;
+  bottom: -5px;
+  border-left: 0;
+  border-top: 0;
+  transform: translate(-5px, -5px);
+}
+
+.btn--secondary:hover::before,
+.btn--secondary:hover::after,
+.tick-frame:hover::before,
+.tick-frame:hover::after,
+.tick-frame.is-active::before,
+.tick-frame.is-active::after {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- primary ---------- */
+
+.btn--primary {
+  overflow: hidden;
+  background: var(--blue-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--blue-hover);
+}
+
+/* white flash on press */
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+
+.btn--primary:active::after {
+  opacity: 0.24;
+  transition-duration: 0ms;
+}
+
+/* ---------- split CTA ---------- */
+
+.btn-split {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.btn-split__label {
+  padding: 0 16px;
+  min-width: 0;
+}
+
+.btn-split__label.btn--lg {
+  padding: 0 22px;
+}
+
+.btn-split__arrow {
+  flex: 0 0 auto;
+  width: 34px;
+  padding: 0;
+  border-left: 1px solid var(--on-blue-divider);
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.btn-split__arrow.btn--lg {
+  width: 44px;
+}
+
+/* hovering either half lights both and drives the arrow */
+.btn-split:hover .btn--primary {
+  background: var(--blue-hover);
+}
+
+.btn-split:hover .btn-split__arrow {
+  border-left-color: rgba(255, 255, 255, 0.4);
+}
+
+.arrow-swap {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+}
+
+.arrow-swap svg {
+  position: absolute;
+  inset: 0;
+  width: 15px;
+  height: 15px;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.arrow-swap svg:nth-child(1) {
+  transform: translateX(0);
+}
+
+.arrow-swap svg:nth-child(2) {
+  transform: translateX(-140%);
+}
+
+.btn-split:hover .arrow-swap svg:nth-child(1) {
+  transform: translateX(140%);
+}
+
+.btn-split:hover .arrow-swap svg:nth-child(2) {
+  transform: translateX(0);
+}
+
+/* large monitors */
+@media (min-width: 1800px) {
+  .btn {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .btn-split__arrow {
+    width: 38px;
+  }
+
+  .btn--lg {
+    height: 46px;
+    font-size: 15px;
+  }
+
+  .btn-split__arrow.btn--lg {
+    width: 48px;
+  }
+}

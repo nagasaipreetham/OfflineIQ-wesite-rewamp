@@ -1,0 +1,157 @@
+.partner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(160px, 22vh, 220px);
+  padding: clamp(40px, 6vh, 64px) var(--container-pad);
+  background: #000;
+  color: #fff;
+}
+
+/*
+ * Wrapper is section-sized and owns the side mask (same idea as the hero).
+ * The inner field is oversized and scales from centre so dots drift outward
+ * on every angle without the mask percentages getting warped by the scale.
+ */
+.partner__field-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mask-image: linear-gradient(to right,
+      #000 0%,
+      rgba(0, 0, 0, 0.85) 10%,
+      rgba(0, 0, 0, 0.4) 20%,
+      transparent 32%,
+      transparent 68%,
+      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0.85) 90%,
+      #000 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      #000 0%,
+      rgba(0, 0, 0, 0.85) 10%,
+      rgba(0, 0, 0, 0.4) 20%,
+      transparent 32%,
+      transparent 68%,
+      rgba(0, 0, 0, 0.4) 80%,
+      rgba(0, 0, 0, 0.85) 90%,
+      #000 100%);
+}
+
+.partner__field {
+  position: absolute;
+  inset: -60%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.9) 1.7px,
+      transparent 1.7px);
+  background-size: var(--dot-pitch) var(--dot-pitch);
+  background-position: center;
+  transform-origin: center;
+  animation: partner-dots-out 9s linear infinite;
+}
+
+@keyframes partner-dots-out {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(2);
+  }
+}
+
+.partner__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 26px);
+  text-align: center;
+}
+
+.partner__label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+}
+
+.partner__logo {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.partner__logo-img {
+  width: clamp(140px, 18vw, 200px);
+  height: auto;
+  position: relative;
+  z-index: 0;
+}
+
+/*
+ * Shine is masked to the SVG ink only (not the black band behind transparent
+ * areas). Silver/black diagonal sweep, left → right, a touch slower.
+ */
+.partner__shine {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(115deg,
+      transparent 28%,
+      rgba(0, 0, 0, 0.55) 40%,
+      rgba(192, 192, 198, 0.95) 48%,
+      rgba(236, 236, 240, 0.9) 50%,
+      rgba(192, 192, 198, 0.95) 52%,
+      rgba(0, 0, 0, 0.55) 60%,
+      transparent 72%);
+  background-size: 220% 100%;
+  background-position: 120% 0;
+  -webkit-mask-image: url('/amd-logo.svg');
+  mask-image: url('/amd-logo.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  animation: partner-shine 5.8s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes partner-shine {
+
+  0%,
+  18% {
+    background-position: 120% 0;
+  }
+
+  55%,
+  100% {
+    background-position: -20% 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .partner {
+    min-height: 140px;
+    padding: 36px var(--container-pad);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .partner__field,
+  .partner__shine {
+    animation: none;
+  }
+
+  .partner__shine {
+    opacity: 0;
+  }
+}

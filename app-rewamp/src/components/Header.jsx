@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { ArrowRight, SplitCta } from './Button.jsx'
 import './Header.css'
 
 const NAV_LINKS = [
@@ -8,54 +9,10 @@ const NAV_LINKS = [
   { label: 'How it works', href: '#how-it-works' },
 ]
 
-const CTA_LABEL = 'Design Your Private AI'
-const CTA_HREF = '#contact'
 const SUPPORT_HREF = '#support'
 
 /* keep in sync with --nav-breakpoint in index.css */
 const NAV_QUERY = '(min-width: 1120px)'
-
-function ArrowRight() {
-  return (
-    <svg viewBox="0 0 15 15" fill="none">
-      <path
-        d="M2.25 7.5h10.5M8.75 3.75 12.5 7.5l-3.75 3.75"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-/* two arrows in a masked box: the first leaves right as the second enters */
-function ArrowSwap() {
-  return (
-    <span className="arrow-swap" aria-hidden="true">
-      <ArrowRight />
-      <ArrowRight />
-    </span>
-  )
-}
-
-function SplitCta({ className = '' }) {
-  return (
-    <div className={`btn-split ${className}`.trim()}>
-      <a className="btn btn--primary btn-split__label" href={CTA_HREF}>
-        {CTA_LABEL}
-      </a>
-      <a
-        className="btn btn--primary btn-split__arrow"
-        href={CTA_HREF}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        <ArrowSwap />
-      </a>
-    </div>
-  )
-}
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -134,7 +91,7 @@ function Header() {
 
           <button
             type="button"
-            className={`hamburger ${menuOpen ? 'is-active' : ''}`.trim()}
+            className={`hamburger tick-frame ${menuOpen ? 'is-active' : ''}`.trim()}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             aria-controls="site-menu"
