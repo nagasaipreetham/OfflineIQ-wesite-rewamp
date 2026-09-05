@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Section Separator Showcase — 55 Designs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet" />
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #1e1e1e;
+      --bg-card: #252525;
+      --bg-card-hover: #2c2c2c;
+      --white: #ffffff;
+      --white-dim: rgba(255,255,255,0.6);
+      --white-ghost: rgba(255,255,255,0.08);
+      --accent: rgba(255,255,255,0.15);
+      --label: #888;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(180deg, #141414 0%, #1e1e1e 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%);
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--label);
+      background: var(--white-ghost);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      color: var(--label);
+      font-size: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .hero-count {
+      display: inline-block;
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--white-dim);
+      letter-spacing: 1px;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+      padding: 40px 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 36px 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .card:hover {
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--label);
+      background: var(--white-ghost);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white-dim);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .sep-preview {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 4px 0;
+    }
+
+    /* ════════════════════════════════════════
+       SEPARATOR STYLES  (1 – 55)
+    ════════════════════════════════════════ */
+
+    /* 1 – Thin solid */
+    .sep-1 { height: 1px; width: 100%; background: #fff; }
+
+    /* 2 – Medium solid */
+    .sep-2 { height: 2px; width: 100%; background: #fff; }
+
+    /* 3 – Thick solid */
+    .sep-3 { height: 4px; width: 100%; background: #fff; border-radius: 2px; }
+
+    /* 4 – Gradient fade */
+    .sep-4 {
+      height: 1px; width: 100%;
+      background: linear-gradient(90deg, transparent, #fff 20%, #fff 80%, transparent);
+    }
+
+    /* 5 – Radial glow line */
+    .sep-5 {
+      height: 2px; width: 100%;
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+      box-shadow: 0 0 12px rgba(255,255,255,0.5), 0 0 24px rgba(255,255,255,0.2);
+    }
+
+    /* 6 – Dashed */
+    .sep-6 { border-top: 2px dashed rgba(255,255,255,0.7); width: 100%; }
+
+    /* 7 – Dotted */
+    .sep-7 { border-top: 2px dotted rgba(255,255,255,0.7); width: 100%; }
+
+    /* 8 – Double line */
+    .sep-8 {
+      width: 100%; height: 6px;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+    }
+
+    /* 9 – Triple line */
+    .sep-9 {
+      width: 100%; height: 10px;
+      border-top: 1px solid rgba(255,255,255,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.9);
+      position: relative;
+    }
+    .sep-9::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%; transform: translateY(-50%);
+      height: 1px;
+      background: rgba(255,255,255,0.4);
+    }
+
+    /* 10 – Center diamond */
+    .sep-10 {
+      display: flex; align-items: center; width: 100%; gap: 0;
+    }
+    .sep-10::before, .sep-10::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8));
+    }
+    .sep-10::after {
+      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+    }
+    .sep-10 span {
+      width: 8px; height: 8px;
+      background: #fff;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+      margin: 0 12px;
+    }
+
+    /* 11 – Three diamonds */
+    .sep-11 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-11::before, .sep-11::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.6);
+    }
+    .sep-11 .inner {
+      display: flex; align-items: center; gap: 6px; padding: 0 14px;
+    }
+    .sep-11 .inner span {
+      display: block; width: 6px; height: 6px;
+      background: #fff; transform: rotate(45deg);
+    }
+    .sep-11 .inner span:nth-child(2) { width: 9px; height: 9px; }
+
+    /* 12 – Plus/cross divider */
+    .sep-12 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-12::before, .sep-12::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.6);
+    }
+    .sep-12 .icon {
+      font-size: 18px; color: rgba(255,255,255,0.7);
+      padding: 0 14px; line-height: 1;
+    }
+
+    /* 13 – Brackets */
+    .sep-13 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-13::before, .sep-13::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.5);
+    }
+    .sep-13 .mid {
+      padding: 0 12px;
+      font-size: 18px; color: rgba(255,255,255,0.5);
+      letter-spacing: 4px; line-height: 1;
+    }
+
+    /* 14 – SVG Wave */
+    .sep-14 { width: 100%; }
+    .sep-14 svg { width: 100%; height: 24px; display: block; }
+
+    /* 15 – SVG Zigzag */
+    .sep-15 { width: 100%; }
+    .sep-15 svg { width: 100%; height: 20px; display: block; }
+
+    /* 16 – SVG Scallop */
+    .sep-16 { width: 100%; }
+    .sep-16 svg { width: 100%; height: 20px; display: block; }
+
+    /* 17 – Arrows pointing right */
+    .sep-17 {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; width: 100%;
+    }
+    .sep-17 span {
+      display: block; width: 12px; height: 12px;
+      border-top: 1.5px solid rgba(255,255,255,0.7);
+      border-right: 1.5px solid rgba(255,255,255,0.7);
+      transform: rotate(45deg);
+    }
+
+    /* 18 – V-arrows */
+    .sep-18 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-18::before, .sep-18::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.5);
+    }
+    .sep-18 .arrow-v {
+      width: 0; height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid rgba(255,255,255,0.7);
+      margin: 0 16px;
+    }
+
+    /* 19 – Dots line */
+    .sep-19 {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%;
+    }
+    .sep-19 span {
+      width: 4px; height: 4px;
+      border-radius: 50%; background: rgba(255,255,255,0.7);
+    }
+    .sep-19 span:nth-child(3) { width: 6px; height: 6px; background: #fff; }
+
+    /* 20 – Long dot trail */
+    .sep-20 {
+      width: 100%; height: 2px;
+      background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+      background-size: 14px 2px;
+      background-repeat: repeat-x;
+    }
+
+    /* 21 – Dash-dot-dash */
+    .sep-21 {
+      width: 100%; height: 2px;
+      background-image:
+        repeating-linear-gradient(90deg,
+          #fff 0, #fff 12px,
+          transparent 12px, transparent 16px,
+          #fff 16px, #fff 19px,
+          transparent 19px, transparent 23px
+        );
+    }
+
+    /* 22 – Stacked thin lines */
+    .sep-22 {
+      width: 100%; display: flex; flex-direction: column; gap: 5px;
+    }
+    .sep-22 span { display: block; height: 1px; }
+    .sep-22 span:nth-child(1) { background: rgba(255,255,255,0.3); }
+    .sep-22 span:nth-child(2) { background: rgba(255,255,255,0.7); }
+    .sep-22 span:nth-child(3) { background: rgba(255,255,255,0.3); }
+
+    /* 23 – Centered stacked thick */
+    .sep-23 {
+      width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .sep-23 span { display: block; height: 2px; background: #fff; border-radius: 2px; }
+    .sep-23 span:nth-child(1) { width: 100%; opacity: 0.3; }
+    .sep-23 span:nth-child(2) { width: 60%; opacity: 0.7; }
+    .sep-23 span:nth-child(3) { width: 30%; opacity: 1; }
+
+    /* 24 – Art deco corners */
+    .sep-24 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-24::before, .sep-24::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.5);
+    }
+    .sep-24 .deco {
+      padding: 0 14px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .sep-24 .deco b { display:block; width: 1px; height: 14px; background: rgba(255,255,255,0.7); }
+    .sep-24 .deco i { display:block; width: 6px; height: 6px; border: 1px solid rgba(255,255,255,0.7); transform: rotate(45deg); }
+
+    /* 25 – Neon pulse line (animated) */
+    .sep-25 {
+      height: 2px; width: 100%;
+      background: #fff;
+      border-radius: 1px;
+      animation: neonPulse 2s ease-in-out infinite;
+    }
+    @keyframes neonPulse {
+      0%,100% { box-shadow: 0 0 6px rgba(255,255,255,0.4), 0 0 16px rgba(255,255,255,0.2); opacity: 0.8; }
+      50% { box-shadow: 0 0 16px rgba(255,255,255,0.9), 0 0 40px rgba(255,255,255,0.4); opacity: 1; }
+    }
+
+    /* 26 – Scan line (animated) */
+    .sep-26 {
+      position: relative; height: 2px; width: 100%;
+      background: rgba(255,255,255,0.15); border-radius: 1px; overflow: hidden;
+    }
+    .sep-26::after {
+      content: ''; position: absolute;
+      top: 0; left: -60%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+      animation: scan 2s linear infinite;
+    }
+    @keyframes scan { to { left: 160%; } }
+
+    /* 27 – Breathing line (animated) */
+    .sep-27 {
+      height: 1px; width: 100%;
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+      animation: breathe 3s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%,100% { opacity: 0.3; transform: scaleX(0.85); }
+      50% { opacity: 1; transform: scaleX(1); }
+    }
+
+    /* 28 – Dashes moving right (animated) */
+    .sep-28 {
+      width: 100%; height: 2px;
+      background-image: repeating-linear-gradient(90deg, #fff 0, #fff 20px, transparent 20px, transparent 32px);
+      background-size: 200% 100%;
+      animation: dashMove 1.5s linear infinite;
+    }
+    @keyframes dashMove { from { background-position: 0 0; } to { background-position: -32px 0; } }
+
+    /* 29 – Gradient wipe (animated) */
+    .sep-29 {
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, #fff 40%, #fff 60%, transparent);
+      background-size: 200% 100%;
+      animation: wipe 3s ease-in-out infinite;
+    }
+    @keyframes wipe {
+      0% { background-position: 100% 0; opacity: 0.4; }
+      50% { background-position: 0% 0; opacity: 1; }
+      100% { background-position: -100% 0; opacity: 0.4; }
+    }
+
+    /* 30 – Width pulse (animated) */
+    .sep-30 {
+      height: 1px; background: #fff; border-radius: 1px;
+      animation: widthPulse 2s ease-in-out infinite;
+    }
+    @keyframes widthPulse {
+      0%,100% { width: 40%; }
+      50% { width: 100%; }
+    }
+
+    /* 31 – Circles chain */
+    .sep-31 {
+      display: flex; align-items: center; width: 100%; gap: 0;
+    }
+    .sep-31 .line { flex: 1; height: 1px; background: rgba(255,255,255,0.4); }
+    .sep-31 .circles { display: flex; gap: 8px; padding: 0 12px; align-items: center; }
+    .sep-31 .circles span {
+      display: block; border-radius: 50%; border: 1px solid rgba(255,255,255,0.7);
+    }
+    .sep-31 .circles span:nth-child(1) { width: 6px; height: 6px; }
+    .sep-31 .circles span:nth-child(2) { width: 10px; height: 10px; background: rgba(255,255,255,0.1); }
+    .sep-31 .circles span:nth-child(3) { width: 6px; height: 6px; }
+
+    /* 32 – Star divider */
+    .sep-32 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-32::before, .sep-32::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.4);
+    }
+    .sep-32 .stars { padding: 0 16px; display: flex; gap: 8px; font-size: 10px; color: rgba(255,255,255,0.8); }
+
+    /* 33 – Infinite symbol center */
+    .sep-33 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-33::before, .sep-33::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.4);
+    }
+    .sep-33 .inf { padding: 0 14px; font-size: 20px; color: rgba(255,255,255,0.8); line-height: 1; }
+
+    /* 34 – Roman ornament */
+    .sep-34 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-34::before, .sep-34::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.35);
+    }
+    .sep-34 .orn { padding: 0 12px; font-size: 22px; color: rgba(255,255,255,0.7); line-height: 1; }
+
+    /* 35 – Corner brackets only */
+    .sep-35 {
+      width: 100%; height: 16px; position: relative;
+    }
+    .sep-35::before {
+      content: ''; position: absolute;
+      left: 0; top: 0;
+      width: 20px; height: 16px;
+      border-left: 1px solid rgba(255,255,255,0.7);
+      border-top: 1px solid rgba(255,255,255,0.7);
+    }
+    .sep-35::after {
+      content: ''; position: absolute;
+      right: 0; bottom: 0;
+      width: 20px; height: 16px;
+      border-right: 1px solid rgba(255,255,255,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.7);
+    }
+    .sep-35 .mid-line {
+      position: absolute;
+      left: 0; right: 0; top: 50%; transform: translateY(-50%);
+      height: 1px; background: rgba(255,255,255,0.2);
+    }
+
+    /* 36 – Circuit trace */
+    .sep-36 { width: 100%; }
+    .sep-36 svg { width: 100%; height: 28px; display: block; }
+
+    /* 37 – DNA / helix */
+    .sep-37 { width: 100%; }
+    .sep-37 svg { width: 100%; height: 30px; display: block; }
+
+    /* 38 – Audio waveform */
+    .sep-38 { width: 100%; }
+    .sep-38 svg { width: 100%; height: 36px; display: block; }
+
+    /* 39 – Heartbeat / ECG */
+    .sep-39 { width: 100%; }
+    .sep-39 svg { width: 100%; height: 40px; display: block; }
+
+    /* 40 – SVG Dots row */
+    .sep-40 { width: 100%; }
+    .sep-40 svg { width: 100%; height: 12px; display: block; }
+
+    /* 41 – Diagonal hatch strip */
+    .sep-41 {
+      width: 100%; height: 12px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 1px,
+        transparent 1px, transparent 8px
+      );
+    }
+
+    /* 42 – Cross-hatch strip */
+    .sep-42 {
+      width: 100%; height: 12px;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.25) 0, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 8px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.25) 0, rgba(255,255,255,0.25) 1px, transparent 1px, transparent 8px);
+    }
+
+    /* 43 – Checkerboard strip */
+    .sep-43 {
+      width: 100%; height: 8px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 8px,
+        transparent 8px, transparent 16px
+      );
+    }
+
+    /* 44 – Morse-code style */
+    .sep-44 {
+      width: 100%; height: 3px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #fff 0, #fff 4px,
+        transparent 4px, transparent 6px,
+        #fff 6px, #fff 10px,
+        transparent 10px, transparent 12px,
+        #fff 12px, #fff 14px,
+        transparent 14px, transparent 20px
+      );
+    }
+
+    /* 45 – Film strip */
+    .sep-45 {
+      width: 100%; height: 16px; position: relative;
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 4px,
+        transparent 4px, transparent 16px
+      );
+      background-position: 0 0, 0 12px;
+      background-size: 100% 4px, 100% 4px;
+      background-repeat: repeat-x;
+    }
+
+    /* 46 – Pixel row */
+    .sep-46 {
+      width: 100%; height: 4px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #fff 0, #fff 4px,
+        transparent 4px, transparent 8px
+      );
+    }
+
+    /* 47 – Glitch effect */
+    .sep-47 {
+      position: relative; width: 100%; height: 4px; overflow: hidden;
+    }
+    .sep-47 .g1 {
+      position: absolute; height: 1px; background: #fff;
+      top: 0; left: 0; right: 0;
+      animation: glitch1 3s steps(1) infinite;
+    }
+    .sep-47 .g2 {
+      position: absolute; height: 2px; background: rgba(255,255,255,0.5);
+      top: 2px; left: 10%; right: 15%;
+      animation: glitch2 3s steps(1) infinite;
+    }
+    @keyframes glitch1 {
+      0%,95%,100% { transform: scaleX(1) translateX(0); opacity:1; }
+      96% { transform: scaleX(1.05) translateX(4px); opacity:0.8; }
+      98% { transform: scaleX(0.97) translateX(-2px); }
+    }
+    @keyframes glitch2 {
+      0%,90%,100% { left: 10%; right: 15%; opacity: 0.5; }
+      91% { left: 5%; right: 20%; opacity: 0.9; }
+      93% { left: 15%; right: 5%; }
+    }
+
+    /* 48 – Typewriter dots (animated) */
+    .sep-48 {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; width: 100%;
+    }
+    .sep-48 span {
+      width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.7);
+      animation: typeDot 1.4s ease-in-out infinite;
+    }
+    .sep-48 span:nth-child(2) { animation-delay: 0.2s; }
+    .sep-48 span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typeDot {
+      0%,80%,100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* 49 – Orbit dots (animated) */
+    .sep-49 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-49::before, .sep-49::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.3);
+    }
+    .sep-49 .orbit {
+      width: 24px; height: 24px; margin: 0 12px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+    }
+    .sep-49 .orbit::before {
+      content: ''; position: absolute;
+      width: 6px; height: 6px;
+      background: #fff; border-radius: 50%;
+      top: -3px; left: 50%; margin-left: -3px;
+      animation: orbitSpin 2s linear infinite;
+    }
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg) translateY(12px); }
+      to { transform: rotate(360deg) translateY(12px); }
+    }
+
+    /* 50 – Grow-from-center line (animated) */
+    .sep-50 {
+      position: relative; height: 1px; width: 100%;
+      background: rgba(255,255,255,0.1);
+    }
+    .sep-50::after {
+      content: ''; position: absolute;
+      top: 0; left: 50%; right: 50%;
+      height: 1px; background: #fff;
+      animation: growOut 2.5s ease-in-out infinite;
+    }
+    @keyframes growOut {
+      0%,100% { left: 50%; right: 50%; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { left: 0; right: 0; opacity: 0; }
+    }
+
+    /* 51 – Spin cross center (animated) */
+    .sep-51 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-51::before, .sep-51::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
+    }
+    .sep-51::after {
+      background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
+    }
+    .sep-51 .cross {
+      width: 16px; height: 16px; margin: 0 12px;
+      position: relative;
+      animation: spinCross 4s linear infinite;
+    }
+    .sep-51 .cross::before, .sep-51 .cross::after {
+      content: ''; position: absolute;
+      background: rgba(255,255,255,0.8);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .sep-51 .cross::before { width: 100%; height: 1.5px; }
+    .sep-51 .cross::after { width: 1.5px; height: 100%; }
+    @keyframes spinCross { to { transform: rotate(180deg); } }
+
+    /* 52 – SVG Animated draw-on line */
+    .sep-52 { width: 100%; }
+    .sep-52 svg { width: 100%; height: 4px; display: block; }
+    .sep-52 .draw-line {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: drawLine 3s ease-in-out infinite;
+    }
+    @keyframes drawLine {
+      0% { stroke-dashoffset: 1000; }
+      50% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -1000; }
+    }
+
+    /* 53 – Particle burst dots (animated) */
+    .sep-53 {
+      display: flex; align-items: center; width: 100%;
+    }
+    .sep-53::before, .sep-53::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.3);
+    }
+    .sep-53 .burst {
+      width: 20px; height: 20px; margin: 0 12px;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .sep-53 .burst .dot {
+      width: 4px; height: 4px; background: #fff; border-radius: 50%;
+      position: absolute;
+      animation: burst 2s ease-in-out infinite;
+    }
+    .sep-53 .burst .dot:nth-child(1) { animation-delay: 0s; }
+    .sep-53 .burst .dot:nth-child(2) { animation-delay: 0.25s; }
+    .sep-53 .burst .dot:nth-child(3) { animation-delay: 0.5s; }
+    .sep-53 .burst .dot:nth-child(4) { animation-delay: 0.75s; }
+    @keyframes burst {
+      0%,100% { transform: scale(0.5); opacity: 0.3; }
+      50% { transform: scale(1.5) translate(4px,-4px); opacity: 1; }
+    }
+
+    /* 54 – Binary text strip */
+    .sep-54 {
+      width: 100%; overflow: hidden; height: 16px;
+      display: flex; align-items: center;
+      position: relative;
+    }
+    .sep-54 .binary-track {
+      display: flex; gap: 6px; align-items: center;
+      white-space: nowrap;
+      font-family: monospace; font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 2px;
+      animation: scrollBin 8s linear infinite;
+    }
+    @keyframes scrollBin { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* 55 – Gradient spectrum line */
+    .sep-55 {
+      height: 3px; width: 100%; border-radius: 2px;
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.1) 0%,
+        rgba(255,255,255,0.9) 30%,
+        rgba(255,255,255,1) 50%,
+        rgba(255,255,255,0.9) 70%,
+        rgba(255,255,255,0.1) 100%
+      );
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%,100% { filter: brightness(0.7); }
+      50% { filter: brightness(1.3) drop-shadow(0 0 8px rgba(255,255,255,0.6)); }
+    }
+
+    /* ══════════════════════════════════════════
+       NEW SEPARATORS  56 – 105
+    ══════════════════════════════════════════ */
+
+    /* 56 – SVG Double Zigzag */
+    .sep-56 { width:100%; }
+    .sep-56 svg { width:100%; height:28px; display:block; }
+
+    /* 57 – SVG Sawtooth */
+    .sep-57 { width:100%; }
+    .sep-57 svg { width:100%; height:22px; display:block; }
+
+    /* 58 – SVG Staircase */
+    .sep-58 { width:100%; }
+    .sep-58 svg { width:100%; height:24px; display:block; }
+
+    /* 59 – SVG Mountain Peaks */
+    .sep-59 { width:100%; }
+    .sep-59 svg { width:100%; height:32px; display:block; }
+
+    /* 60 – SVG Arch chain */
+    .sep-60 { width:100%; }
+    .sep-60 svg { width:100%; height:24px; display:block; }
+
+    /* 61 – SVG Arrow chain */
+    .sep-61 { width:100%; }
+    .sep-61 svg { width:100%; height:22px; display:block; }
+
+    /* 62 – SVG Square pulse */
+    .sep-62 { width:100%; }
+    .sep-62 svg { width:100%; height:28px; display:block; }
+
+    /* 63 – SVG Sine + midline */
+    .sep-63 { width:100%; }
+    .sep-63 svg { width:100%; height:28px; display:block; }
+
+    /* 64 – SVG Lace loops */
+    .sep-64 { width:100%; }
+    .sep-64 svg { width:100%; height:30px; display:block; }
+
+    /* 65 – SVG Bracket chain */
+    .sep-65 { width:100%; }
+    .sep-65 svg { width:100%; height:24px; display:block; }
+
+    /* 66 – Animated electric sparks */
+    .sep-66 {
+      position:relative; height:3px; width:100%;
+      background:rgba(255,255,255,0.12);
+      overflow:hidden;
+    }
+    .sep-66::before {
+      content:''; position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(
+        90deg,
+        transparent 0, transparent 20px,
+        rgba(255,255,255,0.9) 20px, rgba(255,255,255,0.9) 22px,
+        transparent 22px, transparent 40px
+      );
+      animation: electricMove 0.8s linear infinite;
+    }
+    @keyframes electricMove { from{background-position:0 0} to{background-position:40px 0} }
+
+    /* 67 – Animated comet trail */
+    .sep-67 {
+      position:relative; width:100%; height:2px;
+      background:rgba(255,255,255,0.08);
+      overflow:hidden;
+    }
+    .sep-67::after {
+      content:''; position:absolute;
+      top:0; left:-30%; width:30%; height:100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), rgba(255,255,255,1), rgba(255,255,255,0.2), transparent);
+      animation: cometFly 1.8s ease-in-out infinite;
+    }
+    @keyframes cometFly { from{left:-30%} to{left:130%} }
+
+    /* 68 – Animated laser beam */
+    .sep-68 {
+      position:relative; width:100%; height:2px;
+      overflow:hidden;
+    }
+    .sep-68 .laser-track {
+      position:absolute; inset:0;
+      background: linear-gradient(90deg,
+        transparent 0%, rgba(255,255,255,0.06) 40%,
+        rgba(255,255,255,0.06) 60%, transparent 100%);
+    }
+    .sep-68 .laser-beam {
+      position:absolute; top:0; left:-10%; width:10%; height:100%;
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+      box-shadow: 0 0 8px rgba(255,255,255,0.8);
+      animation: laserShot 1.2s cubic-bezier(0.4,0,0.2,1) infinite;
+    }
+    @keyframes laserShot { from{left:-10%} to{left:110%} }
+
+    /* 69 – Animated snake chase */
+    .sep-69 {
+      position:relative; width:100%; height:3px;
+      background:rgba(255,255,255,0.08);
+      border-radius:2px; overflow:hidden;
+    }
+    .sep-69::before, .sep-69::after {
+      content:''; position:absolute;
+      top:0; height:100%; border-radius:2px;
+    }
+    .sep-69::before {
+      left:-40%; width:40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
+      animation: snake1 2.4s ease-in-out infinite;
+    }
+    .sep-69::after {
+      right:-40%; width:40%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+      animation: snake2 2.4s ease-in-out infinite;
+    }
+    @keyframes snake1 { 0%{left:-40%} 100%{left:140%} }
+    @keyframes snake2 { 0%{right:-40%} 100%{right:140%} }
+
+    /* 70 – Animated wave roll */
+    .sep-70 { width:100%; overflow:hidden; }
+    .sep-70 svg { width:200%; height:24px; display:block;
+      animation: waveRoll 4s linear infinite;
+    }
+    @keyframes waveRoll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* 71 – Animated dot river */
+    .sep-71 {
+      width:100%; overflow:hidden; height:8px;
+      position:relative;
+    }
+    .sep-71 .river {
+      position:absolute; display:flex; gap:14px; align-items:center;
+      white-space:nowrap; height:100%;
+      animation: riverFlow 3s linear infinite;
+    }
+    .sep-71 .river span {
+      display:inline-block; width:5px; height:5px;
+      border-radius:50%; background:rgba(255,255,255,0.7);
+      flex-shrink:0;
+    }
+    .sep-71 .river span:nth-child(3n) { width:3px; height:3px; opacity:0.4; }
+    .sep-71 .river span:nth-child(5n) { width:7px; height:7px; opacity:1; }
+    @keyframes riverFlow { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* 72 – Animated ripple rings center */
+    .sep-72 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-72::before, .sep-72::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35));
+    }
+    .sep-72::after { background:linear-gradient(90deg,rgba(255,255,255,0.35),transparent); }
+    .sep-72 .ripple {
+      width:28px; height:28px; margin:0 12px;
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .sep-72 .ripple .r {
+      position:absolute; border-radius:50%;
+      border:1px solid rgba(255,255,255,0.8);
+      animation: rippleOut 2s ease-out infinite;
+    }
+    .sep-72 .ripple .r:nth-child(2) { animation-delay:0.6s; }
+    .sep-72 .ripple .r:nth-child(3) { animation-delay:1.2s; }
+    @keyframes rippleOut {
+      0% { width:6px; height:6px; opacity:1; }
+      100% { width:26px; height:26px; opacity:0; }
+    }
+    .sep-72 .ripple .core {
+      width:5px; height:5px; border-radius:50%; background:#fff;
+      position:relative; z-index:1;
+    }
+
+    /* 73 – Animated radar sweep */
+    .sep-73 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-73::before, .sep-73::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.3);
+    }
+    .sep-73 .radar {
+      width:28px; height:28px; margin:0 12px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,0.3);
+      position:relative; overflow:hidden;
+    }
+    .sep-73 .radar::before {
+      content:''; position:absolute;
+      top:50%; left:50%;
+      width:50%; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9));
+      transform-origin:0 50%;
+      animation:radarSweep 2s linear infinite;
+    }
+    .sep-73 .radar::after {
+      content:''; position:absolute;
+      inset:0; border-radius:50%;
+      background:conic-gradient(from 0deg, rgba(255,255,255,0.1) 0deg, transparent 90deg);
+      animation:radarSweep 2s linear infinite;
+    }
+    @keyframes radarSweep { to{transform:rotate(360deg)} }
+
+    /* 74 – Rotating triangle center */
+    .sep-74 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-74::before, .sep-74::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5));
+    }
+    .sep-74::after { background:linear-gradient(90deg,rgba(255,255,255,0.5),transparent); }
+    .sep-74 .tri {
+      margin:0 12px;
+      width:0; height:0;
+      border-left:8px solid transparent;
+      border-right:8px solid transparent;
+      border-bottom:14px solid rgba(255,255,255,0.8);
+      animation: triSpin 3s linear infinite;
+    }
+    @keyframes triSpin { to{transform:rotate(360deg)} }
+
+    /* 75 – Bouncing bar */
+    .sep-75 {
+      display:flex; align-items:center; width:100%; gap:0;
+    }
+    .sep-75::before, .sep-75::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.3);
+    }
+    .sep-75 .bars {
+      display:flex; gap:4px; align-items:flex-end;
+      height:20px; padding:0 12px;
+    }
+    .sep-75 .bars span {
+      display:block; width:3px; background:rgba(255,255,255,0.8);
+      border-radius:1px;
+      animation: barBounce 1s ease-in-out infinite alternate;
+    }
+    .sep-75 .bars span:nth-child(1){height:6px; animation-delay:0s;}
+    .sep-75 .bars span:nth-child(2){height:14px; animation-delay:0.15s;}
+    .sep-75 .bars span:nth-child(3){height:20px; animation-delay:0.3s;}
+    .sep-75 .bars span:nth-child(4){height:14px; animation-delay:0.45s;}
+    .sep-75 .bars span:nth-child(5){height:6px; animation-delay:0.6s;}
+    @keyframes barBounce {
+      from{transform:scaleY(0.4); opacity:0.4}
+      to{transform:scaleY(1); opacity:1}
+    }
+
+    /* 76 – Herringbone strip */
+    .sep-76 {
+      width:100%; height:14px;
+      background-image:
+        repeating-linear-gradient(60deg, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-60deg, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 1px, transparent 0, transparent 50%);
+      background-size:16px 14px;
+    }
+
+    /* 77 – Diamond grid strip */
+    .sep-77 {
+      width:100%; height:14px;
+      background:
+        repeating-linear-gradient(45deg,
+          transparent, transparent 5px,
+          rgba(255,255,255,0.25) 5px, rgba(255,255,255,0.25) 6px
+        ),
+        repeating-linear-gradient(-45deg,
+          transparent, transparent 5px,
+          rgba(255,255,255,0.25) 5px, rgba(255,255,255,0.25) 6px
+        );
+    }
+
+    /* 78 – Dotted grid strip */
+    .sep-78 {
+      width:100%; height:10px;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px);
+      background-size:10px 10px;
+    }
+
+    /* 79 – Triangle row strip */
+    .sep-79 {
+      width:100%; height:14px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent 0, transparent 0,
+        rgba(255,255,255,0) 0
+      );
+    }
+    .sep-79 svg { width:100%; height:14px; display:block; }
+
+    /* 80 – Pinstripes */
+    .sep-80 {
+      width:100%; height:8px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 1px,
+        transparent 1px, transparent 6px
+      );
+    }
+
+    /* 81 – Brick row strip */
+    .sep-81 {
+      width:100%; height:10px;
+      background-image:
+        repeating-linear-gradient(90deg,
+          transparent 0, transparent 18px,
+          rgba(255,255,255,0.4) 18px, rgba(255,255,255,0.4) 19px
+        );
+      border-top:1px solid rgba(255,255,255,0.3);
+      border-bottom:1px solid rgba(255,255,255,0.3);
+    }
+
+    /* 82 – Gradient dots fade strip */
+    .sep-82 {
+      width:100%; height:6px; position:relative;
+    }
+    .sep-82 svg { width:100%; height:6px; display:block; }
+
+    /* 83 – Long dash — short dash alternating */
+    .sep-83 {
+      width:100%; height:2px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #fff 0, #fff 24px,
+        transparent 24px, transparent 28px,
+        #fff 28px, #fff 32px,
+        transparent 32px, transparent 36px
+      );
+    }
+
+    /* 84 – Railroad tracks */
+    .sep-84 {
+      width:100%; height:14px; position:relative;
+      border-top:1px solid rgba(255,255,255,0.6);
+      border-bottom:1px solid rgba(255,255,255,0.6);
+    }
+    .sep-84::before {
+      content:''; position:absolute; inset:0;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 3px,
+        transparent 3px, transparent 20px
+      );
+    }
+
+    /* 85 – Gradient center thick-thin */
+    .sep-85 {
+      width:100%; height:3px;
+      background: linear-gradient(90deg,
+        transparent 0%, rgba(255,255,255,0.05) 10%,
+        rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.05) 90%, transparent 100%);
+      clip-path: polygon(0 30%, 50% 0%, 100% 30%, 100% 70%, 50% 100%, 0 70%);
+    }
+
+    /* 86 – Animated LED bar fill */
+    .sep-86 {
+      width:100%; height:3px; position:relative;
+      background:rgba(255,255,255,0.08);
+      border-radius:2px;
+    }
+    .sep-86::after {
+      content:''; position:absolute;
+      top:0; left:0; height:100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.3), #fff);
+      border-radius:2px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      animation: ledFill 2s ease-in-out infinite alternate;
+    }
+    @keyframes ledFill {
+      from { width:8%; }
+      to { width:100%; }
+    }
+
+    /* 87 – Animated ping center */
+    .sep-87 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-87::before, .sep-87::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.3);
+    }
+    .sep-87 .ping {
+      width:10px; height:10px; margin:0 14px;
+      border-radius:50%; background:#fff;
+      animation: pingPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pingPulse {
+      0%,100% { transform:scale(1); box-shadow:0 0 0 0 rgba(255,255,255,0.5); }
+      50% { transform:scale(1.3); box-shadow:0 0 0 8px rgba(255,255,255,0); }
+    }
+
+    /* 88 – Animated morphing diamond */
+    .sep-88 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-88::before, .sep-88::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.45));
+    }
+    .sep-88::after { background:linear-gradient(90deg,rgba(255,255,255,0.45),transparent); }
+    .sep-88 .morph {
+      width:14px; height:14px; margin:0 12px;
+      background:rgba(255,255,255,0.9);
+      animation: morphDiamond 2.5s ease-in-out infinite;
+    }
+    @keyframes morphDiamond {
+      0%,100% { transform:rotate(45deg) scale(1); border-radius:0; }
+      50% { transform:rotate(225deg) scale(0.8); border-radius:50%; }
+    }
+
+    /* 89 – Animated stretch bar */
+    .sep-89 {
+      display:flex; align-items:center; justify-content:center;
+      width:100%;
+    }
+    .sep-89 .stretch {
+      height:2px; border-radius:1px; background:#fff;
+      animation: stretchBar 2.5s ease-in-out infinite;
+    }
+    @keyframes stretchBar {
+      0%,100% { width:20px; opacity:0.4; }
+      50% { width:100%; opacity:1; }
+    }
+
+    /* 90 – Animated flicker line */
+    .sep-90 {
+      width:100%; height:2px;
+      background:linear-gradient(90deg,transparent,#fff,transparent);
+      animation: flicker 3s steps(1) infinite;
+    }
+    @keyframes flicker {
+      0%,19%,21%,62%,64%,100% { opacity:1; }
+      20%,63% { opacity:0; }
+    }
+
+    /* 91 – SVG Animated wave scroll */
+    .sep-91 { width:100%; overflow:hidden; }
+    .sep-91 svg { width:200%; height:22px; display:block;
+      animation: waveScroll 5s linear infinite;
+    }
+    @keyframes waveScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* 92 – SVG Animated zigzag scroll */
+    .sep-92 { width:100%; overflow:hidden; }
+    .sep-92 svg { width:200%; height:20px; display:block;
+      animation: zzScroll 3s linear infinite;
+    }
+    @keyframes zzScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* 93 – SVG Animated circuit scroll */
+    .sep-93 { width:100%; overflow:hidden; }
+    .sep-93 svg { width:200%; height:28px; display:block;
+      animation: circScroll 6s linear infinite;
+    }
+    @keyframes circScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* 94 – Animated SVG draw zigzag */
+    .sep-94 { width:100%; }
+    .sep-94 svg { width:100%; height:20px; display:block; }
+    .sep-94 .draw-zz {
+      stroke-dasharray:600;
+      stroke-dashoffset:600;
+      animation: drawZZ 3s ease-in-out infinite;
+    }
+    @keyframes drawZZ {
+      0%{stroke-dashoffset:600;}
+      50%{stroke-dashoffset:0;}
+      100%{stroke-dashoffset:-600;}
+    }
+
+    /* 95 – Animated SVG draw wave */
+    .sep-95 { width:100%; }
+    .sep-95 svg { width:100%; height:24px; display:block; }
+    .sep-95 .draw-wave {
+      stroke-dasharray:800;
+      stroke-dashoffset:800;
+      animation: drawWave 4s ease-in-out infinite;
+    }
+    @keyframes drawWave {
+      0%{stroke-dashoffset:800; opacity:0.3;}
+      40%{opacity:1;}
+      50%{stroke-dashoffset:0;}
+      60%{opacity:1;}
+      100%{stroke-dashoffset:-800; opacity:0.3;}
+    }
+
+    /* 96 – Layered glow lines */
+    .sep-96 {
+      width:100%; display:flex; flex-direction:column;
+      align-items:center; gap:3px;
+    }
+    .sep-96 span { display:block; width:100%; border-radius:1px; }
+    .sep-96 span:nth-child(1) { height:1px; background:rgba(255,255,255,0.2); }
+    .sep-96 span:nth-child(2) {
+      height:2px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.9),transparent);
+      box-shadow:0 0 10px rgba(255,255,255,0.4),0 0 24px rgba(255,255,255,0.2);
+      animation:shimmer 3s ease-in-out infinite;
+    }
+    .sep-96 span:nth-child(3) { height:1px; background:rgba(255,255,255,0.2); }
+
+    /* 97 – Dashed glow */
+    .sep-97 {
+      width:100%; height:2px;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.9) 0, rgba(255,255,255,0.9) 16px,
+        transparent 16px, transparent 24px
+      );
+      box-shadow:0 0 8px rgba(255,255,255,0.3);
+      animation:neonPulse 2s ease-in-out infinite;
+    }
+
+    /* 98 – Center text label */
+    .sep-98 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-98::before, .sep-98::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.35);
+    }
+    .sep-98 .lbl {
+      padding:0 14px;
+      font-size:10px; font-weight:700; letter-spacing:3px;
+      color:rgba(255,255,255,0.5); text-transform:uppercase;
+    }
+
+    /* 99 – Crossing X lines */
+    .sep-99 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-99::before, .sep-99::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.4);
+    }
+    .sep-99 .xmark {
+      margin:0 12px; width:16px; height:16px; position:relative;
+    }
+    .sep-99 .xmark::before, .sep-99 .xmark::after {
+      content:''; position:absolute;
+      top:50%; left:0; right:0; height:1px;
+      background:rgba(255,255,255,0.8);
+    }
+    .sep-99 .xmark::before { transform:rotate(45deg); }
+    .sep-99 .xmark::after { transform:rotate(-45deg); }
+
+    /* 100 – Concentric squares */
+    .sep-100 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-100::before, .sep-100::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.3);
+    }
+    .sep-100 .squares {
+      width:20px; height:20px; margin:0 12px;
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .sep-100 .squares span {
+      position:absolute;
+      border:1px solid rgba(255,255,255,0.7);
+    }
+    .sep-100 .squares span:nth-child(1){width:20px;height:20px;opacity:0.3;}
+    .sep-100 .squares span:nth-child(2){width:13px;height:13px;opacity:0.6;}
+    .sep-100 .squares span:nth-child(3){width:6px;height:6px;opacity:1;}
+
+    /* 101 – Animated pulsing squares */
+    .sep-101 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-101::before, .sep-101::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.3);
+    }
+    .sep-101 .sq-wrap {
+      margin:0 12px; width:24px; height:24px;
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .sep-101 .sq-wrap span {
+      position:absolute;
+      border:1px solid rgba(255,255,255,0.8);
+      width:6px; height:6px;
+      animation:sqPulse 2s ease-out infinite;
+    }
+    .sep-101 .sq-wrap span:nth-child(2){animation-delay:0.5s;}
+    .sep-101 .sq-wrap span:nth-child(3){animation-delay:1s;}
+    @keyframes sqPulse {
+      0%{transform:scale(1);opacity:1;}
+      100%{transform:scale(4);opacity:0;}
+    }
+
+    /* 102 – Animated flowing gradient thick */
+    .sep-102 {
+      width:100%; height:4px; border-radius:2px;
+      background:linear-gradient(90deg,
+        rgba(255,255,255,0.05) 0%,
+        rgba(255,255,255,0.5) 25%,
+        rgba(255,255,255,1) 50%,
+        rgba(255,255,255,0.5) 75%,
+        rgba(255,255,255,0.05) 100%
+      );
+      background-size:200% 100%;
+      animation:gradFlow 3s linear infinite;
+    }
+    @keyframes gradFlow {
+      from{background-position:200% 0}
+      to{background-position:-200% 0}
+    }
+
+    /* 103 – Animated expanding ring center */
+    .sep-103 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-103::before, .sep-103::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4));
+    }
+    .sep-103::after { background:linear-gradient(90deg,rgba(255,255,255,0.4),transparent); }
+    .sep-103 .ring-wrap {
+      margin:0 12px; width:28px; height:28px;
+      position:relative; display:flex; align-items:center; justify-content:center;
+    }
+    .sep-103 .ring-wrap .ring {
+      position:absolute;
+      border:1px solid rgba(255,255,255,0.7);
+      border-radius:50%;
+      animation:ringExpand 2s ease-out infinite;
+    }
+    .sep-103 .ring-wrap .ring:nth-child(2){animation-delay:0.7s;}
+    .sep-103 .ring-wrap .ring:nth-child(3){animation-delay:1.4s;}
+    @keyframes ringExpand {
+      0%{width:4px;height:4px;opacity:1;}
+      100%{width:26px;height:26px;opacity:0;}
+    }
+    .sep-103 .ring-wrap .center-dot {
+      width:5px; height:5px; border-radius:50%; background:#fff;
+      position:relative; z-index:1;
+    }
+
+    /* 104 – Animated staggered dashes */
+    .sep-104 {
+      width:100%; display:flex; flex-direction:column; gap:3px;
+    }
+    .sep-104 .row {
+      height:1px;
+      background-image: repeating-linear-gradient(
+        90deg, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.7) 20px,
+        transparent 20px, transparent 32px
+      );
+      animation: dashShift 2s linear infinite;
+    }
+    .sep-104 .row:nth-child(2) { animation-delay:-0.7s; opacity:0.5; }
+    .sep-104 .row:nth-child(3) { animation-delay:-1.4s; opacity:0.25; }
+    @keyframes dashShift { from{background-position:0 0} to{background-position:32px 0} }
+
+    /* 105 – Double orbit */
+    .sep-105 {
+      display:flex; align-items:center; width:100%;
+    }
+    .sep-105::before, .sep-105::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,0.3);
+    }
+    .sep-105 .double-orbit {
+      width:30px; height:30px; margin:0 12px;
+      position:relative;
+    }
+    .sep-105 .double-orbit .ring-a {
+      position:absolute; inset:0;
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:50%;
+    }
+    .sep-105 .double-orbit .ring-a::before {
+      content:''; position:absolute;
+      width:6px; height:6px; border-radius:50%; background:#fff;
+      top:-3px; left:50%; margin-left:-3px;
+      animation:doubleOrbit1 1.5s linear infinite;
+    }
+    .sep-105 .double-orbit .ring-b {
+      position:absolute; inset:5px;
+      border:1px solid rgba(255,255,255,0.15);
+      border-radius:50%;
+    }
+    .sep-105 .double-orbit .ring-b::before {
+      content:''; position:absolute;
+      width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,0.6);
+      top:-2px; left:50%; margin-left:-2px;
+      animation:doubleOrbit2 2.5s linear infinite reverse;
+    }
+    @keyframes doubleOrbit1 { to{transform:rotate(360deg) translateY(15px)} }
+    @keyframes doubleOrbit2 { to{transform:rotate(360deg) translateY(10px)} }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 48px 20px 32px;
+      color: var(--label);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    footer span { color: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-tag">Section Separator Showcase</div>
+    <h1>105 Divider Designs</h1>
+    <p>A curated collection of minimalistic section separators — ready to use in your projects.</p>
+    <div class="hero-count">Gray background · White lines · Live animations</div>
+  </header>
+
+  <!-- GRID -->
+  <main class="grid">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#01</span><span class="card-title">Thin Solid</span></div>
+      <div class="sep-preview"><div class="sep-1"></div></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#02</span><span class="card-title">Medium Solid</span></div>
+      <div class="sep-preview"><div class="sep-2"></div></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#03</span><span class="card-title">Thick Solid</span></div>
+      <div class="sep-preview"><div class="sep-3"></div></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#04</span><span class="card-title">Gradient Fade</span></div>
+      <div class="sep-preview"><div class="sep-4"></div></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#05</span><span class="card-title">Radial Glow</span></div>
+      <div class="sep-preview"><div class="sep-5"></div></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#06</span><span class="card-title">Dashed</span></div>
+      <div class="sep-preview"><div class="sep-6"></div></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#07</span><span class="card-title">Dotted</span></div>
+      <div class="sep-preview"><div class="sep-7"></div></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#08</span><span class="card-title">Double Line</span></div>
+      <div class="sep-preview"><div class="sep-8"></div></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#09</span><span class="card-title">Triple Line</span></div>
+      <div class="sep-preview"><div class="sep-9"></div></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#10</span><span class="card-title">Center Diamond</span></div>
+      <div class="sep-preview">
+        <div class="sep-10"><span></span></div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#11</span><span class="card-title">Three Diamonds</span></div>
+      <div class="sep-preview">
+        <div class="sep-11">
+          <div class="inner"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#12</span><span class="card-title">Plus Divider</span></div>
+      <div class="sep-preview">
+        <div class="sep-12"><div class="icon">✦</div></div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#13</span><span class="card-title">Bracket Divider</span></div>
+      <div class="sep-preview">
+        <div class="sep-13"><div class="mid">[ ]</div></div>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#14</span><span class="card-title">SVG Sine Wave</span></div>
+      <div class="sep-preview">
+        <div class="sep-14">
+          <svg viewBox="0 0 400 24" preserveAspectRatio="none" fill="none">
+            <path d="M0 12 C33 2,67 22,100 12 C133 2,167 22,200 12 C233 2,267 22,300 12 C333 2,367 22,400 12"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#15</span><span class="card-title">SVG Zigzag</span></div>
+      <div class="sep-preview">
+        <div class="sep-15">
+          <svg viewBox="0 0 400 20" preserveAspectRatio="none" fill="none">
+            <polyline points="0,10 25,2 50,18 75,2 100,18 125,2 150,18 175,2 200,18 225,2 250,18 275,2 300,18 325,2 350,18 375,2 400,10"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#16</span><span class="card-title">SVG Scallop</span></div>
+      <div class="sep-preview">
+        <div class="sep-16">
+          <svg viewBox="0 0 400 20" preserveAspectRatio="none" fill="none">
+            <path d="M0 10 Q25 0,50 10 Q75 20,100 10 Q125 0,150 10 Q175 20,200 10 Q225 0,250 10 Q275 20,300 10 Q325 0,350 10 Q375 20,400 10"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#17</span><span class="card-title">Chevron Arrows</span></div>
+      <div class="sep-preview">
+        <div class="sep-17">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 18 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#18</span><span class="card-title">Downward Arrow</span></div>
+      <div class="sep-preview">
+        <div class="sep-18"><div class="arrow-v"></div></div>
+      </div>
+    </div>
+
+    <!-- 19 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#19</span><span class="card-title">Five Dots</span></div>
+      <div class="sep-preview">
+        <div class="sep-19">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 20 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#20</span><span class="card-title">Dot Trail</span></div>
+      <div class="sep-preview"><div class="sep-20"></div></div>
+    </div>
+
+    <!-- 21 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#21</span><span class="card-title">Dash-Dot Pattern</span></div>
+      <div class="sep-preview"><div class="sep-21"></div></div>
+    </div>
+
+    <!-- 22 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#22</span><span class="card-title">Stacked Opacity</span></div>
+      <div class="sep-preview">
+        <div class="sep-22"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- 23 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#23</span><span class="card-title">Cascading Width</span></div>
+      <div class="sep-preview">
+        <div class="sep-23"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- 24 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#24</span><span class="card-title">Art Deco Center</span></div>
+      <div class="sep-preview">
+        <div class="sep-24">
+          <div class="deco"><b></b><i></i><b></b></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 25 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#25</span><span class="card-title">Neon Pulse ✦</span></div>
+      <div class="sep-preview"><div class="sep-25"></div></div>
+    </div>
+
+    <!-- 26 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#26</span><span class="card-title">Scan Line ✦</span></div>
+      <div class="sep-preview"><div class="sep-26"></div></div>
+    </div>
+
+    <!-- 27 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#27</span><span class="card-title">Breathing Line ✦</span></div>
+      <div class="sep-preview"><div class="sep-27"></div></div>
+    </div>
+
+    <!-- 28 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#28</span><span class="card-title">Moving Dashes ✦</span></div>
+      <div class="sep-preview"><div class="sep-28"></div></div>
+    </div>
+
+    <!-- 29 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#29</span><span class="card-title">Gradient Wipe ✦</span></div>
+      <div class="sep-preview"><div class="sep-29"></div></div>
+    </div>
+
+    <!-- 30 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#30</span><span class="card-title">Width Pulse ✦</span></div>
+      <div class="sep-preview" style="justify-content:center;"><div class="sep-30"></div></div>
+    </div>
+
+    <!-- 31 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#31</span><span class="card-title">Circles Chain</span></div>
+      <div class="sep-preview">
+        <div class="sep-31">
+          <div class="line"></div>
+          <div class="circles"><span></span><span></span><span></span></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 32 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#32</span><span class="card-title">Star Divider</span></div>
+      <div class="sep-preview">
+        <div class="sep-32"><div class="stars">★ ★ ★</div></div>
+      </div>
+    </div>
+
+    <!-- 33 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#33</span><span class="card-title">Infinity Symbol</span></div>
+      <div class="sep-preview">
+        <div class="sep-33"><div class="inf">∞</div></div>
+      </div>
+    </div>
+
+    <!-- 34 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#34</span><span class="card-title">Fleur Ornament</span></div>
+      <div class="sep-preview">
+        <div class="sep-34"><div class="orn">❧</div></div>
+      </div>
+    </div>
+
+    <!-- 35 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#35</span><span class="card-title">Corner Brackets</span></div>
+      <div class="sep-preview">
+        <div class="sep-35"><div class="mid-line"></div></div>
+      </div>
+    </div>
+
+    <!-- 36 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#36</span><span class="card-title">Circuit Trace</span></div>
+      <div class="sep-preview">
+        <div class="sep-36">
+          <svg viewBox="0 0 400 28" preserveAspectRatio="none" fill="none">
+            <path d="M0 14 H60 L70 4 H100 L110 14 H150 L160 24 H190 L200 14 H240 L250 4 H280 L290 14 H330 L340 24 H370 L380 14 H400"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="4" r="2.5" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="190" cy="24" r="2.5" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="280" cy="4" r="2.5" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="370" cy="24" r="2.5" fill="rgba(255,255,255,0.6)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 37 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#37</span><span class="card-title">Double Wave / DNA</span></div>
+      <div class="sep-preview">
+        <div class="sep-37">
+          <svg viewBox="0 0 400 30" preserveAspectRatio="none" fill="none">
+            <path d="M0 8 C33 0,67 28,100 20 C133 12,167 0,200 8 C233 16,267 28,300 20 C333 12,367 0,400 8"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <path d="M0 22 C33 30,67 2,100 10 C133 18,167 30,200 22 C233 14,267 2,300 10 C333 18,367 30,400 22"
+              stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 38 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#38</span><span class="card-title">Audio Waveform</span></div>
+      <div class="sep-preview">
+        <div class="sep-38">
+          <svg viewBox="0 0 400 36" preserveAspectRatio="none" fill="none">
+            <path d="M0 18 L10 18 L14 6 L18 30 L22 10 L26 26 L30 8 L34 28 L38 12 L42 24 L46 18 L60 18 L64 14 L68 22 L72 10 L76 26 L80 4 L84 32 L88 14 L92 22 L96 18 L110 18 L114 8 L118 28 L122 12 L126 24 L130 18 L144 18"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M144 18 L160 18 L164 10 L168 26 L172 14 L176 22 L180 6 L184 30 L188 18 L200 18"
+              stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M200 18 L214 18 L218 8 L222 28 L226 12 L230 24 L234 18 L248 18 L252 14 L256 22 L260 10 L264 26 L268 18 L280 18"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M280 18 L290 18 L294 8 L298 28 L302 14 L306 22 L310 6 L314 30 L318 18 L330 18 L334 12 L338 24 L342 16 L346 20 L350 18 L360 18 L364 10 L368 26 L372 18 L400 18"
+              stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 39 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#39</span><span class="card-title">ECG Heartbeat</span></div>
+      <div class="sep-preview">
+        <div class="sep-39">
+          <svg viewBox="0 0 400 40" preserveAspectRatio="none" fill="none">
+            <path d="M0 20 H80 L88 20 L96 8 L104 32 L112 4 L120 36 L128 20 H320 L328 20 L336 8 L344 32 L352 4 L360 36 L368 20 H400"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 40 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#40</span><span class="card-title">SVG Dot Row</span></div>
+      <div class="sep-preview">
+        <div class="sep-40">
+          <svg viewBox="0 0 400 12" preserveAspectRatio="none">
+            <g fill="rgba(255,255,255,0.65)">
+              <circle cx="10" cy="6" r="2"/>  <circle cx="30" cy="6" r="2"/>
+              <circle cx="50" cy="6" r="2"/>  <circle cx="70" cy="6" r="2"/>
+              <circle cx="90" cy="6" r="2"/>  <circle cx="110" cy="6" r="2"/>
+              <circle cx="130" cy="6" r="2"/> <circle cx="150" cy="6" r="2"/>
+              <circle cx="170" cy="6" r="2"/> <circle cx="190" cy="6" r="3" fill="rgba(255,255,255,0.9)"/>
+              <circle cx="210" cy="6" r="2"/> <circle cx="230" cy="6" r="2"/>
+              <circle cx="250" cy="6" r="2"/> <circle cx="270" cy="6" r="2"/>
+              <circle cx="290" cy="6" r="2"/> <circle cx="310" cy="6" r="2"/>
+              <circle cx="330" cy="6" r="2"/> <circle cx="350" cy="6" r="2"/>
+              <circle cx="370" cy="6" r="2"/> <circle cx="390" cy="6" r="2"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 41 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#41</span><span class="card-title">Diagonal Hatch</span></div>
+      <div class="sep-preview"><div class="sep-41"></div></div>
+    </div>
+
+    <!-- 42 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#42</span><span class="card-title">Cross-Hatch</span></div>
+      <div class="sep-preview"><div class="sep-42"></div></div>
+    </div>
+
+    <!-- 43 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#43</span><span class="card-title">Checkerboard Strip</span></div>
+      <div class="sep-preview"><div class="sep-43"></div></div>
+    </div>
+
+    <!-- 44 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#44</span><span class="card-title">Morse Code</span></div>
+      <div class="sep-preview"><div class="sep-44"></div></div>
+    </div>
+
+    <!-- 45 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#45</span><span class="card-title">Film Strip</span></div>
+      <div class="sep-preview"><div class="sep-45"></div></div>
+    </div>
+
+    <!-- 46 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#46</span><span class="card-title">Pixel Row</span></div>
+      <div class="sep-preview"><div class="sep-46"></div></div>
+    </div>
+
+    <!-- 47 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#47</span><span class="card-title">Glitch Effect ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-47"><div class="g1"></div><div class="g2"></div></div>
+      </div>
+    </div>
+
+    <!-- 48 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#48</span><span class="card-title">Typing Dots ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-48"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- 49 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#49</span><span class="card-title">Orbit Center ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-49"><div class="orbit"></div></div>
+      </div>
+    </div>
+
+    <!-- 50 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#50</span><span class="card-title">Grow From Center ✦</span></div>
+      <div class="sep-preview"><div class="sep-50"></div></div>
+    </div>
+
+    <!-- 51 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#51</span><span class="card-title">Spinning Cross ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-51"><div class="cross"></div></div>
+      </div>
+    </div>
+
+    <!-- 52 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#52</span><span class="card-title">Draw-On Line ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-52">
+          <svg viewBox="0 0 400 4" preserveAspectRatio="none" fill="none">
+            <line class="draw-line" x1="0" y1="2" x2="400" y2="2"
+              stroke="rgba(255,255,255,0.85)" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 53 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#53</span><span class="card-title">Particle Burst ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-53">
+          <div class="burst">
+            <div class="dot"></div><div class="dot"></div>
+            <div class="dot"></div><div class="dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 54 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#54</span><span class="card-title">Binary Scroll ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-54">
+          <div class="binary-track">
+            1 0 1 1 0 0 1 0 1 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 1 1 0 1 0 0 1 1 0 1 0 &nbsp;
+            1 0 1 1 0 0 1 0 1 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 1 1 0 1 0 0 1 1 0 1 0
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 55 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#55</span><span class="card-title">Shimmer Gradient ✦</span></div>
+      <div class="sep-preview"><div class="sep-55"></div></div>
+    </div>
+
+    <!-- ═══════════ NEW DESIGNS 56–105 ═══════════ -->
+
+    <!-- 56 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#56</span><span class="card-title">SVG Double Zigzag</span></div>
+      <div class="sep-preview">
+        <div class="sep-56">
+          <svg viewBox="0 0 400 28" preserveAspectRatio="none" fill="none">
+            <polyline points="0,8 25,2 50,14 75,2 100,14 125,2 150,14 175,2 200,14 225,2 250,14 275,2 300,14 325,2 350,14 375,2 400,8"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="0,20 25,14 50,26 75,14 100,26 125,14 150,26 175,14 200,26 225,14 250,26 275,14 300,26 325,14 350,26 375,14 400,20"
+              stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 57 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#57</span><span class="card-title">SVG Sawtooth</span></div>
+      <div class="sep-preview">
+        <div class="sep-57">
+          <svg viewBox="0 0 400 22" preserveAspectRatio="none" fill="none">
+            <polyline points="0,20 0,2 32,20 32,2 64,20 64,2 96,20 96,2 128,20 128,2 160,20 160,2 192,20 192,2 224,20 224,2 256,20 256,2 288,20 288,2 320,20 320,2 352,20 352,2 384,20 384,2 400,20"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 58 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#58</span><span class="card-title">SVG Staircase</span></div>
+      <div class="sep-preview">
+        <div class="sep-58">
+          <svg viewBox="0 0 400 24" preserveAspectRatio="none" fill="none">
+            <polyline points="0,20 40,20 40,12 80,12 80,4 120,4 120,12 160,12 160,20 200,20 200,12 240,12 240,4 280,4 280,12 320,12 320,20 360,20 360,12 400,12"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 59 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#59</span><span class="card-title">SVG Mountain Peaks</span></div>
+      <div class="sep-preview">
+        <div class="sep-59">
+          <svg viewBox="0 0 400 32" preserveAspectRatio="none" fill="none">
+            <polyline points="0,28 60,28 90,4 120,28 180,28 220,10 260,28 320,28 350,14 380,28 400,28"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 60 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#60</span><span class="card-title">SVG Arch Chain</span></div>
+      <div class="sep-preview">
+        <div class="sep-60">
+          <svg viewBox="0 0 400 24" preserveAspectRatio="none" fill="none">
+            <path d="M0 18 Q25 4,50 18 Q75 4,100 18 Q125 4,150 18 Q175 4,200 18 Q225 4,250 18 Q275 4,300 18 Q325 4,350 18 Q375 4,400 18"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 61 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#61</span><span class="card-title">SVG Arrow Chain</span></div>
+      <div class="sep-preview">
+        <div class="sep-61">
+          <svg viewBox="0 0 400 22" preserveAspectRatio="none" fill="none">
+            <line x1="0" y1="11" x2="400" y2="11" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+            <polyline points="10,5 22,11 10,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="50,5 62,11 50,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="90,5 102,11 90,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="130,5 142,11 130,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="170,5 182,11 170,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="210,5 222,11 210,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="250,5 262,11 250,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="290,5 302,11 290,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="330,5 342,11 330,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <polyline points="370,5 382,11 370,17" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 62 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#62</span><span class="card-title">SVG Square Pulse</span></div>
+      <div class="sep-preview">
+        <div class="sep-62">
+          <svg viewBox="0 0 400 28" preserveAspectRatio="none" fill="none">
+            <polyline points="0,14 30,14 30,4 60,4 60,24 90,24 90,4 120,4 120,24 150,24 150,14 170,14 170,4 200,4 200,24 230,24 230,14 250,14 250,4 280,4 280,24 310,24 310,14 330,14 330,4 360,4 360,24 390,24 390,14 400,14"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 63 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#63</span><span class="card-title">SVG Sine + Midline</span></div>
+      <div class="sep-preview">
+        <div class="sep-63">
+          <svg viewBox="0 0 400 28" preserveAspectRatio="none" fill="none">
+            <line x1="0" y1="14" x2="400" y2="14" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <path d="M0 14 C33 2,67 26,100 14 C133 2,167 26,200 14 C233 2,267 26,300 14 C333 2,367 26,400 14"
+              stroke="rgba(255,255,255,0.8)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="14" r="2.5" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="200" cy="14" r="2.5" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="300" cy="14" r="2.5" fill="rgba(255,255,255,0.7)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 64 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#64</span><span class="card-title">SVG Lace Loops</span></div>
+      <div class="sep-preview">
+        <div class="sep-64">
+          <svg viewBox="0 0 400 30" preserveAspectRatio="none" fill="none">
+            <path d="M0 15 Q20 5,40 15 Q40 25,60 15 Q80 5,100 15 Q100 25,120 15 Q140 5,160 15 Q160 25,180 15 Q200 5,220 15 Q220 25,240 15 Q260 5,280 15 Q280 25,300 15 Q320 5,340 15 Q340 25,360 15 Q380 5,400 15"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 65 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#65</span><span class="card-title">SVG Bracket Chain</span></div>
+      <div class="sep-preview">
+        <div class="sep-65">
+          <svg viewBox="0 0 400 24" preserveAspectRatio="none" fill="none">
+            <line x1="0" y1="12" x2="400" y2="12" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <polyline points="20,4 10,4 10,20 20,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="60,4 70,4 70,20 60,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="100,4 90,4 90,20 100,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="140,4 150,4 150,20 140,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="180,4 170,4 170,20 180,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="220,4 230,4 230,20 220,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="260,4 250,4 250,20 260,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="300,4 310,4 310,20 300,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="340,4 330,4 330,20 340,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <polyline points="380,4 390,4 390,20 380,20" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 66 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#66</span><span class="card-title">Electric Sparks ✦</span></div>
+      <div class="sep-preview"><div class="sep-66"></div></div>
+    </div>
+
+    <!-- 67 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#67</span><span class="card-title">Comet Trail ✦</span></div>
+      <div class="sep-preview"><div class="sep-67"></div></div>
+    </div>
+
+    <!-- 68 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#68</span><span class="card-title">Laser Beam ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-68">
+          <div class="laser-track"></div>
+          <div class="laser-beam"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 69 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#69</span><span class="card-title">Snake Chase ✦</span></div>
+      <div class="sep-preview"><div class="sep-69"></div></div>
+    </div>
+
+    <!-- 70 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#70</span><span class="card-title">Wave Roll ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-70">
+          <svg viewBox="0 0 800 24" fill="none">
+            <path d="M0 12 C33 2,67 22,100 12 C133 2,167 22,200 12 C233 2,267 22,300 12 C333 2,367 22,400 12 C433 2,467 22,500 12 C533 2,567 22,600 12 C633 2,667 22,700 12 C733 2,767 22,800 12"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 71 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#71</span><span class="card-title">Dot River ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-71">
+          <div class="river">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 72 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#72</span><span class="card-title">Ripple Rings ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-72">
+          <div class="ripple">
+            <div class="r"></div><div class="r"></div><div class="r"></div>
+            <div class="core"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 73 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#73</span><span class="card-title">Radar Sweep ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-73"><div class="radar"></div></div>
+      </div>
+    </div>
+
+    <!-- 74 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#74</span><span class="card-title">Rotating Triangle ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-74"><div class="tri"></div></div>
+      </div>
+    </div>
+
+    <!-- 75 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#75</span><span class="card-title">Bouncing Bars ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-75">
+          <div class="bars">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 76 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#76</span><span class="card-title">Herringbone Strip</span></div>
+      <div class="sep-preview"><div class="sep-76"></div></div>
+    </div>
+
+    <!-- 77 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#77</span><span class="card-title">Diamond Grid</span></div>
+      <div class="sep-preview"><div class="sep-77"></div></div>
+    </div>
+
+    <!-- 78 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#78</span><span class="card-title">Dot Grid Strip</span></div>
+      <div class="sep-preview"><div class="sep-78"></div></div>
+    </div>
+
+    <!-- 79 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#79</span><span class="card-title">SVG Triangle Row</span></div>
+      <div class="sep-preview">
+        <div class="sep-79">
+          <svg viewBox="0 0 400 14" preserveAspectRatio="none">
+            <g fill="rgba(255,255,255,0.6)">
+              <polygon points="0,14 8,0 16,14"/>
+              <polygon points="20,14 28,0 36,14"/>
+              <polygon points="40,14 48,0 56,14"/>
+              <polygon points="60,14 68,0 76,14"/>
+              <polygon points="80,14 88,0 96,14"/>
+              <polygon points="100,14 108,0 116,14"/>
+              <polygon points="120,14 128,0 136,14"/>
+              <polygon points="140,14 148,0 156,14"/>
+              <polygon points="160,14 168,0 176,14"/>
+              <polygon points="180,14 188,0 196,14"/>
+              <polygon points="200,14 208,0 216,14"/>
+              <polygon points="220,14 228,0 236,14"/>
+              <polygon points="240,14 248,0 256,14"/>
+              <polygon points="260,14 268,0 276,14"/>
+              <polygon points="280,14 288,0 296,14"/>
+              <polygon points="300,14 308,0 316,14"/>
+              <polygon points="320,14 328,0 336,14"/>
+              <polygon points="340,14 348,0 356,14"/>
+              <polygon points="360,14 368,0 376,14"/>
+              <polygon points="380,14 388,0 396,14"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 80 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#80</span><span class="card-title">Pinstripes</span></div>
+      <div class="sep-preview"><div class="sep-80"></div></div>
+    </div>
+
+    <!-- 81 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#81</span><span class="card-title">Brick Row</span></div>
+      <div class="sep-preview"><div class="sep-81"></div></div>
+    </div>
+
+    <!-- 82 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#82</span><span class="card-title">SVG Gradient Dots</span></div>
+      <div class="sep-preview">
+        <div class="sep-82">
+          <svg viewBox="0 0 400 6" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="dotFade" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stop-color="white" stop-opacity="0"/>
+                <stop offset="30%" stop-color="white" stop-opacity="0.8"/>
+                <stop offset="50%" stop-color="white" stop-opacity="1"/>
+                <stop offset="70%" stop-color="white" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="white" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g fill="url(#dotFade)">
+              <circle cx="10" cy="3" r="2"/><circle cx="30" cy="3" r="2"/><circle cx="50" cy="3" r="2"/>
+              <circle cx="70" cy="3" r="2"/><circle cx="90" cy="3" r="2"/><circle cx="110" cy="3" r="2"/>
+              <circle cx="130" cy="3" r="2"/><circle cx="150" cy="3" r="2"/><circle cx="170" cy="3" r="2"/>
+              <circle cx="190" cy="3" r="2"/><circle cx="210" cy="3" r="2"/><circle cx="230" cy="3" r="2"/>
+              <circle cx="250" cy="3" r="2"/><circle cx="270" cy="3" r="2"/><circle cx="290" cy="3" r="2"/>
+              <circle cx="310" cy="3" r="2"/><circle cx="330" cy="3" r="2"/><circle cx="350" cy="3" r="2"/>
+              <circle cx="370" cy="3" r="2"/><circle cx="390" cy="3" r="2"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 83 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#83</span><span class="card-title">Long-Short Dash</span></div>
+      <div class="sep-preview"><div class="sep-83"></div></div>
+    </div>
+
+    <!-- 84 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#84</span><span class="card-title">Railroad Tracks</span></div>
+      <div class="sep-preview"><div class="sep-84"></div></div>
+    </div>
+
+    <!-- 85 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#85</span><span class="card-title">Lens Gradient</span></div>
+      <div class="sep-preview"><div class="sep-85"></div></div>
+    </div>
+
+    <!-- 86 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#86</span><span class="card-title">LED Bar Fill ✦</span></div>
+      <div class="sep-preview"><div class="sep-86"></div></div>
+    </div>
+
+    <!-- 87 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#87</span><span class="card-title">Ping Pulse ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-87"><div class="ping"></div></div>
+      </div>
+    </div>
+
+    <!-- 88 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#88</span><span class="card-title">Morphing Diamond ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-88"><div class="morph"></div></div>
+      </div>
+    </div>
+
+    <!-- 89 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#89</span><span class="card-title">Stretch Bar ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-89"><div class="stretch"></div></div>
+      </div>
+    </div>
+
+    <!-- 90 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#90</span><span class="card-title">Flicker Line ✦</span></div>
+      <div class="sep-preview"><div class="sep-90"></div></div>
+    </div>
+
+    <!-- 91 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#91</span><span class="card-title">Scrolling Wave ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-91">
+          <svg viewBox="0 0 800 22" fill="none">
+            <path d="M0 11 C33 2,67 20,100 11 C133 2,167 20,200 11 C233 2,267 20,300 11 C333 2,367 20,400 11 C433 2,467 20,500 11 C533 2,567 20,600 11 C633 2,667 20,700 11 C733 2,767 20,800 11"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 92 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#92</span><span class="card-title">Scrolling Zigzag ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-92">
+          <svg viewBox="0 0 800 20" fill="none">
+            <polyline points="0,10 25,2 50,18 75,2 100,18 125,2 150,18 175,2 200,18 225,2 250,18 275,2 300,18 325,2 350,18 375,2 400,18 425,2 450,18 475,2 500,18 525,2 550,18 575,2 600,18 625,2 650,18 675,2 700,18 725,2 750,18 775,2 800,10"
+              stroke="rgba(255,255,255,0.75)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 93 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#93</span><span class="card-title">Scrolling Circuit ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-93">
+          <svg viewBox="0 0 800 28" fill="none">
+            <path d="M0 14 H60 L70 4 H100 L110 14 H150 L160 24 H190 L200 14 H240 L250 4 H280 L290 14 H330 L340 24 H370 L380 14 H430 L440 4 H470 L480 14 H530 L540 24 H570 L580 14 H630 L640 4 H670 L680 14 H730 L740 24 H770 L780 14 H800"
+              stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="4" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="190" cy="24" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="280" cy="4" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="370" cy="24" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="470" cy="4" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="570" cy="24" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="670" cy="4" r="2" fill="rgba(255,255,255,0.6)"/>
+            <circle cx="770" cy="24" r="2" fill="rgba(255,255,255,0.6)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 94 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#94</span><span class="card-title">Draw-On Zigzag ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-94">
+          <svg viewBox="0 0 400 20" preserveAspectRatio="none" fill="none">
+            <polyline class="draw-zz" points="0,10 25,2 50,18 75,2 100,18 125,2 150,18 175,2 200,18 225,2 250,18 275,2 300,18 325,2 350,18 375,2 400,10"
+              stroke="rgba(255,255,255,0.85)" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 95 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#95</span><span class="card-title">Draw-On Wave ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-95">
+          <svg viewBox="0 0 400 24" preserveAspectRatio="none" fill="none">
+            <path class="draw-wave" d="M0 12 C33 2,67 22,100 12 C133 2,167 22,200 12 C233 2,267 22,300 12 C333 2,367 22,400 12"
+              stroke="rgba(255,255,255,0.85)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 96 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#96</span><span class="card-title">Layered Glow Lines ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-96"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- 97 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#97</span><span class="card-title">Dashed Glow ✦</span></div>
+      <div class="sep-preview"><div class="sep-97"></div></div>
+    </div>
+
+    <!-- 98 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#98</span><span class="card-title">Center Label</span></div>
+      <div class="sep-preview">
+        <div class="sep-98"><div class="lbl">section</div></div>
+      </div>
+    </div>
+
+    <!-- 99 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#99</span><span class="card-title">Crossing X</span></div>
+      <div class="sep-preview">
+        <div class="sep-99"><div class="xmark"></div></div>
+      </div>
+    </div>
+
+    <!-- 100 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#100</span><span class="card-title">Concentric Squares</span></div>
+      <div class="sep-preview">
+        <div class="sep-100">
+          <div class="squares"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 101 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#101</span><span class="card-title">Pulsing Squares ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-101">
+          <div class="sq-wrap"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 102 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#102</span><span class="card-title">Flowing Gradient ✦</span></div>
+      <div class="sep-preview"><div class="sep-102"></div></div>
+    </div>
+
+    <!-- 103 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#103</span><span class="card-title">Expanding Rings ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-103">
+          <div class="ring-wrap">
+            <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+            <div class="center-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 104 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#104</span><span class="card-title">Staggered Dashes ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-104">
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 105 -->
+    <div class="card">
+      <div class="card-header"><span class="card-num">#105</span><span class="card-title">Double Orbit ✦</span></div>
+      <div class="sep-preview">
+        <div class="sep-105">
+          <div class="double-orbit">
+            <div class="ring-a"></div>
+            <div class="ring-b"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <span>105 Section Separator Designs · CSS · SVG · GSAP · anime.js</span><br/>
+    <span style="font-size:11px;opacity:0.5;">✦ = animated</span>
+  </footer>
+
+  <script>
+    // GSAP ScrollTrigger — cards fade in on scroll
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.card').forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: { trigger: card, start: 'top 92%', toggleActions: 'play none none none' },
+        opacity: 0,
+        y: 30,
+        duration: 0.6,
+        delay: (i % 3) * 0.07,
+        ease: 'power3.out'
+      });
+    });
+
+    // anime.js — hero number count-up on load
+    anime({
+      targets: '.hero-count',
+      opacity: [0, 1],
+      translateY: [10, 0],
+      easing: 'easeOutExpo',
+      duration: 1200,
+      delay: 600
+    });
+  </script>
+</body>
+</html>

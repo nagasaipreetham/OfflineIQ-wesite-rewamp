@@ -1,0 +1,330 @@
+.how {
+  /* Geometry lives here so both the orbit and the trunk line measure against
+   * the same numbers. Radius is ~40% larger than the previous ring. */
+  --sim-r: clamp(123px, 16vw, 160px);
+  --sim-core: clamp(64px, 7.4vw, 80px);
+  --sim-stage: calc(var(--sim-r) * 2 + 108px);
+  --chat-w: clamp(268px, 29vw, 348px);
+  --port: 17px;
+  /* Short bridge between stage edge and chat; the link also pulls left into
+   * the stage so it meets the core's east face. */
+  --trunk-gap: clamp(28px, 3.2vw, 44px);
+
+  /* Durations mirror SIM_TIMING in lib/useHowSimulation.js — keep in step. */
+  --t-core: 260ms;
+  --t-plane: 600ms;
+  --t-plane-enter: 340ms;
+  --t-float: 460ms;
+  --t-request: 950ms;
+  --t-fan: 780ms;
+  --t-gather: 840ms;
+  --t-return: 950ms;
+  --t-reset: 400ms;
+  --t-blink: 1800ms;
+  --t-blink-stagger: 200ms;
+
+  position: relative;
+  padding: clamp(8px, 1.2vh, 12px) 0 clamp(16px, 2.5vh, 28px);
+  background: var(--bg);
+}
+
+.how__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4em;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.7rem, 1.05vw, 0.8125rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--blue-primary);
+  text-align: center;
+}
+
+/*
+ * Keep Greek numerals off `text-transform: uppercase` — uppercase would
+ * turn αʹ into Αʹ and hide the intended alphabetic form.
+ */
+.how__num {
+  flex: 0 0 auto;
+  font-family: var(--font-sans), 'Segoe UI', 'Noto Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.how__label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.how__rule {
+  height: 1px;
+  margin: clamp(6px, 1vw, 10px) calc(var(--container-pad) * -1) 0;
+  width: calc(100% + var(--container-pad) * 2);
+  background: #000;
+}
+
+/* Two outlined panels under the title rule. Top holds the simulation,
+ * centred; bottom is reserved for the next block. */
+.how__stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: min(100%, 980px);
+  margin: clamp(16px, 2.4vw, 28px) auto 0;
+}
+
+.how__panel {
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.how__panel--top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 3vw, 36px) clamp(12px, 2vw, 24px);
+  overflow: visible;
+}
+
+.how__panel--bottom {
+  min-height: clamp(120px, 16vh, 200px);
+  border-top: 0;
+}
+
+/*
+ * Sources orbit on the left, chat on the right. `align-items: center` keeps
+ * the core, the trunk and the chat port on one horizontal axis.
+ */
+.how__diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* ---------- trunk: core east face → chat port ---------- */
+
+.how__link {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  /* Visible gap outside the stage, plus a left overhang that reaches the core. */
+  width: calc(
+    var(--trunk-gap) + (var(--sim-stage) / 2 - var(--sim-core) / 2)
+  );
+  margin-left: calc(var(--sim-core) / 2 - var(--sim-stage) / 2);
+  height: 1.5px;
+}
+
+.how__link-base {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.how__link-fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.how__link-fill--blue {
+  transform-origin: right center;
+  background: var(--blue-primary);
+  box-shadow: 0 0 6px rgba(5, 98, 239, 0.6);
+}
+
+.how__link-fill--green {
+  transform-origin: left center;
+  background: #12934a;
+  box-shadow: 0 0 6px rgba(18, 147, 74, 0.55);
+}
+
+.how__link-dot {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  opacity: 0;
+}
+
+.how__link-dot i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--blue-primary);
+  box-shadow: 0 0 8px 2px rgba(5, 98, 239, 0.65);
+}
+
+.how[data-phase='request'] .how__link-fill--blue {
+  animation: how-fill var(--t-request) linear forwards;
+}
+
+.how[data-phase='request'] .how__link-dot {
+  animation: how-dot-in var(--t-request) linear forwards;
+}
+
+.how[data-phase='request'] .how__link-dot i {
+  animation: how-dot-blink 280ms steps(1) infinite;
+}
+
+/* keep the blue trunk lit while the ring works */
+.how[data-phase='core'] .how__link-fill--blue,
+.how[data-phase='fan'] .how__link-fill--blue,
+.how[data-phase='caps'] .how__link-fill--blue,
+.how[data-phase='blink'] .how__link-fill--blue,
+.how[data-phase='mark'] .how__link-fill--blue,
+.how[data-phase='gather'] .how__link-fill--blue,
+.how[data-phase='core2'] .how__link-fill--blue {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.how[data-phase='return'] .how__link-fill--green {
+  animation: how-fill var(--t-return) linear forwards;
+}
+
+.how[data-phase='return'] .how__link-dot {
+  animation: how-dot-out var(--t-return) linear forwards;
+}
+
+.how[data-phase='return'] .how__link-dot i {
+  background: #12934a;
+  box-shadow: 0 0 8px 2px rgba(18, 147, 74, 0.6);
+}
+
+.how[data-phase='reset'] .how__link-fill,
+.how[data-phase='reply'] .how__link-fill,
+.how[data-phase='done'] .how__link-fill {
+  opacity: 0;
+  transition: opacity var(--t-reset) var(--ease-out);
+}
+
+@keyframes how-fill {
+  from {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes how-dot-in {
+  0% {
+    left: 100%;
+    scale: 0.2;
+    opacity: 0;
+  }
+  10% {
+    scale: 1;
+    opacity: 1;
+  }
+  86% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    left: 0%;
+    scale: 0.15;
+    opacity: 0;
+  }
+}
+
+@keyframes how-dot-out {
+  0% {
+    left: 0%;
+    scale: 0.2;
+    opacity: 0;
+  }
+  10% {
+    scale: 1;
+    opacity: 1;
+  }
+  86% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    scale: 0.15;
+    opacity: 0;
+  }
+}
+
+@keyframes how-dot-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.35;
+  }
+}
+
+/* Small square flush against the chat's left edge; receives the trunk. */
+.how__port {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--port);
+  height: var(--port);
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.how__port-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-primary);
+}
+
+.how[data-phase='request'] .how__port-dot {
+  animation: how-dot-blink 280ms steps(1) infinite;
+}
+
+.how[data-phase='return'] .how__port-dot {
+  background: #12934a;
+}
+
+.how[data-phase='reset'] .how__port-dot,
+.how[data-phase='reply'] .how__port-dot,
+.how[data-phase='done'] .how__port-dot {
+  background: var(--blue-primary);
+}
+
+@media (max-width: 900px) {
+  .how__diagram {
+    flex-direction: column;
+    gap: clamp(20px, 4vw, 30px);
+  }
+
+  /* the horizontal joint has no meaning once the two panels stack */
+  .how__link,
+  .how__port {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .how {
+    --sim-r: clamp(120px, 39vw, 150px);
+    --sim-core: clamp(56px, 16vw, 68px);
+    --trunk-gap: 24px;
+  }
+}

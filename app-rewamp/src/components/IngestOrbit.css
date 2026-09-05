@@ -1,0 +1,880 @@
+/* ---------------------------------------------------------------------------
+ * Ring geometry
+ * --sim-r is an absolute length because nodes are placed with translateY();
+ * percentage translations would resolve against each node's own box.
+ * ------------------------------------------------------------------------- */
+
+/* Ring geometry (--sim-r, --sim-core, --sim-stage) is owned by `.how` so the
+ * trunk line in HowItWorks.css can position itself against the same numbers. */
+.sim {
+  --ink: #14181d;
+  --ink-soft: rgba(20, 24, 29, 0.34);
+  --ink-faint: rgba(20, 24, 29, 0.16);
+  --wire: #000;
+  --live: var(--blue-primary);
+  --hit: #12934a;
+  --miss: #d92d20;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.sim__stage {
+  position: relative;
+  width: var(--sim-stage);
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+/* blueprint construction circle the sources are set on */
+.sim__orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--sim-r) * 2);
+  height: calc(var(--sim-r) * 2);
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(5, 98, 239, 0.16);
+  border-radius: 50%;
+}
+
+/* ---------- spokes ---------- */
+
+.sim__spokes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/*
+ * rotate() aligns the local x-axis with the compass bearing (0deg = north),
+ * then translateX() pushes the start clear of the core's outer ring. Children
+ * live in this rotated frame, so `left: 100%` is always the component end.
+ */
+.sim__spoke {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 1.5px;
+  /* stop short of the artefact so the cap sits in the gap, not under it */
+  width: calc(var(--sim-r) - var(--sim-core) / 2 - 62px);
+  margin-top: -0.75px;
+  transform-origin: 0 50%;
+  transform: rotate(calc(var(--angle) - 90deg))
+    translateX(calc(var(--sim-core) / 2 + 8px));
+}
+
+.sim__spoke-base {
+  position: absolute;
+  inset: 0;
+  background: var(--wire);
+}
+
+/* Colour overlay that tracks the travelling dot; scaleX keeps it exact. */
+.sim__spoke-fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.sim__spoke-fill--blue {
+  transform-origin: left center;
+  background: var(--live);
+  box-shadow: 0 0 5px rgba(5, 98, 239, 0.55);
+}
+
+.sim__spoke-fill--green {
+  transform-origin: right center;
+  background: var(--hit);
+  box-shadow: 0 0 5px rgba(18, 147, 74, 0.5);
+}
+
+/* travelling dot */
+.sim__spoke-dot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  opacity: 0;
+}
+
+.sim__spoke-dot i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--live);
+  box-shadow: 0 0 8px 2px rgba(5, 98, 239, 0.6);
+}
+
+/* black terminator at the component end of each line */
+.sim__spoke-cap {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--wire);
+  transition:
+    background var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+/* ---------------------------------------------------------------------------
+ * Phase choreography
+ * ------------------------------------------------------------------------- */
+
+/* fan out: blue leaves the core and runs to each cap */
+.sim__stage[data-phase='fan'] .sim__spoke-fill--blue {
+  animation: sim-fill var(--t-fan) linear forwards;
+}
+
+.sim__stage[data-phase='fan'] .sim__spoke-dot {
+  animation: sim-dot-out var(--t-fan) linear forwards;
+}
+
+/* hold the lit line while the caps do their work */
+.sim__stage[data-phase='caps'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='blink'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='mark'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='gather'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='core2'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='return'] .sim__spoke-fill--blue {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* misses drop their blue as soon as the marks land */
+.sim__stage[data-phase='gather'] .sim__spoke[data-mark='red'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='core2'] .sim__spoke[data-mark='red'] .sim__spoke-fill--blue,
+.sim__stage[data-phase='return'] .sim__spoke[data-mark='red'] .sim__spoke-fill--blue {
+  opacity: 0.18;
+}
+
+/* gather: green returns from the hit caps back to the core */
+.sim__stage[data-phase='gather'] .sim__spoke[data-mark='green'] .sim__spoke-fill--green {
+  animation: sim-fill var(--t-gather) linear forwards;
+}
+
+.sim__stage[data-phase='gather'] .sim__spoke[data-mark='green'] .sim__spoke-dot {
+  animation: sim-dot-in var(--t-gather) linear forwards;
+}
+
+.sim__stage[data-phase='gather'] .sim__spoke[data-mark='green'] .sim__spoke-dot i,
+.sim__stage[data-phase='core2'] .sim__spoke[data-mark='green'] .sim__spoke-dot i {
+  background: var(--hit);
+  box-shadow: 0 0 8px 2px rgba(18, 147, 74, 0.55);
+}
+
+.sim__stage[data-phase='core2'] .sim__spoke[data-mark='green'] .sim__spoke-fill--green,
+.sim__stage[data-phase='return'] .sim__spoke[data-mark='green'] .sim__spoke-fill--green {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* reset: everything eases back to the default wire */
+.sim__stage[data-phase='reset'] .sim__spoke-fill,
+.sim__stage[data-phase='reply'] .sim__spoke-fill,
+.sim__stage[data-phase='done'] .sim__spoke-fill {
+  opacity: 0;
+  transition: opacity var(--t-reset) var(--ease-out);
+}
+
+/* ---------- cap states ---------- */
+
+.sim__stage[data-caps='blue'] .sim__spoke-cap {
+  background: var(--live);
+  box-shadow: 0 0 6px rgba(5, 98, 239, 0.5);
+}
+
+.sim__stage[data-caps='blink'] .sim__spoke-cap {
+  background: var(--live);
+  animation: sim-cap-blink var(--t-blink) linear
+    calc(var(--i) * var(--t-blink-stagger)) 1 both;
+}
+
+.sim__stage[data-caps='marked'] .sim__spoke[data-mark='green'] .sim__spoke-cap {
+  background: var(--hit);
+  box-shadow: 0 0 7px rgba(18, 147, 74, 0.55);
+}
+
+.sim__stage[data-caps='marked'] .sim__spoke[data-mark='red'] .sim__spoke-cap {
+  background: var(--miss);
+  box-shadow: 0 0 7px rgba(217, 45, 32, 0.45);
+}
+
+@keyframes sim-fill {
+  from {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* `left` is the only property keyed at 0%/100%, so travel stays linear and
+   therefore stays locked to the fill edge. */
+@keyframes sim-dot-out {
+  0% {
+    left: 0%;
+    scale: 0.2;
+    opacity: 0;
+  }
+  12% {
+    scale: 1;
+    opacity: 1;
+  }
+  84% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    scale: 0.2;
+    opacity: 0;
+  }
+}
+
+@keyframes sim-dot-in {
+  0% {
+    left: 100%;
+    scale: 0.2;
+    opacity: 0;
+  }
+  12% {
+    scale: 1;
+    opacity: 1;
+  }
+  84% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    left: 0%;
+    scale: 0.2;
+    opacity: 0;
+  }
+}
+
+/* three pulses with a beat between each */
+@keyframes sim-cap-blink {
+  0%,
+  12%,
+  33%,
+  45%,
+  66%,
+  78%,
+  100% {
+    scale: 1;
+    box-shadow: 0 0 6px rgba(5, 98, 239, 0.5);
+  }
+  5%,
+  38%,
+  71% {
+    scale: 1.85;
+    box-shadow: 0 0 9px 3px rgba(5, 98, 239, 0.65);
+  }
+}
+
+/* ---------- core ---------- */
+
+.sim__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: var(--sim-core);
+  height: var(--sim-core);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--blue-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sim__core::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(5, 98, 239, 0.3);
+  border-radius: 50%;
+}
+
+/* expanding ring when a payload lands on the core */
+.sim__core-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--live);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sim__stage[data-phase='core'] .sim__core-ping {
+  animation: sim-ping var(--t-core) var(--ease-out) forwards;
+}
+
+.sim__stage[data-phase='core2'] .sim__core-ping {
+  border-color: var(--hit);
+  animation: sim-ping var(--t-core) var(--ease-out) forwards;
+}
+
+@keyframes sim-ping {
+  0% {
+    scale: 1;
+    opacity: 0.9;
+  }
+  100% {
+    scale: 1.7;
+    opacity: 0;
+  }
+}
+
+.sim__core-text {
+  font-family: var(--font-display);
+  font-size: calc(var(--sim-core) * 0.34);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: #fff;
+}
+
+/* ---------- nodes ---------- */
+
+.sim__node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 78px;
+  /* set on the bearing, un-rotate so the artefact stays upright, then centre */
+  transform: rotate(var(--angle)) translateY(calc(var(--sim-r) * -1))
+    rotate(calc(var(--angle) * -1)) translate(-50%, -50%);
+}
+
+/*
+ * Uniform registration frame: keeps the seven specimens optically aligned
+ * even though each artefact has its own silhouette and proportions.
+ */
+.sim__spec {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 62px;
+}
+
+.sim__spec::before,
+.sim__spec::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-style: solid;
+  border-color: var(--blue-primary);
+  opacity: 0.55;
+  transition: opacity var(--dur) var(--ease-out);
+}
+
+.sim__spec::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.sim__spec::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+.sim__node-label {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease-out);
+}
+
+.sim__node:hover .sim__spec::before,
+.sim__node:hover .sim__spec::after {
+  opacity: 1;
+}
+
+.sim__node:hover .sim__node-label {
+  color: var(--blue-primary);
+}
+
+.sim__node .art {
+  transition: translate var(--dur) var(--ease-out);
+}
+
+.sim__node:hover .art {
+  translate: 0 -2px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Shared artefact stock
+ * ------------------------------------------------------------------------- */
+
+.art {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--ink);
+  flex: 0 0 auto;
+}
+
+/* clipped corner for loose sheets */
+.art__fold {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 11px;
+  height: 11px;
+  background: linear-gradient(
+    225deg,
+    var(--bg) 0 calc(50% - 0.5px),
+    var(--ink) calc(50% - 0.5px) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+/* ---------- PDF: print-set page ---------- */
+
+.art--pdf {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 44px;
+  height: 56px;
+  padding: 6px 6px 7px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.pdf__rule {
+  height: 1px;
+  width: 100%;
+  background: var(--ink);
+}
+
+.pdf__rule--foot {
+  margin-top: auto;
+  background: var(--ink-soft);
+}
+
+.pdf__line {
+  height: 2px;
+  width: 100%;
+  background: var(--ink-soft);
+}
+
+.pdf__line--last {
+  width: 58%;
+}
+
+.pdf__folio {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 6px;
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--blue-primary);
+}
+
+/* ---------- DOCX: word-processed prose ---------- */
+
+.art--docx {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 44px;
+  height: 56px;
+  padding: 7px 6px;
+}
+
+.docx__line {
+  height: 2px;
+  width: 100%;
+  background: var(--ink-soft);
+}
+
+.docx__line--indent {
+  width: 74%;
+  margin-left: 26%;
+}
+
+.docx__line--rag {
+  width: 62%;
+}
+
+.docx__line--rag2 {
+  width: 46%;
+}
+
+.docx__gap {
+  height: 2px;
+}
+
+.docx__caret {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  width: 1px;
+  height: 9px;
+  background: var(--blue-primary);
+}
+
+/* ---------- XLSX: spreadsheet ---------- */
+
+.art--xlsx {
+  display: flex;
+  flex-direction: column;
+  width: 56px;
+  height: 46px;
+}
+
+.xlsx__colhead {
+  display: grid;
+  grid-template-columns: 7px repeat(3, 1fr);
+  height: 7px;
+  border-bottom: 1px solid var(--ink);
+  background: rgba(20, 24, 29, 0.06);
+}
+
+.xlsx__colhead span {
+  border-left: 1px solid var(--ink-faint);
+}
+
+.xlsx__colhead span:first-child {
+  border-left: 0;
+  grid-column: 2;
+}
+
+.xlsx__body {
+  display: flex;
+  flex: 1;
+}
+
+.xlsx__rowhead {
+  display: flex;
+  flex-direction: column;
+  width: 7px;
+  border-right: 1px solid var(--ink);
+  background: rgba(20, 24, 29, 0.06);
+}
+
+.xlsx__rowhead span {
+  flex: 1;
+  border-top: 1px solid var(--ink-faint);
+}
+
+.xlsx__rowhead span:first-child {
+  border-top: 0;
+}
+
+.xlsx__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--ink-faint);
+}
+
+.xlsx__cell {
+  position: relative;
+  background: #fff;
+}
+
+.xlsx__cell.is-selected {
+  background: rgba(5, 98, 239, 0.1);
+  box-shadow: inset 0 0 0 1px var(--blue-primary);
+}
+
+.xlsx__handle {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 3px;
+  height: 3px;
+  background: var(--blue-primary);
+}
+
+/* ---------- PPTX: slide deck ---------- */
+
+.art--pptx {
+  position: relative;
+  width: 56px;
+  height: 46px;
+  background: none;
+  border: 0;
+}
+
+.ppt__sheet {
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid var(--ink-soft);
+}
+
+.ppt__sheet--back {
+  top: 0;
+  left: 6px;
+}
+
+.ppt__sheet--mid {
+  top: 4px;
+  left: 3px;
+}
+
+.ppt__slide {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 50px;
+  height: 30px;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid var(--ink);
+}
+
+.ppt__title {
+  height: 2px;
+  width: 72%;
+  background: var(--ink);
+}
+
+.ppt__cols {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+}
+
+.ppt__bullets {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ppt__bullets span {
+  height: 2px;
+  background: var(--ink-soft);
+}
+
+.ppt__bullets span:last-child {
+  width: 66%;
+}
+
+.ppt__block {
+  width: 14px;
+  background: rgba(5, 98, 239, 0.16);
+  border: 1px solid var(--blue-primary);
+}
+
+/* ---------- PNG / JPG: raster data ---------- */
+
+.art--image {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+
+/* alpha checkerboard */
+.img__checks {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-conic-gradient(
+    rgba(20, 24, 29, 0.09) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 8px 8px;
+}
+
+.img__px {
+  position: absolute;
+}
+
+.img__px--a {
+  top: 6px;
+  left: 6px;
+  width: 16px;
+  height: 16px;
+  background: rgba(20, 24, 29, 0.72);
+}
+
+.img__px--b {
+  top: 6px;
+  left: 26px;
+  width: 8px;
+  height: 8px;
+  background: rgba(20, 24, 29, 0.3);
+}
+
+.img__px--c {
+  bottom: 7px;
+  right: 6px;
+  width: 18px;
+  height: 12px;
+  background: var(--blue-primary);
+}
+
+.img__px--d {
+  bottom: 8px;
+  left: 8px;
+  width: 10px;
+  height: 10px;
+  background: rgba(20, 24, 29, 0.46);
+}
+
+/* ---------- TXT / MD / HTML: markup ---------- */
+
+.art--text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48px;
+  height: 56px;
+  padding: 7px 5px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.text__row {
+  display: flex;
+  gap: 2px;
+  padding-left: var(--indent);
+}
+
+.text__seg {
+  width: var(--w);
+  height: 2px;
+  background: var(--ink-soft);
+}
+
+.text__seg.is-accent {
+  background: var(--blue-primary);
+  opacity: 0.85;
+}
+
+/* ---------- Databases: platter cylinder ---------- */
+
+.art--db {
+  position: relative;
+  width: 46px;
+  height: 52px;
+  background: none;
+  border: 0;
+}
+
+/* side wall between the two end caps */
+.db__wall {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-left: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+}
+
+/* bottom cap: only the front half of the ellipse is visible */
+.db__foot {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  border: 1px solid var(--ink);
+  border-top: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: #fff;
+}
+
+/* top cap sits above the wall so its full ellipse reads as the opening */
+.db__cap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: rgba(5, 98, 239, 0.1);
+}
+
+/* internal band divisions */
+.db__band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  border: 1px solid var(--ink-faint);
+  border-top: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.db__band--one {
+  top: 12px;
+}
+
+.db__band--two {
+  top: 24px;
+}
+
+.db__band.is-live {
+  border-color: rgba(5, 98, 239, 0.55);
+}
+
+/* ---------------------------------------------------------------------------
+ * Small screens: tighten the ring, keep the compass arrangement intact.
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 560px) {
+  .sim__node {
+    width: 66px;
+    gap: 7px;
+  }
+
+  .sim__spec {
+    width: 52px;
+    height: 54px;
+  }
+
+  .sim__node-label {
+    font-size: 7.5px;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sim__node:hover .art {
+    translate: none;
+  }
+}

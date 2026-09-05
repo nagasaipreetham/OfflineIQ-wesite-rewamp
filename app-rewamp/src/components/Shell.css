@@ -1,0 +1,38 @@
+.shell {
+  --shell-width: calc(var(--container) + var(--container-pad) * 2);
+  position: relative;
+  width: 100%;
+  background: var(--bg);
+}
+
+/*
+ * Vertical rails sit on the outer edges of the main column.
+ * As the viewport shrinks, --container-pad tightens first (see index.css);
+ * once the column fills the viewport the rails pin to the screen edges.
+ */
+.shell__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #000;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shell__rail--left {
+  left: max(0px, calc(50% - var(--shell-width) / 2));
+}
+
+.shell__rail--right {
+  right: max(0px, calc(50% - var(--shell-width) / 2));
+}
+
+.shell__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--shell-width);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
