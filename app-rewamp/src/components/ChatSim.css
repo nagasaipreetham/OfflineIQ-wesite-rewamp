@@ -96,6 +96,13 @@
   color: var(--text-muted);
 }
 
+.chat__meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
 .chat__cite {
   pointer-events: auto;
   cursor: pointer;
@@ -120,11 +127,11 @@
 
 .chat__files {
   margin: 0;
-  padding: 6px 0 2px;
+  padding: 2px 0 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .chat__files li {
@@ -174,7 +181,7 @@
 
 .chat__foot {
   display: flex;
-  align-items: stretch;
+  align-items: flex-end;
   gap: 7px;
   padding: 9px 10px;
   border-top: 1px solid var(--chat-ink);
@@ -186,35 +193,49 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  height: 30px;
-  padding: 0 9px;
+  min-height: 30px;
+  height: auto;
+  padding: 7px 9px;
   background: #fff;
   border: 1px solid rgba(20, 24, 29, 0.55);
+  transition:
+    min-height 220ms var(--ease-out),
+    padding 220ms var(--ease-out);
 }
 
 .chat__input.is-live {
   border-color: var(--chat-ink);
+  align-items: flex-start;
 }
 
-.chat__placeholder,
-.chat__typed {
+.chat__input.is-live .chat__glyph--pin {
+  margin-top: 1px;
+}
+
+.chat__placeholder {
   flex: 1 1 auto;
   min-width: 0;
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 400;
   line-height: 1.2;
+  color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.chat__placeholder {
-  color: var(--text-muted);
-}
-
 .chat__typed {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
   color: var(--chat-ink);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .chat__caret {
@@ -334,13 +355,24 @@
   transition: rotate var(--dur) var(--ease-out);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 900px) {
   .chat {
-    width: min(100%, 320px);
-    min-height: 289px;
+    width: min(100%, 360px);
+    min-height: clamp(400px, 52vw, 490px);
   }
 
   .chat__body {
-    min-height: 162px;
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .chat {
+    width: min(100%, 320px);
+    min-height: clamp(380px, 70vw, 460px);
+  }
+
+  .chat__body {
+    min-height: 210px;
   }
 }

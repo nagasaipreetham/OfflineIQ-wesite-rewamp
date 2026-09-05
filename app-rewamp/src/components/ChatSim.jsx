@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { SIM_FILES } from '../lib/useHowSimulation.js'
+import { useEffect, useState } from 'react'
 import './ChatSim.css'
 
 function ChatGlyph() {
@@ -41,16 +40,17 @@ function ChatSim({
   caretOn = false,
   userMsg = null,
   replyMsg = null,
-  greens = [],
+  files = [],
   accuracy = 0,
 }) {
   const [open, setOpen] = useState(false)
-  const files = greens.map((id) => SIM_FILES[id]).filter(Boolean)
   const composing = typed.length > 0 || caretOn
   const flying = phase === 'plane'
-  /* Hide the resting plane only while the outgoing one is in the air;
-   * the replacement enters on a delayed animation during the same phase. */
   const showRestingPlane = phase !== 'plane'
+
+  useEffect(() => {
+    if (!replyMsg) setOpen(false)
+  }, [replyMsg])
 
   return (
     <div
@@ -78,17 +78,25 @@ function ChatSim({
           <div className="chat__msg chat__msg--iq is-arriving">
             <span className="chat__bubble">{replyMsg}</span>
 
-            <button
-              type="button"
-              className={`chat__cite${open ? ' is-open' : ''}`}
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span>
-                {files.length} citation{files.length === 1 ? '' : 's'}
-              </span>
-              <ChevronGlyph />
-            </button>
+            <div className="chat__meta-row">
+              <button
+                type="button"
+                className={`chat__cite${open ? ' is-open' : ''}`}
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+              >
+                <span>
+                  {files.length} citation{files.length === 1 ? '' : 's'}
+                </span>
+                <ChevronGlyph />
+              </button>
+
+              {accuracy > 0 && (
+                <span className="chat__acc">
+                  <em>{accuracy}%</em> Accurate
+                </span>
+              )}
+            </div>
 
             {open && (
               <ul className="chat__files">
@@ -96,12 +104,6 @@ function ChatSim({
                   <li key={name}>{name}</li>
                 ))}
               </ul>
-            )}
-
-            {accuracy > 0 && (
-              <span className="chat__acc">
-                <em>{accuracy}%</em> Accurate
-              </span>
             )}
           </div>
         )}

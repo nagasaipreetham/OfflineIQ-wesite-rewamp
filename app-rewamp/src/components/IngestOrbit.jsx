@@ -148,18 +148,30 @@ function DatabaseArt() {
   )
 }
 
-/* Fixed compass placement — east is left open for the outlet to the chat. */
-const SOURCES = [
-  { id: 'pdf', angle: 0, dir: 'N', label: 'PDF', Art: PdfArt },
-  { id: 'docx', angle: 45, dir: 'NE', label: 'DOCX', Art: DocxArt },
-  { id: 'xlsx', angle: 180, dir: 'S', label: 'XLSX', Art: XlsxArt },
-  { id: 'pptx', angle: 135, dir: 'SE', label: 'PPTX', Art: PptxArt },
-  { id: 'image', angle: 225, dir: 'SW', label: 'PNG / JPG', Art: ImageArt },
-  { id: 'text', angle: 270, dir: 'W', label: 'TXT / MD / HTML', Art: TextArt },
-  { id: 'db', angle: 315, dir: 'NW', label: 'Databases', Art: DatabaseArt },
-]
+/* Fixed compass placement. `outlet` is the empty bearing that feeds the chat:
+ * east on desktop, south when the diagram stacks. XLSX occupies the other. */
+function sourcesFor(outlet) {
+  const xlsxAngle = outlet === 'south' ? 90 : 180
+  const xlsxDir = outlet === 'south' ? 'E' : 'S'
+  return [
+    { id: 'pdf', angle: 0, dir: 'N', label: 'PDF', Art: PdfArt },
+    { id: 'docx', angle: 45, dir: 'NE', label: 'DOCX', Art: DocxArt },
+    { id: 'xlsx', angle: xlsxAngle, dir: xlsxDir, label: 'XLSX', Art: XlsxArt },
+    { id: 'pptx', angle: 135, dir: 'SE', label: 'PPTX', Art: PptxArt },
+    { id: 'image', angle: 225, dir: 'SW', label: 'PNG / JPG', Art: ImageArt },
+    { id: 'text', angle: 270, dir: 'W', label: 'TXT / MD / HTML', Art: TextArt },
+    { id: 'db', angle: 315, dir: 'NW', label: 'Databases', Art: DatabaseArt },
+  ]
+}
 
-function IngestOrbit({ phase = 'idle', capsMode = 'default', marks = {} }) {
+function IngestOrbit({
+  phase = 'idle',
+  capsMode = 'default',
+  marks = {},
+  outlet = 'east',
+}) {
+  const sources = sourcesFor(outlet)
+
   return (
     <div
       className="sim"
@@ -170,7 +182,7 @@ function IngestOrbit({ phase = 'idle', capsMode = 'default', marks = {} }) {
         <span className="sim__orbit" aria-hidden="true" />
 
         <div className="sim__spokes" aria-hidden="true">
-          {SOURCES.map((s, i) => (
+          {sources.map((s, i) => (
             <span
               key={s.id}
               className="sim__spoke"
@@ -193,7 +205,7 @@ function IngestOrbit({ phase = 'idle', capsMode = 'default', marks = {} }) {
           <span className="sim__core-text">IQ</span>
         </div>
 
-        {SOURCES.map(({ id, angle, dir, label, Art }) => (
+        {sources.map(({ id, angle, dir, label, Art }) => (
           <div
             key={id}
             className="sim__node"
