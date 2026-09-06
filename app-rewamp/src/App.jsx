@@ -5,6 +5,7 @@ import Partner from './components/Partner.jsx'
 import Shell from './components/Shell.jsx'
 import SectionSep from './components/SectionSep.jsx'
 import HowItWorks from './components/HowItWorks.jsx'
+import IqBox from './components/IqBox.jsx'
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Shell>
           <SectionSep />
           <HowItWorks />
+          <SectionSep />
+          <IqBox />
         </Shell>
       </main>
     </div>
