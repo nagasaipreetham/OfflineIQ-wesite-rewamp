@@ -41,8 +41,9 @@ function containRect(iw, ih, cw, ch, maxFrac = 0.72) {
 
 function maxFracFor(src) {
   if (!src) return 0.72
-  if (src.includes('Ryzen')) return 0.56
-  if (src.includes('Radeon')) return 0.86
+  if (src.includes('Ryzen')) return 0.42
+  /* Match on-screen Radeon size (~93% of the visual). */
+  if (src.includes('Radeon')) return 0.93
   if (src.includes('ram')) return 0.88
   if (src.includes('nvme')) return 0.88
   return 0.72
@@ -302,7 +303,11 @@ export function useImageDisintegrate({
       onCommit?.(to)
       onBusyChange?.(false)
       requestAnimationFrame(() => {
-        if (!bag.dead) ctx.clearRect(0, 0, canvas.width, canvas.height)
+        if (bag.dead) return
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        /* Lock outgoing morph to the real centered render box. */
+        const measured = measureDevice(host)
+        if (measured) lastBox.current = measured
       })
     }
 

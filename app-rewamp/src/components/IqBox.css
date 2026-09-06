@@ -297,18 +297,35 @@
   user-select: none;
 }
 
+/*
+ * containRect uses min(56% of width, 56% of height). A square chip is
+ * therefore limited by the shorter side. Forcing img width/height 100%
+ * made it 56% of WIDTH (293px) while particles used HEIGHT (242px).
+ */
 .iqbox__device--ryzen {
-  /* Sit centered and a bit clearer in the right panel */
-  max-width: 56%;
-  max-height: 72%;
-  align-self: center;
-  justify-self: center;
+  position: absolute;
+  inset: 0;
+  width: 56%;
+  height: 56%;
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+  overflow: visible;
+  transform-origin: center center;
 }
 
 .iqbox__device--ryzen .iqbox__visual-device {
-  width: 100%;
+  display: block;
+  width: auto;
   height: auto;
-  max-height: min(52vh, 360px);
+  /* Sit smaller than the slot so the chip isn't clipped. */
+  max-width: 75%;
+  max-height: 75%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .iqbox__device--radeon {
@@ -483,8 +500,10 @@
   }
 
   .iqbox__device--ryzen {
-    max-width: 52%;
-    max-height: 68%;
+    width: 56%;
+    height: 56%;
+    max-width: none;
+    max-height: none;
   }
 
   .iqbox__device--radeon,

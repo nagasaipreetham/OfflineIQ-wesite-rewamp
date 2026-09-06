@@ -6,6 +6,7 @@ import Shell from './components/Shell.jsx'
 import SectionSep from './components/SectionSep.jsx'
 import HowItWorks from './components/HowItWorks.jsx'
 import IqBox from './components/IqBox.jsx'
+import Models from './components/Models.jsx'
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <HowItWorks />
           <SectionSep />
           <IqBox />
+          <SectionSep />
+          <Models />
         </Shell>
       </main>
     </div>
