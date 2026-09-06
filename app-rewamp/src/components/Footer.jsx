@@ -27,10 +27,40 @@ const FOOTER_LINKS = [
 function Footer() {
   const footerRef = useRef(null)
   const [brainActive, setBrainActive] = useState(false)
+  const [brainMounted, setBrainMounted] = useState(false)
+
+  /* Mount the viewer only after the page has fully loaded (then idle), so the
+   * GLB preload does not compete with first-paint assets. */
+  useEffect(() => {
+    let idleId = 0
+    let timeoutId = 0
+
+    const mount = () => {
+      setBrainMounted(true)
+    }
+
+    const afterLoad = () => {
+      if (typeof window.requestIdleCallback === 'function') {
+        idleId = window.requestIdleCallback(mount, { timeout: 2800 })
+      } else {
+        timeoutId = window.setTimeout(mount, 120)
+      }
+    }
+
+    if (document.readyState === 'complete') afterLoad()
+    else window.addEventListener('load', afterLoad, { once: true })
+
+    return () => {
+      if (idleId && typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(idleId)
+      }
+      window.clearTimeout(timeoutId)
+    }
+  }, [])
 
   useEffect(() => {
     const footer = footerRef.current
-    if (!footer) return
+    if (!footer) return undefined
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -38,9 +68,9 @@ function Footer() {
       },
       {
         root: null,
-        // Fire as soon as any part of the footer peeks into view
         threshold: 0,
-        rootMargin: '0px',
+        /* Warm a bit early so the first animated frames are ready on entry */
+        rootMargin: '120px 0px',
       },
     )
 
@@ -117,7 +147,7 @@ function Footer() {
         </div>
 
         <div className="site-footer__right">
-          {brainActive ? (
+          {brainMounted ? (
             <AsciiViewer
               className="site-footer__brain"
               modelPath="/brain.glb"
@@ -126,6 +156,7 @@ function Footer() {
               color="#ffffff"
               backgroundColor="transparent"
               enableControls={false}
+              active={brainActive}
             />
           ) : null}
         </div>

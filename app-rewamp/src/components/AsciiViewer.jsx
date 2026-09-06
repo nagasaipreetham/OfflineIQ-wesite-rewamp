@@ -6,8 +6,8 @@ import { AsciiEffect } from 'three-stdlib'
 import './AsciiViewer.css'
 
 /**
- * ASCII 3D viewer. AsciiEffect samples the WebGL canvas into a monospace table,
- * so the renderer must keep its drawing buffer and the table must not be stretched.
+ * ASCII 3D viewer. Loads the model once (optionally after page idle), paints a
+ * first frame, then only runs the render loop while `active` is true.
  */
 export default function AsciiViewer({
   modelPath,
@@ -17,12 +17,17 @@ export default function AsciiViewer({
   color = '#fff',
   backgroundColor = 'transparent',
   enableControls = true,
+  active = true,
 }) {
   const containerRef = useRef(null)
+  const activeRef = useRef(active)
+  const loopApiRef = useRef({ start: () => {}, stop: () => {}, paint: () => {} })
+
+  activeRef.current = active
 
   useEffect(() => {
     const container = containerRef.current
-    if (!container) return
+    if (!container) return undefined
 
     let renderer
     let effect
@@ -92,7 +97,7 @@ export default function AsciiViewer({
       controls.update()
     }
 
-    const start = () => {
+    const ensureRenderer = () => {
       const width = container.clientWidth
       const height = container.clientHeight
       if (width < 8 || height < 8) return false
@@ -100,42 +105,19 @@ export default function AsciiViewer({
       return true
     }
 
-    const loader = new GLTFLoader()
-    loader.load(
-      modelPath,
-      (gltf) => {
-        if (disposed) return
-        model = gltf.scene
+    const paint = () => {
+      if (disposed || !effect) return
+      controls?.update()
+      effect.render(scene, camera)
+    }
 
-        const box = new THREE.Box3().setFromObject(model)
-        const size = box.getSize(new THREE.Vector3())
-        const center = box.getCenter(new THREE.Vector3())
-        const maxDim = Math.max(size.x, size.y, size.z) || 1
-        const s = scale / maxDim
-        model.scale.setScalar(s)
-        model.position.copy(center).multiplyScalar(-s)
-
-        model.traverse((child) => {
-          if (!child.isMesh) return
-          child.material = new THREE.MeshStandardMaterial({
-            color: 0xffffff,
-            roughness: 0.42,
-            metalness: 0.08,
-            flatShading: false,
-          })
-        })
-
-        scene.add(model)
-      },
-      undefined,
-      (err) => {
-        console.error('ASCII viewer failed to load model', modelPath, err)
-      },
-    )
-
-    const animate = () => {
+    const tick = () => {
       if (disposed) return
-      animationId = requestAnimationFrame(animate)
+      if (!activeRef.current) {
+        animationId = 0
+        return
+      }
+      animationId = requestAnimationFrame(tick)
       const elapsed = clock.getElapsedTime()
 
       if (model) {
@@ -143,29 +125,88 @@ export default function AsciiViewer({
         model.rotation.x = Math.sin(elapsed * 0.18) * 0.12
       }
 
-      controls?.update()
-      if (effect) effect.render(scene, camera)
+      paint()
     }
+
+    const startLoop = () => {
+      if (disposed || animationId || !activeRef.current) return
+      if (!ensureRenderer()) return
+      clock.getDelta()
+      animationId = requestAnimationFrame(tick)
+    }
+
+    const stopLoop = () => {
+      cancelAnimationFrame(animationId)
+      animationId = 0
+    }
+
+    loopApiRef.current = { start: startLoop, stop: stopLoop, paint }
+
+    const onModel = (gltf) => {
+      if (disposed) return
+      model = gltf.scene
+
+      const box = new THREE.Box3().setFromObject(model)
+      const size = box.getSize(new THREE.Vector3())
+      const center = box.getCenter(new THREE.Vector3())
+      const maxDim = Math.max(size.x, size.y, size.z) || 1
+      const s = scale / maxDim
+      model.scale.setScalar(s)
+      model.position.copy(center).multiplyScalar(-s)
+
+      model.traverse((child) => {
+        if (!child.isMesh) return
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0xffffff,
+          roughness: 0.42,
+          metalness: 0.08,
+          flatShading: false,
+        })
+      })
+
+      scene.add(model)
+
+      if (ensureRenderer()) {
+        /* First frame ready; animate only when footer is in view. */
+        paint()
+        if (activeRef.current) startLoop()
+      }
+    }
+
+    const loadModel = () => {
+      if (disposed) return
+      ensureRenderer()
+      const loader = new GLTFLoader()
+      loader.load(
+        modelPath,
+        onModel,
+        undefined,
+        (err) => {
+          console.error('ASCII viewer failed to load model', modelPath, err)
+        },
+      )
+    }
+
+    loadModel()
 
     const resizeObserver = new ResizeObserver(() => {
       if (disposed) return
-      if (!start()) return
+      if (!ensureRenderer()) return
       const w = container.clientWidth
       const h = container.clientHeight
       camera.aspect = w / h
       camera.updateProjectionMatrix()
       renderer.setSize(w, h)
       effect.setSize(w, h)
+      paint()
+      if (activeRef.current) startLoop()
     })
     resizeObserver.observe(container)
-
-    start()
-    animate()
 
     return () => {
       disposed = true
       resizeObserver.disconnect()
-      cancelAnimationFrame(animationId)
+      stopLoop()
       controls?.dispose()
       renderer?.dispose()
       scene.traverse((obj) => {
@@ -175,6 +216,12 @@ export default function AsciiViewer({
       while (container.firstChild) container.removeChild(container.firstChild)
     }
   }, [modelPath, resolution, scale, color, backgroundColor, enableControls])
+
+  useEffect(() => {
+    activeRef.current = active
+    if (active) loopApiRef.current.start()
+    else loopApiRef.current.stop()
+  }, [active])
 
   return <div className={`ascii-viewer ${className}`.trim()} ref={containerRef} />
 }

@@ -238,6 +238,10 @@ export function useImageDisintegrate({
     const bag = { dead: false, raf: 0 }
 
     const play = async () => {
+      /* Hide the still image immediately so dust can take over while the next
+       * component loads — don't wait for sampling to finish. */
+      onBusyChange?.(true)
+
       const rect = host.getBoundingClientRect()
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = Math.max(1, Math.round(rect.width * dpr))
@@ -250,6 +254,7 @@ export function useImageDisintegrate({
       let outBox = lastBox.current
       if (from && !outBox) {
         const prev = await loadImage(from)
+        if (bag.dead) return
         outBox = containRect(
           prev.naturalWidth,
           prev.naturalHeight,
@@ -259,7 +264,21 @@ export function useImageDisintegrate({
         )
       }
 
-      const nextImg = to ? await loadImage(to) : null
+      /* Sample the outgoing image first and paint dust at t=0 while the next
+       * image loads + samples in parallel. */
+      const fromPartsPromise = sampleParticles(from, outBox)
+      const nextImgPromise = to ? loadImage(to) : Promise.resolve(null)
+
+      const fromParts = await fromPartsPromise
+      if (bag.dead) return
+
+      if (fromParts.length) {
+        drawMorph(ctx, pairParticles(fromParts, fromParts), 0)
+      }
+
+      const nextImg = await nextImgPromise
+      if (bag.dead) return
+
       const inBox = nextImg
         ? containRect(
             nextImg.naturalWidth,
@@ -270,10 +289,7 @@ export function useImageDisintegrate({
           )
         : null
 
-      const [fromParts, toParts] = await Promise.all([
-        sampleParticles(from, outBox),
-        sampleParticles(to, inBox),
-      ])
+      const toParts = await sampleParticles(to, inBox)
       if (bag.dead) return
 
       const particles = pairParticles(fromParts, toParts)
@@ -286,7 +302,6 @@ export function useImageDisintegrate({
       }
 
       drawMorph(ctx, particles, 0)
-      onBusyChange?.(true)
 
       await runTween(
         MORPH_MS,
