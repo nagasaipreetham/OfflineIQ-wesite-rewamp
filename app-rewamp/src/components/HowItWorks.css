@@ -24,7 +24,7 @@
   --t-blink-stagger: 200ms;
 
   position: relative;
-  padding: clamp(8px, 1.2vh, 12px) 0 clamp(48px, 7vh, 88px);
+  padding: 0 0 clamp(48px, 7vh, 88px);
   background: var(--bg);
 }
 

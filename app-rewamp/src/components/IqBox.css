@@ -1,6 +1,6 @@
 .iqbox {
   position: relative;
-  padding: clamp(8px, 1.2vh, 12px) 0 clamp(48px, 8vh, 96px);
+  padding: 0 0 clamp(48px, 8vh, 96px);
   background: var(--bg);
 }
 

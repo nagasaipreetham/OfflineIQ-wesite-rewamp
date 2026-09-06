@@ -1,4 +1,5 @@
 import { ShellInner } from './Shell.jsx'
+import SectionPin from './SectionPin.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import './Models.css'
 
@@ -6,13 +7,15 @@ function Models() {
   return (
     <section className="models" id="models">
       <ShellInner>
-        <h2 className="models__title">
-          <span className="models__num" aria-hidden="true">
-            {greekNumeral(3)}.
-          </span>
-          <span className="models__label">Models</span>
-        </h2>
-        <div className="models__rule" aria-hidden="true" />
+        <SectionPin>
+          <h2 className="models__title">
+            <span className="models__num" aria-hidden="true">
+              {greekNumeral(3)}.
+            </span>
+            <span className="models__label">Models</span>
+          </h2>
+          <div className="models__rule" aria-hidden="true" />
+        </SectionPin>
 
         <div className="models__intro">
           <h3 className="models__heading">

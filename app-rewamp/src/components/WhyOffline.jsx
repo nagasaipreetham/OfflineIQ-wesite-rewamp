@@ -1,4 +1,5 @@
 import { ShellInner } from './Shell.jsx'
+import SectionPin from './SectionPin.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import './WhyOffline.css'
 
@@ -49,13 +50,15 @@ function WhyOffline() {
   return (
     <section className="why" id="why-offlineiq">
       <ShellInner>
-        <h2 className="why__title">
-          <span className="why__num" aria-hidden="true">
-            {greekNumeral(4)}.
-          </span>
-          <span className="why__label">Why Offline IQ</span>
-        </h2>
-        <div className="why__rule" aria-hidden="true" />
+        <SectionPin>
+          <h2 className="why__title">
+            <span className="why__num" aria-hidden="true">
+              {greekNumeral(4)}.
+            </span>
+            <span className="why__label">Why Offline IQ</span>
+          </h2>
+          <div className="why__rule" aria-hidden="true" />
+        </SectionPin>
 
         <div className="why__intro">
           <h3 className="why__heading">

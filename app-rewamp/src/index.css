@@ -62,8 +62,14 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  scroll-padding-top: calc(var(--header-h) + 44px);
   overscroll-behavior: none;
+  /*
+   * Clip horizontal spill without killing position:sticky.
+   * Only set this on `html` (the real scrollport). Setting overflow-x on
+   * body/.page forces overflow-y→auto on a non-scrolling ancestor and sticky dies.
+   */
+  overflow-x: clip;
 }
 
 html,
@@ -72,7 +78,6 @@ body {
   padding: 0;
   width: 100%;
   background: var(--bg);
-  overflow-x: hidden;
 }
 
 body.is-menu-open {

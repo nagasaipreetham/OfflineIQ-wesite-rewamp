@@ -17,7 +17,8 @@
   width: 1px;
   background: #000;
   pointer-events: none;
-  z-index: 2;
+  /* Above sticky pins + seps so the column edges stay visible */
+  z-index: 50;
 }
 
 .shell__rail--left {

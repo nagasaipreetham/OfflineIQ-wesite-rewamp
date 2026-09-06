@@ -1,6 +1,6 @@
 .why {
   position: relative;
-  padding: clamp(8px, 1.2vh, 12px) 0 clamp(36px, 6vh, 72px);
+  padding: 0 0 clamp(36px, 6vh, 72px);
   background: var(--bg);
 }
 

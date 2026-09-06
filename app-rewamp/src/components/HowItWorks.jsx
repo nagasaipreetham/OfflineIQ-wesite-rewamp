@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
+import SectionPin from './SectionPin.jsx'
 import IngestOrbit from './IngestOrbit.jsx'
 import ChatSim from './ChatSim.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
@@ -103,13 +104,15 @@ function HowItWorks() {
       data-layout={stacked ? 'stack' : 'row'}
     >
       <ShellInner>
-        <h2 className="how__title">
-          <span className="how__num" aria-hidden="true">
-            {greekNumeral(1)}.
-          </span>
-          <span className="how__label">How it works</span>
-        </h2>
-        <div className="how__rule" aria-hidden="true" />
+        <SectionPin>
+          <h2 className="how__title">
+            <span className="how__num" aria-hidden="true">
+              {greekNumeral(1)}.
+            </span>
+            <span className="how__label">How it works</span>
+          </h2>
+          <div className="how__rule" aria-hidden="true" />
+        </SectionPin>
 
         <div className="how__intro">
           <h3 className="how__heading">

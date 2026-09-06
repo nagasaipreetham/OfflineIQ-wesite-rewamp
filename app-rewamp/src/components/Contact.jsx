@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
+import SectionPin from './SectionPin.jsx'
 import { SplitCta } from './Button.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import './Contact.css'
@@ -75,13 +76,15 @@ function Contact() {
   return (
     <section className="contact" id="contact">
       <ShellInner>
-        <h2 className="contact__title">
-          <span className="contact__num" aria-hidden="true">
-            {greekNumeral(5)}.
-          </span>
-          <span className="contact__label">Contact</span>
-        </h2>
-        <div className="contact__rule" aria-hidden="true" />
+        <SectionPin>
+          <h2 className="contact__title">
+            <span className="contact__num" aria-hidden="true">
+              {greekNumeral(5)}.
+            </span>
+            <span className="contact__label">Contact</span>
+          </h2>
+          <div className="contact__rule" aria-hidden="true" />
+        </SectionPin>
 
         <div className="contact__intro">
           <h3 className="contact__heading">

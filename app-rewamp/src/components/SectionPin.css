@@ -1,0 +1,23 @@
+/*
+ * Sticky section bar inside the shell column — sits between the left/right
+ * rails (not full viewport), flush under the site header while its section
+ * is in view.
+ *
+ * Parent is .shell__inner; negative margin pulls the bar rail-to-rail.
+ * Sticky requires overflow-x only on `html` — see index.css.
+ */
+.section-pin {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  margin-inline: calc(var(--container-pad) * -1);
+  width: calc(100% + var(--container-pad) * 2);
+  padding: 10px var(--container-pad);
+  background: var(--bg);
+  border-bottom: 1px solid #000;
+}
+
+/* Bottom border is on .section-pin; hide the old per-section rule */
+.section-pin > [class$='__rule'] {
+  display: none;
+}

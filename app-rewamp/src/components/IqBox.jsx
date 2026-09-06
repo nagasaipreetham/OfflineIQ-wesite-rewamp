@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
+import SectionPin from './SectionPin.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import { useImageDisintegrate } from '../lib/useImageDisintegrate.js'
 import './IqBox.css'
@@ -171,13 +172,15 @@ function IqBox() {
   return (
     <section className="iqbox" id="the-iq-box">
       <ShellInner>
-        <h2 className="iqbox__title">
-          <span className="iqbox__num" aria-hidden="true">
-            {greekNumeral(2)}.
-          </span>
-          <span className="iqbox__label">The IQ Box</span>
-        </h2>
-        <div className="iqbox__rule" aria-hidden="true" />
+        <SectionPin>
+          <h2 className="iqbox__title">
+            <span className="iqbox__num" aria-hidden="true">
+              {greekNumeral(2)}.
+            </span>
+            <span className="iqbox__label">The IQ Box</span>
+          </h2>
+          <div className="iqbox__rule" aria-hidden="true" />
+        </SectionPin>
 
         <div className="iqbox__intro">
           <p className="iqbox__eyebrow">Wonder where your AI lives?</p>
