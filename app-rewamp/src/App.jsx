@@ -7,6 +7,7 @@ import SectionSep from './components/SectionSep.jsx'
 import HowItWorks from './components/HowItWorks.jsx'
 import IqBox from './components/IqBox.jsx'
 import Models from './components/Models.jsx'
+import WhyOffline from './components/WhyOffline.jsx'
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <IqBox />
           <SectionSep />
           <Models />
+          <SectionSep />
+          <WhyOffline />
         </Shell>
       </main>
     </div>

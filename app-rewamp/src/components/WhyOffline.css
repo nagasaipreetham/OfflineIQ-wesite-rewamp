@@ -1,10 +1,10 @@
-.models {
+.why {
   position: relative;
   padding: clamp(8px, 1.2vh, 12px) 0 clamp(36px, 6vh, 72px);
   background: var(--bg);
 }
 
-.models__title {
+.why__title {
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -18,7 +18,7 @@
   text-align: center;
 }
 
-.models__num {
+.why__num {
   flex: 0 0 auto;
   font-family: var(--font-sans), 'Segoe UI', 'Noto Sans', sans-serif;
   font-weight: 500;
@@ -26,14 +26,14 @@
   text-transform: none;
 }
 
-.models__label {
+.why__label {
   font-family: var(--font-sans);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.models__rule {
+.why__rule {
   height: 0;
   margin: clamp(6px, 1vw, 10px) calc(var(--container-pad) * -1) 0;
   width: calc(100% + var(--container-pad) * 2);
@@ -41,13 +41,13 @@
   background: none;
 }
 
-.models__intro {
+.why__intro {
   max-width: min(100%, 980px);
   margin: clamp(22px, 3vw, 36px) auto 0;
   text-align: center;
 }
 
-.models__heading {
+.why__heading {
   margin: 0;
   font-family: var(--font-sans);
   font-size: clamp(1.45rem, 3.2vw, 2.25rem);
@@ -58,7 +58,7 @@
   text-wrap: balance;
 }
 
-.models__mark {
+.why__mark {
   display: inline-block;
   font: inherit;
   padding: 0.06em 0.22em 0.18em;
@@ -68,8 +68,8 @@
   color: #fff;
 }
 
-.models__caption {
-  max-width: 36em;
+.why__caption {
+  max-width: 38em;
   margin: clamp(12px, 1.6vw, 18px) auto 0;
   font-family: var(--font-display);
   font-size: clamp(0.9rem, 1.25vw, 1.05rem);
@@ -80,75 +80,118 @@
   text-wrap: pretty;
 }
 
-.models__table-wrap {
+.why__table-wrap {
   width: 100%;
-  max-width: min(100%, 980px);
+  max-width: min(100%, 820px);
   margin: clamp(28px, 4vw, 44px) auto 0;
   overflow-x: auto;
+  padding: 8px 4px 20px;
 }
 
-.models__table {
+.why__table {
   width: 100%;
-  min-width: 560px;
+  min-width: 460px;
   border-collapse: separate;
   border-spacing: 0;
   text-align: center;
 }
 
-.models__table th,
-.models__table td {
-  padding: 14px 16px;
-  text-align: center;
+.why__table th,
+.why__table td {
+  padding: 12px 16px;
   vertical-align: middle;
+  font-family: var(--font-display);
+  font-size: clamp(0.76rem, 1.02vw, 0.875rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #000;
 }
 
-.models__table thead th {
+.why__table thead th {
+  font-weight: 400;
+}
+
+/* First column — labels, regular weight, left aligned */
+.why__table thead th:first-child,
+.why__table tbody th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #000;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.why__table thead th:first-child {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.why__table tbody td {
+  text-align: center;
+  border-bottom: 1px solid #e6e6e6;
+  background: #fff;
+}
+
+.why__table tbody tr:last-child th,
+.why__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Elevated 2nd column — particle-blue lift; OfflineIQ stays bold */
+.why__table thead th:nth-child(2),
+.why__table tbody td:nth-child(2) {
   position: relative;
   z-index: 1;
   font-family: var(--font-sans);
-  font-size: clamp(0.78rem, 1.05vw, 0.9rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
   color: #fff;
   background-color: var(--blue-primary);
   background-image: url('/models-header.png');
   background-size: cover;
   background-position: center;
+  border-bottom-color: rgba(255, 255, 255, 0.18);
   box-shadow:
     0 10px 28px rgba(5, 98, 239, 0.28),
     0 2px 8px rgba(5, 98, 239, 0.18);
 }
 
-.models__table thead th:first-child {
-  border-radius: 8px 0 0 8px;
+.why__table thead th:nth-child(2) {
+  font-weight: 700;
+  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  border-radius: 8px 8px 0 0;
 }
 
-.models__table thead th:last-child {
-  border-radius: 0 8px 8px 0;
-}
-
-.models__table tbody td {
-  font-family: var(--font-display);
-  font-size: clamp(0.8rem, 1.05vw, 0.9rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: #000;
-  border-bottom: 1px solid #e6e6e6;
-  background: #fff;
-}
-
-.models__table tbody tr:last-child td {
+.why__table tbody tr:last-child td:nth-child(2) {
+  border-radius: 0 0 8px 8px;
   border-bottom: 0;
 }
 
-.models__table tfoot td {
-  padding: 16px 12px 4px;
-  font-family: var(--font-sans);
-  font-size: clamp(0.68rem, 0.9vw, 0.75rem);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3d3d3d;
+.why__table thead th:nth-child(3),
+.why__table tbody td:nth-child(3) {
   text-align: center;
-  border: 0;
-  background: transparent;
+  font-weight: 400;
+}
+
+.why__tick {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.why__tick--on-blue {
+  color: #fff;
+}
+
+.why__tick--on-light {
+  color: var(--blue-primary);
+}
+
+.why__dash {
+  color: #9a9a9a;
+}
+
+@media (max-width: 560px) {
+  .why__table th,
+  .why__table td {
+    padding: 10px 10px;
+    font-size: 0.78rem;
+  }
 }
