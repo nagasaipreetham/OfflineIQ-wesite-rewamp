@@ -8,6 +8,8 @@ import HowItWorks from './components/HowItWorks.jsx'
 import IqBox from './components/IqBox.jsx'
 import Models from './components/Models.jsx'
 import WhyOffline from './components/WhyOffline.jsx'
+import BuiltFor from './components/BuiltFor.jsx'
+import Contact from './components/Contact.jsx'
 
 function App() {
   return (
@@ -26,6 +28,14 @@ function App() {
           <Models />
           <SectionSep />
           <WhyOffline />
+          <SectionSep />
+        </Shell>
+
+        <BuiltFor />
+
+        <Shell>
+          <SectionSep />
+          <Contact />
         </Shell>
       </main>
     </div>
