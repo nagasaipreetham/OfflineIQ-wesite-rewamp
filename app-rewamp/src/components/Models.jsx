@@ -28,24 +28,48 @@ function Models() {
           <table className="models__table">
             <thead>
               <tr>
-                <th scope="col">AI Model</th>
-                <th scope="col">Parameters</th>
-                <th scope="col">Workload Profile</th>
-                <th scope="col">Inference Speed</th>
+                <th scope="col">
+                  <span className="models__cell">AI Model</span>
+                </th>
+                <th scope="col">
+                  <span className="models__cell">Parameters</span>
+                </th>
+                <th scope="col">
+                  <span className="models__cell">Workload Profile</span>
+                </th>
+                <th scope="col">
+                  <span className="models__cell">Inference Speed</span>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Qwen 2.5 3B</td>
-                <td>3B</td>
-                <td>High-speed inference</td>
-                <td>153.93 tok/s</td>
+                <td>
+                  <span className="models__cell">Qwen 2.5 3B</span>
+                </td>
+                <td>
+                  <span className="models__cell">3B</span>
+                </td>
+                <td>
+                  <span className="models__cell">High-speed inference</span>
+                </td>
+                <td>
+                  <span className="models__cell">153.93 tok/s</span>
+                </td>
               </tr>
               <tr>
-                <td>Qwen 2.5 14B</td>
-                <td>14B</td>
-                <td>Advanced reasoning &amp; generation</td>
-                <td>56.38 tok/s</td>
+                <td>
+                  <span className="models__cell">Qwen 2.5 14B</span>
+                </td>
+                <td>
+                  <span className="models__cell">14B</span>
+                </td>
+                <td>
+                  <span className="models__cell">Advanced reasoning &amp; generation</span>
+                </td>
+                <td>
+                  <span className="models__cell">56.38 tok/s</span>
+                </td>
               </tr>
             </tbody>
             <tfoot>

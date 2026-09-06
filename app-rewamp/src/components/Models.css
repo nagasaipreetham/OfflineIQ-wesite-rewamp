@@ -85,11 +85,11 @@
   max-width: min(100%, 980px);
   margin: clamp(28px, 4vw, 44px) auto 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .models__table {
   width: 100%;
-  min-width: 560px;
   border-collapse: separate;
   border-spacing: 0;
   text-align: center;
@@ -141,6 +141,10 @@
   border-bottom: 0;
 }
 
+.models__cell {
+  display: block;
+}
+
 .models__table tfoot td {
   padding: 16px 12px 4px;
   font-family: var(--font-sans);
@@ -151,4 +155,49 @@
   text-align: center;
   border: 0;
   background: transparent;
+}
+
+/* First squeeze: keep Parameters, wrap to max 2 lines; scroll if still wide */
+@media (max-width: 900px) {
+  .models__table th,
+  .models__table td {
+    padding: 12px 10px;
+  }
+
+  .models__table thead th {
+    font-size: 0.74rem;
+  }
+
+  .models__table tbody td {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .models__cell {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.35;
+    max-height: calc(1.35em * 2);
+  }
+}
+
+/* Still too narrow: drop Parameters, use full available width */
+@media (max-width: 560px) {
+  .models__table thead th:nth-child(2),
+  .models__table tbody td:nth-child(2) {
+    display: none;
+  }
+
+  .models__table {
+    width: 100%;
+  }
+
+  .models__table th,
+  .models__table td {
+    padding: 12px 8px;
+  }
 }
