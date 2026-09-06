@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
+import { useImageDisintegrate } from '../lib/useImageDisintegrate.js'
 import './IqBox.css'
 
-const CYCLE_MS = 5000
+const CYCLE_MS = 6500
 /* Matches the demo’s [perspective:500px] feel — soft card lean, not a hard flip. */
 const TILT_MAX = 18
 const HOVER_SCALE = 1.08
@@ -18,8 +19,8 @@ const SPECS = [
   {
     tagline: 'The working memory.',
     name: '59.4 GiB RAM',
-    image: null,
-    deviceClass: null,
+    image: '/ram-stick.png',
+    deviceClass: 'iqbox__device--ram',
   },
   {
     tagline: 'The AI powerhouse.',
@@ -30,13 +31,15 @@ const SPECS = [
   {
     tagline: 'The storage foundation.',
     name: '4 TB NVMe',
-    image: null,
-    deviceClass: null,
+    image: '/nvme-ssd.png',
+    deviceClass: 'iqbox__device--nvme',
   },
 ]
 
 function IqBox() {
   const stageRef = useRef(null)
+  const visualRef = useRef(null)
+  const canvasRef = useRef(null)
   const deviceRef = useRef(null)
   const tiltRaf = useRef(0)
   const playingRef = useRef(false)
@@ -45,6 +48,13 @@ function IqBox() {
   const [playing, setPlaying] = useState(false)
   const [cycleKey, setCycleKey] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [dissolving, setDissolving] = useState(false)
+  const [shownImage, setShownImage] = useState(SPECS[0].image)
+
+  const commitImage = useCallback((src) => {
+    setShownImage(src)
+    setDissolving(false)
+  }, [])
 
   const start = useCallback(() => {
     if (playingRef.current) return
@@ -147,6 +157,16 @@ function IqBox() {
 
   const activeSpec = SPECS[active]
   const activeImage = activeSpec.image
+  const shownSpec = SPECS.find((s) => s.image === shownImage) || activeSpec
+
+  useImageDisintegrate({
+    hostRef: visualRef,
+    canvasRef,
+    src: activeImage,
+    reducedMotion,
+    onBusyChange: setDissolving,
+    onCommit: commitImage,
+  })
 
   return (
     <section className="iqbox" id="the-iq-box">
@@ -205,34 +225,48 @@ function IqBox() {
           </div>
 
           <div
-            className={`iqbox__visual${activeImage ? ' has-device' : ''}`}
-            aria-hidden={!activeImage}
+            className={`iqbox__visual${activeImage ? ' has-device' : ''}${
+              dissolving ? ' is-dissolving' : ''
+            }`}
+            ref={visualRef}
+            aria-hidden={!activeImage && !dissolving}
           >
             <div
               className="iqbox__visual-bg"
               style={{ backgroundImage: 'url(/bg.webp)' }}
             />
-            {activeImage ? (
-              <div className="iqbox__visual-stage" key={activeImage}>
+            <canvas
+              ref={canvasRef}
+              className="iqbox__dissolve"
+              aria-hidden="true"
+            />
+            {shownImage ? (
+              <div
+                className={`iqbox__visual-stage${dissolving ? ' is-hidden' : ''}`}
+              >
                 <div
                   ref={deviceRef}
                   className={`iqbox__device${
-                    activeSpec.deviceClass ? ` ${activeSpec.deviceClass}` : ''
+                    shownSpec.deviceClass ? ` ${shownSpec.deviceClass}` : ''
                   }`}
-                  onMouseMove={reducedMotion ? undefined : onDeviceMove}
-                  onMouseLeave={reducedMotion ? undefined : onDeviceLeave}
+                  onMouseMove={
+                    dissolving || reducedMotion ? undefined : onDeviceMove
+                  }
+                  onMouseLeave={
+                    dissolving || reducedMotion ? undefined : onDeviceLeave
+                  }
                 >
                   <img
                     className="iqbox__visual-device"
-                    src={activeImage}
+                    src={shownImage}
                     alt=""
                     draggable={false}
                   />
                   <span
                     className="iqbox__device-shine"
                     style={{
-                      WebkitMaskImage: `url(${activeImage})`,
-                      maskImage: `url(${activeImage})`,
+                      WebkitMaskImage: `url(${shownImage})`,
+                      maskImage: `url(${shownImage})`,
                     }}
                     aria-hidden="true"
                   />

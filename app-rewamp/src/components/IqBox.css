@@ -241,14 +241,27 @@
   pointer-events: none;
 }
 
+.iqbox__dissolve {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .iqbox__visual-stage {
   position: absolute;
   inset: 0;
+  z-index: 1;
   display: grid;
   place-items: center;
   transform-style: preserve-3d;
   pointer-events: none;
-  animation: iqbox-device-in 420ms var(--ease-out, ease-out) both;
+}
+
+.iqbox__visual-stage.is-hidden {
+  visibility: hidden;
 }
 
 /* Tilt target — only this hit area receives hover (not the whole panel). */
@@ -307,6 +320,21 @@
   max-height: min(62vh, 420px);
 }
 
+.iqbox__device--ram,
+.iqbox__device--nvme {
+  max-width: 88%;
+  max-height: 86%;
+  align-self: center;
+  justify-self: center;
+}
+
+.iqbox__device--ram .iqbox__visual-device,
+.iqbox__device--nvme .iqbox__visual-device {
+  width: 100%;
+  height: auto;
+  max-height: min(56vh, 380px);
+}
+
 /*
  * Shared shine (graphics): thin faint silver-white sweep.
  * Skewed band — fine for the wide GPU art.
@@ -354,7 +382,8 @@
  * so the highlight runs top → bottom across the whole square chip
  * (the skewed band was clipping short of the lower edge).
  */
-.iqbox__device--ryzen .iqbox__device-shine::after {
+.iqbox__device--ryzen .iqbox__device-shine::after,
+.iqbox__device--ram .iqbox__device-shine::after {
   top: 0;
   left: 0;
   width: 100%;
@@ -458,9 +487,11 @@
     max-height: 68%;
   }
 
-  .iqbox__device--radeon {
-    max-width: 78%;
-    max-height: 78%;
+  .iqbox__device--radeon,
+  .iqbox__device--ram,
+  .iqbox__device--nvme {
+    max-width: 86%;
+    max-height: 80%;
   }
 }
 
