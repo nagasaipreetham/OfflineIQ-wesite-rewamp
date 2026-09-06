@@ -10,6 +10,7 @@ import Models from './components/Models.jsx'
 import WhyOffline from './components/WhyOffline.jsx'
 import BuiltFor from './components/BuiltFor.jsx'
 import Contact from './components/Contact.jsx'
+import Footer from './components/Footer.jsx'
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           <Contact />
         </Shell>
       </main>
+
+      <Footer />
     </div>
   )
 }
