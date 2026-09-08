@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -14,14 +15,14 @@ const PATH_CENTER =
   'M0-0.3C0-0.3,464,0,1139,0s1139-0.3,1139-0.3V683H0V-0.3z'
 
 const FOOTER_LINKS = [
-  { label: 'Support', href: '#support' },
-  { label: 'Content journey', href: '#content-journey' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Architecture', href: '#architecture' },
-  { label: 'Tools', href: '#tools' },
-  { label: 'Use cases', href: '#use-cases' },
-  { label: 'Deployment', href: '#deployment' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Support', to: '/support' },
+  { label: 'Content journey', to: '/content-journey' },
+  { label: 'How it works', to: '/#how-it-works' },
+  { label: 'Architecture', to: '/#the-iq-box' },
+  { label: 'Tools', to: '/#models' },
+  { label: 'Use cases', to: '/#industries' },
+  { label: 'Deployment', to: '/consultation' },
+  { label: 'Contact', to: '/#contact' },
 ]
 
 function Footer() {
@@ -129,10 +130,10 @@ function Footer() {
       <div className="site-footer__grid">
         <div className="site-footer__left-top">
           <nav className="site-footer__nav" aria-label="Footer">
-            {FOOTER_LINKS.map(({ label, href }) => (
-              <a key={href} className="site-footer__nav-link" href={href}>
+            {FOOTER_LINKS.map(({ label, to }) => (
+              <Link key={to + label} className="site-footer__nav-link" to={to}>
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
           <p className="site-footer__copy">&copy; 2026 OfflineIQ. All rights reserved.</p>

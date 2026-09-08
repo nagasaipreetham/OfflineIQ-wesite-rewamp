@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowRight, SplitCta } from './Button.jsx'
 import './Header.css'
 
 const NAV_LINKS = [
-  { label: 'Product', href: '#product' },
-  { label: 'Content journey', href: '#content-journey' },
-  { label: 'Industries', href: '#industries' },
-  { label: 'How it works', href: '#how-it-works' },
+  { label: 'Product', to: '/#the-iq-box' },
+  { label: 'Content journey', to: '/content-journey' },
+  { label: 'Industries', to: '/#industries' },
+  { label: 'How it works', to: '/#how-it-works' },
 ]
 
-const SUPPORT_HREF = '#support'
+const SUPPORT_TO = '/support'
 
 /* keep in sync with --nav-breakpoint in index.css */
 const NAV_QUERY = '(min-width: 1120px)'
@@ -19,7 +20,6 @@ function Header() {
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef(null)
 
-  // scrolled state + the blue progress hairline along the bottom edge
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY
@@ -39,7 +39,6 @@ function Header() {
     }
   }, [])
 
-  // close the panel once the viewport is wide enough for the centered nav
   useEffect(() => {
     const mq = window.matchMedia(NAV_QUERY)
     const sync = (e) => {
@@ -70,24 +69,24 @@ function Header() {
       className={`site-header ${scrolled ? 'is-scrolled' : ''}`.trim()}
     >
       <div className="site-header__inner">
-        <a className="brand" href="#top" onClick={closeMenu}>
+        <Link className="brand" to="/" onClick={closeMenu}>
           Offline<span className="brand__accent">IQ</span>
-        </a>
+        </Link>
 
         <nav className="site-nav" aria-label="Primary">
-          {NAV_LINKS.map(({ label, href }, i) => (
-            <a key={href} className="site-nav__link" href={href} style={{ '--i': i }}>
+          {NAV_LINKS.map(({ label, to }, i) => (
+            <Link key={to} className="site-nav__link" to={to} style={{ '--i': i }}>
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="site-header__actions">
-          <a className="btn btn--secondary site-header__support" href={SUPPORT_HREF}>
+          <Link className="btn btn--secondary site-header__support" to={SUPPORT_TO}>
             Support
-          </a>
+          </Link>
 
-          <SplitCta className="site-header__cta" />
+          <SplitCta className="site-header__cta" href="/consultation" />
 
           <button
             type="button"
@@ -108,11 +107,11 @@ function Header() {
 
       <div className={`site-menu ${menuOpen ? 'is-open' : ''}`.trim()} id="site-menu">
         <nav className="site-menu__nav" aria-label="Mobile">
-          {NAV_LINKS.map(({ label, href }, i) => (
-            <a
-              key={href}
+          {NAV_LINKS.map(({ label, to }, i) => (
+            <Link
+              key={to}
               className="site-menu__link"
-              href={href}
+              to={to}
               style={{ '--i': i }}
               onClick={closeMenu}
             >
@@ -120,19 +119,23 @@ function Header() {
               <span className="site-menu__chevron" aria-hidden="true">
                 <ArrowRight />
               </span>
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="site-menu__actions" style={{ '--i': NAV_LINKS.length }}>
-          <a
+          <Link
             className="btn btn--secondary site-menu__support"
-            href={SUPPORT_HREF}
+            to={SUPPORT_TO}
             onClick={closeMenu}
           >
             Support
-          </a>
-          <SplitCta className="site-menu__cta" />
+          </Link>
+          <SplitCta
+            className="site-menu__cta"
+            href="/consultation"
+            onClick={closeMenu}
+          />
         </div>
       </div>
 

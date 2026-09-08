@@ -29,7 +29,7 @@ function Track() {
 
 function BuiltFor() {
   return (
-    <section className="builtfor" aria-label="Built for industries">
+    <section className="builtfor" id="industries" aria-label="Built for industries">
       <div className="builtfor__inner">
         <p className="builtfor__heading">Built for</p>
         <div className="builtfor__marquee">

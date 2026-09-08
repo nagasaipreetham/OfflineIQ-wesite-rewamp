@@ -1,7 +1,7 @@
 import './Button.css'
 
 export const CTA_LABEL = 'Get Your Private AI'
-export const CTA_HREF = '#contact'
+export const CTA_HREF = '/consultation'
 
 export function ArrowRight() {
   return (

@@ -114,7 +114,7 @@ function Contact() {
               <SplitCta
                 className="contact__cta"
                 label="Talk to Our Team"
-                href="#contact"
+                href="/consultation"
                 size="lg"
               />
             </div>

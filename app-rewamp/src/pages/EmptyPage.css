@@ -1,0 +1,12 @@
+.page-empty {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: clamp(280px, 42vh, 520px);
+  background: var(--bg);
+}
+
+.page-empty__spacer {
+  flex: 1 1 auto;
+}
