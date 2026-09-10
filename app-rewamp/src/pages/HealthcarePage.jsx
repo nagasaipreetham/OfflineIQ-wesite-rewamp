@@ -5,6 +5,8 @@ import './HealthcarePage.css'
 const ASK_QUESTION = 'Give me the complete picture of the patient no. - xxxx'
 const ASK_CHAR_MS = 42
 const ASK_LOOP_GAP_MS = 3000
+const SCANNING_HOLD_MS = 3000
+const REPORT_HOLD_MS = 2000
 
 function PinGlyph() {
   return (
@@ -138,19 +140,20 @@ function useAskSimulation() {
   const completeScan = useCallback(() => {
     if (!running.current) return
     const id = runId.current
-    setPhase('hold')
+    setPhase('scanning')
     timers.current.push(
       setTimeout(() => {
         if (!running.current || runId.current !== id) return
-        clearBoard()
+        setPhase('report')
         timers.current.push(
           setTimeout(() => {
-            if (running.current && runId.current === id) run()
-          }, 60),
+            if (!running.current || runId.current !== id) return
+            setPhase('ready')
+          }, REPORT_HOLD_MS),
         )
-      }, ASK_LOOP_GAP_MS),
+      }, SCANNING_HOLD_MS),
     )
-  }, [clearBoard, run])
+  }, [])
 
   return {
     phase,
@@ -219,8 +222,8 @@ function ScatterDoc({ x, y, s, delay, docRef }) {
   )
 }
 
-const STACK_COUNT = 15
-const GREEN_FLY = new Set([1, 5, 9, 13])
+const STACK_COUNT = 10
+const GREEN_FLY = new Set([1, 4, 6, 9])
 const EASE_FLY = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
 function relBox(el, origin) {
@@ -231,6 +234,119 @@ function relBox(el, origin) {
     w: b.width,
     h: b.height,
   }
+}
+
+const REPORT_LABS = [
+  { name: 'Lactate', value: '6.8 mmol/L', flag: 'critical', note: 'Bowel ischemia / hypoperfusion' },
+  { name: 'pH (ABG)', value: '7.21', flag: 'critical', note: 'Metabolic acidosis' },
+  { name: 'Creatinine', value: '3.1 mg/dL', flag: 'high', note: 'Acute kidney injury' },
+  { name: 'WBC', value: '22.4 ×10⁹/L', flag: 'high', note: 'Systemic inflammation' },
+  { name: 'CRP', value: '312 mg/L', flag: 'high', note: 'Severe inflammatory load' },
+  { name: 'MAP', value: '54 mmHg', flag: 'critical', note: 'Shock, on norepinephrine' },
+]
+
+const REPORT_CITES = [
+  { file: 'ct-angio-abdomen-0314.pdf', loc: 'p. 4 · SMA origin' },
+  { file: 'op-note-exploratory-lap.docx', loc: '§ Findings · 06:40' },
+  { file: 'icu-flowsheet-vitals.csv', loc: '04:18–11:00' },
+  { file: 'abg-chem-panel-stat.pdf', loc: 'Lab · 05:02' },
+]
+
+function PatientReport() {
+  return (
+    <div className="hc-dossier">
+      <header className="hc-dossier__head">
+        <p className="hc-dossier__kicker">Patient no. 4482 · IQ Box extract</p>
+        <h3 className="hc-dossier__diag" id="hc-report-title">
+          Acute mesenteric ischemia
+          <span>SMA thrombosis · bowel necrosis · septic shock</span>
+        </h3>
+      </header>
+
+      <div className="hc-dossier__grid">
+        <section className="hc-dossier__col" aria-label="Report values">
+          <div className="hc-dossier__id">
+            <p>
+              <strong>Marcus Ellison</strong> · 64M
+            </p>
+            <p>Admitted 14 Mar 2026 · 04:18 · ICU 2</p>
+          </div>
+
+          <p className="hc-dossier__banner">Critical — multi-organ failure in progress</p>
+
+          <h4 className="hc-dossier__label">Vitals now</h4>
+          <ul className="hc-dossier__vitals">
+            <li>
+              HR <b>128</b>
+            </li>
+            <li>
+              BP <b>78/42</b>
+            </li>
+            <li>
+              SpO₂ <b>91%</b>
+              <small>FiO₂ 0.80</small>
+            </li>
+            <li>
+              Temp <b>38.9°C</b>
+            </li>
+          </ul>
+
+          <h4 className="hc-dossier__label">Aligned findings</h4>
+          <table className="hc-dossier__labs">
+            <tbody>
+              {REPORT_LABS.map((row) => (
+                <tr key={row.name}>
+                  <th>{row.name}</th>
+                  <td>
+                    <span className={`hc-dossier__flag is-${row.flag}`}>{row.value}</span>
+                  </td>
+                  <td>{row.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <h4 className="hc-dossier__label">Citations</h4>
+          <ul className="hc-dossier__cites">
+            {REPORT_CITES.map((cite) => (
+              <li key={cite.file}>
+                <span>{cite.file}</span>
+                <em>{cite.loc}</em>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="hc-dossier__col hc-dossier__col--story" aria-label="Clinical course">
+          <h4 className="hc-dossier__label">What happened</h4>
+          <p>
+            Ellison presented at 04:18 with sudden, severe abdominal pain out of proportion to
+            exam, then collapsed in triage. CT angiography at 05:11 showed an occluding thrombus
+            at the origin of the superior mesenteric artery — the vessel that supplies most of the
+            small bowel. That occlusion is the root event. Everything after it follows from dying
+            gut.
+          </p>
+
+          <h4 className="hc-dossier__label">What he is suffering</h4>
+          <p>
+            Necrotic ileum and jejunum released bacterial toxin into the blood. That produced{' '}
+            <strong>septic shock</strong> (MAP 54 on norepinephrine), a lactate of 6.8 from
+            ischemic tissue, and a pH of 7.21. The same hypoperfusion injured the kidneys —
+            creatinine rose to 3.1 with almost no urine. He is not “just in pain.” He is in
+            bowel-driven septic shock with acute kidney injury and worsening acidosis.
+          </p>
+
+          <h4 className="hc-dossier__label">Current condition</h4>
+          <p>
+            Taken for emergency laparotomy at 06:40: 140 cm of non-viable small bowel resected,
+            abdomen left open for a second look. He is now intubated in ICU 2, anuric, still
+            acidotic, and on rising pressor doses. Risk of further necrosis, anastomotic leak, and
+            refractory shock remains high until the second-look confirms remaining bowel is viable.
+          </p>
+        </section>
+      </div>
+    </div>
+  )
 }
 
 /** Soft curve from file → hub. Always progresses downward; no loops. */
@@ -271,13 +387,18 @@ export default function HealthcarePage() {
   const portRef = useRef(null)
   const scannerRef = useRef(null)
   const linkRef = useRef(null)
+  const iqboxRef = useRef(null)
+  const keepPortRef = useRef(null)
+  const reportPortRef = useRef(null)
+  const trunkRef = useRef(null)
   const [wireSize, setWireSize] = useState({ width: 0, height: 0 })
   const [forkHot, setForkHot] = useState(null)
-  const { phase, typed, caretOn, start, pause, completeScan } = useAskSimulation()
+  const { phase, typed, caretOn, start, completeScan } = useAskSimulation()
   const completeScanRef = useRef(completeScan)
   completeScanRef.current = completeScan
   const discardRef = useRef(null)
   const keepRef = useRef(null)
+  const reportRef = useRef(null)
   const stackCardRefs = useRef([])
   const flyCardRefs = useRef([])
   const fileAnims = useRef([])
@@ -292,14 +413,45 @@ export default function HealthcarePage() {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) start()
-        else pause()
       },
       { threshold: 0.4, rootMargin: '0px 0px -8% 0px' },
     )
 
     io.observe(el)
     return () => io.disconnect()
-  }, [start, pause])
+  }, [start])
+
+  useEffect(() => {
+    if (phase !== 'ready') return undefined
+
+    const visible = (el) => {
+      if (!el) return false
+      const r = el.getBoundingClientRect()
+      const vh = window.innerHeight || 0
+      return r.bottom > 80 && r.top < vh - 24
+    }
+
+    if (
+      !visible(scannerRef.current) &&
+      !visible(keepRef.current) &&
+      !visible(discardRef.current)
+    ) {
+      return undefined
+    }
+
+    const report = reportRef.current
+    if (!report) return undefined
+
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    const id = window.setTimeout(() => {
+      report.scrollIntoView({
+        behavior: reduced ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    }, 80)
+
+    return () => window.clearTimeout(id)
+  }, [phase])
 
   useLayoutEffect(() => {
     const sim = simRef.current
@@ -329,6 +481,46 @@ export default function HealthcarePage() {
       window.removeEventListener('resize', connect)
     }
   }, [])
+
+  useLayoutEffect(() => {
+    const box = iqboxRef.current
+    const from = keepPortRef.current
+    const to = reportPortRef.current
+    const trunk = trunkRef.current
+    if (!box || !from || !to || !trunk) return undefined
+
+    const paint = () => {
+      const origin = box.getBoundingClientRect()
+      const a = from.getBoundingClientRect()
+      const b = to.getBoundingClientRect()
+      const x1 = a.left + a.width / 2 - origin.left
+      const y1 = a.bottom - origin.top
+      const x2 = b.left + b.width / 2 - origin.left
+      const y2 = b.top - origin.top
+      const midY = y1 + Math.max((y2 - y1) * 0.48, 28)
+      trunk.setAttribute(
+        'd',
+        `M ${x1.toFixed(1)} ${y1.toFixed(1)} L ${x1.toFixed(1)} ${midY.toFixed(1)} L ${x2.toFixed(1)} ${midY.toFixed(1)} L ${x2.toFixed(1)} ${y2.toFixed(1)}`,
+      )
+      const svg = trunk.ownerSVGElement
+      if (svg) {
+        svg.setAttribute('viewBox', `0 0 ${origin.width} ${origin.height}`)
+        svg.setAttribute('width', String(origin.width))
+        svg.setAttribute('height', String(origin.height))
+      }
+    }
+
+    paint()
+    const ro = new ResizeObserver(paint)
+    ro.observe(box)
+    ro.observe(from)
+    ro.observe(to)
+    window.addEventListener('resize', paint)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', paint)
+    }
+  }, [phase, kept.length])
 
   useEffect(() => {
     if (phase === 'idle' || phase === 'typing') {
@@ -839,6 +1031,7 @@ export default function HealthcarePage() {
         className="hc-iqbox"
         aria-labelledby="hc-iqbox-title"
         data-phase={phase}
+        ref={iqboxRef}
       >
         <div className="hc-iqbox__inner">
           <h2 className="hc-iqbox__title" id="hc-iqbox-title">
@@ -905,16 +1098,39 @@ export default function HealthcarePage() {
                     ref={discardRef}
                   />
                 </div>
-                <div className="hc-bins__slot hc-bins__slot--keep" ref={keepRef}>
-                  {kept.map((id, i) => (
-                    <div
-                      key={id}
-                      className="hc-keep-card"
-                      style={{ '--k': i }}
-                    >
-                      <DocFace />
-                    </div>
-                  ))}
+                <div className="hc-bins__keep">
+                  <div className="hc-bins__slot hc-bins__slot--keep" ref={keepRef}>
+                    {kept.map((id, i) => (
+                      <div
+                        key={id}
+                        className="hc-keep-card"
+                        style={{ '--k': i }}
+                      >
+                        <DocFace />
+                      </div>
+                    ))}
+                  </div>
+                  <div
+                    className={`hc-bins__report${
+                      kept.length > 0 || phase === 'report' ? ' is-on' : ''
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <span className="hc-bins__port" ref={keepPortRef}>
+                      <span className="hc-bins__port-dot" />
+                    </span>
+                    {phase === 'report' ? (
+                      <span className="hc-bins__status">
+                        <span className="hc-bins__report-text">Generating report</span>
+                        <span className="hc-bins__spinner" />
+                      </span>
+                    ) : kept.length > 0 && phase !== 'ready' ? (
+                      <span className="hc-bins__status">
+                        <span className="hc-bins__process-text">Processing</span>
+                        <span className="hc-bins__spinner" />
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
               </div>
 
@@ -931,6 +1147,13 @@ export default function HealthcarePage() {
                     </div>
                   </div>
                 </div>
+                {(phase === 'scan' || phase === 'scanning') && (
+                  <div className="hc-scanner__word">
+                    {'SCANNING'.split('').map((ch, i) => (
+                      <span key={`${ch}-${i}`}>{ch}</span>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="hc-stack" aria-hidden="true">
@@ -963,6 +1186,35 @@ export default function HealthcarePage() {
                 ))}
               </div>
           </div>
+
+        <div className="hc-report" id="hc-report" ref={reportRef}>
+          <span className="hc-report__port" ref={reportPortRef} aria-hidden="true">
+            <span className="hc-report__port-dot" />
+          </span>
+          <div
+            className={`hc-report__sheet${phase === 'ready' ? ' is-ready' : ''}`}
+            aria-labelledby="hc-report-title"
+          >
+            {phase === 'ready' ? (
+              <PatientReport />
+            ) : (
+              <>
+                <h3 className="hc-report__title" id="hc-report-title">
+                  Patient report
+                </h3>
+                <p className="hc-report__body">Waiting for IQ Box to finish scanning.</p>
+              </>
+            )}
+          </div>
+        </div>
+        <svg className="hc-iqbox__elbow" aria-hidden="true">
+          <path
+            ref={trunkRef}
+            className={`hc-iqbox__elbow-line${
+              phase === 'report' || phase === 'ready' ? ' is-on' : ''
+            }`}
+          />
+        </svg>
       </section>
     </main>
   )
