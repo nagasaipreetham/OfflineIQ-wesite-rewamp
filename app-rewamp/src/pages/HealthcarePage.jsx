@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import SectionSep from '../components/SectionSep.jsx'
+import Shell from '../components/Shell.jsx'
+import Contact from '../components/Contact.jsx'
 import './HealthcarePage.css'
 
 const ASK_QUESTION = 'Give me the complete picture of the patient no. - xxxx'
 const ASK_CHAR_MS = 42
 const ASK_LOOP_GAP_MS = 3000
-const SCANNING_HOLD_MS = 3000
 const REPORT_HOLD_MS = 2000
 
 function PinGlyph() {
@@ -140,18 +141,12 @@ function useAskSimulation() {
   const completeScan = useCallback(() => {
     if (!running.current) return
     const id = runId.current
-    setPhase('scanning')
+    setPhase('report')
     timers.current.push(
       setTimeout(() => {
         if (!running.current || runId.current !== id) return
-        setPhase('report')
-        timers.current.push(
-          setTimeout(() => {
-            if (!running.current || runId.current !== id) return
-            setPhase('ready')
-          }, REPORT_HOLD_MS),
-        )
-      }, SCANNING_HOLD_MS),
+        setPhase('ready')
+      }, REPORT_HOLD_MS),
     )
   }, [])
 
@@ -1207,6 +1202,10 @@ export default function HealthcarePage() {
             )}
           </div>
         </div>
+        <p className="hc-report__belief">
+          We Believe &ldquo;The Patient&rsquo;s Data Should Never Be the Price of Better
+          AI.&rdquo;
+        </p>
         <svg className="hc-iqbox__elbow" aria-hidden="true">
           <path
             ref={trunkRef}
@@ -1216,6 +1215,73 @@ export default function HealthcarePage() {
           />
         </svg>
       </section>
+
+      <SectionSep />
+
+      <section className="hc-more" aria-labelledby="hc-more-title">
+        <div className="hc-more__inner">
+          <h2 className="hc-more__title" id="hc-more-title">
+            This is <mark className="hc-hero__highlight">Not The End</mark>
+          </h2>
+          <p className="hc-more__caption">
+            The OfflineIQ comes with various features
+          </p>
+
+          <div className="hc-more__grid">
+            <article className="hc-more__card">
+              <h3 className="hc-more__card-title">
+                <span className="hc-more__num" aria-hidden="true">
+                  1
+                </span>
+                <span>13 Specialized AI Agents</span>
+              </h3>
+              <p className="hc-more__card-body">
+                Handle everyday healthcare workflows—from clinical review and extraction to
+                validation, redaction, and reporting.
+              </p>
+            </article>
+            <article className="hc-more__card">
+              <h3 className="hc-more__card-title">
+                <span className="hc-more__num" aria-hidden="true">
+                  2
+                </span>
+                <span>Connect Your Data</span>
+              </h3>
+              <p className="hc-more__card-body">
+                Connect your existing records, databases, documents, and internal sources
+                directly inside your environment.
+              </p>
+            </article>
+          </div>
+
+          <ul className="hc-more__traits" aria-label="OfflineIQ guarantees">
+            {[
+              'No external APIs',
+              'No cloud model fallback',
+              'Zero egress',
+              'Role-based access',
+              'Audit logging',
+              'Encryption',
+            ].map((label) => (
+              <li key={label} className="hc-more__trait">
+                {label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <Shell>
+        <SectionSep />
+        <Contact
+          heading={
+            <>
+              <mark className="contact__mark">One Step</mark> Closer to Healthcare You Can
+              Trust
+            </>
+          }
+        />
+      </Shell>
     </main>
   )
 }

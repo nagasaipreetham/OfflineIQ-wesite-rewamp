@@ -11,7 +11,13 @@ const DELETE_MS = 48
 const HOLD_MS = 2200
 const GAP_MS = 280
 
-function Contact() {
+function Contact({
+  heading = (
+    <>
+      <mark className="contact__mark">One Step</mark> Away From Protecting Your Data
+    </>
+  ),
+}) {
   const [displayed, setDisplayed] = useState('')
 
   useEffect(() => {
@@ -87,10 +93,7 @@ function Contact() {
         </SectionPin>
 
         <div className="contact__intro">
-          <h3 className="contact__heading">
-            <mark className="contact__mark">One Step</mark> Away From Protecting Your
-            Data
-          </h3>
+          <h3 className="contact__heading">{heading}</h3>
         </div>
 
         <div className="contact__split">

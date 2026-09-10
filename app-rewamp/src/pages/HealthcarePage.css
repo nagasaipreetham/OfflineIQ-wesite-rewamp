@@ -570,6 +570,20 @@
   color: var(--text-secondary);
 }
 
+.hc-report__belief {
+  width: 100%;
+  max-width: var(--container);
+  margin: clamp(28px, 4vh, 40px) auto 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.35vw, 1.125rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+  text-align: center;
+  color: #000;
+  text-wrap: pretty;
+}
+
 .hc-iqbox__elbow {
   position: absolute;
   left: 0;
@@ -1605,5 +1619,183 @@
   .hc-bins__report-text,
   .hc-bins__spinner {
     animation: none;
+  }
+}
+
+/* ---------- This is not the END ---------- */
+
+.hc-more {
+  width: 100%;
+  padding: clamp(48px, 7vh, 80px) var(--container-pad) clamp(56px, 8vh, 96px);
+  background: var(--bg);
+}
+
+.hc-more__inner {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hc-more__title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #000;
+  text-wrap: balance;
+}
+
+.hc-more__title .hc-hero__highlight {
+  font: inherit;
+  font-weight: 600;
+}
+
+.hc-more__caption {
+  margin: clamp(12px, 1.8vh, 18px) 0 0;
+  max-width: 36ch;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.4vw, 1.125rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.hc-more__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-top: clamp(28px, 4.5vh, 44px);
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.hc-more__card {
+  padding: clamp(20px, 3vw, 32px) clamp(18px, 2.4vw, 28px);
+  text-align: left;
+  background: #fff;
+}
+
+.hc-more__card + .hc-more__card {
+  border-left: 1px solid #000;
+}
+
+.hc-more__card-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: #000;
+}
+
+.hc-more__num {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  background: var(--blue-primary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+
+.hc-more__card-body {
+  margin: 12px 0 0;
+  padding-left: 26px;
+  font-family: var(--font-display);
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  color: #000;
+}
+
+.hc-more__traits {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #000;
+  border-top: 0;
+  background: #fff;
+}
+
+.hc-more__trait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 14px 12px;
+  border-right: 1px solid #000;
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 1.05vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  text-align: center;
+  color: #000;
+}
+
+.hc-more__trait:last-child {
+  border-right: 0;
+}
+
+@media (max-width: 900px) {
+  .hc-more__traits {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hc-more__trait:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .hc-more__trait:nth-child(n + 4) {
+    border-top: 1px solid #000;
+  }
+}
+
+@media (max-width: 720px) {
+  .hc-more__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hc-more__card + .hc-more__card {
+    border-left: 0;
+    border-top: 1px solid #000;
+  }
+
+  .hc-more__traits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hc-more__trait:nth-child(3n) {
+    border-right: 1px solid #000;
+  }
+
+  .hc-more__trait:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .hc-more__trait:nth-child(n + 3) {
+    border-top: 1px solid #000;
   }
 }
