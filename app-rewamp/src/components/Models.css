@@ -114,9 +114,10 @@
   background-image: url('/models-header.png');
   background-size: cover;
   background-position: center;
+  background-blend-mode: luminosity;
   box-shadow:
-    0 10px 28px rgba(5, 98, 239, 0.28),
-    0 2px 8px rgba(5, 98, 239, 0.18);
+    0 10px 28px rgba(var(--theme-rgb), 0.28),
+    0 2px 8px rgba(var(--theme-rgb), 0.18);
 }
 
 .models__table thead th:first-child {

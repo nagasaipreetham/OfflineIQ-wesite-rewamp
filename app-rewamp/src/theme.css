@@ -1,0 +1,63 @@
+/*
+ * Site palette — change colours here only.
+ * Components use var(--theme), var(--theme-rgb), var(--blue-primary), etc.
+ *
+ * Switch with data-theme="terracotta" | "olive" on <html>.
+ */
+:root {
+  --bg: #ffffff;
+  --text: rgba(0, 0, 0, 0.92);
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --text-muted: rgba(0, 0, 0, 0.45);
+  --text-faint: rgba(0, 0, 0, 0.3);
+  --ink: #1a1f24;
+
+  --surface-subtle: #fafafa;
+  --surface-gray: #f7f7f8;
+
+  --dot: rgba(var(--theme-rgb), 0.3);
+  --on-blue-divider: rgba(255, 255, 255, 0.18);
+
+  --blue-primary: var(--theme);
+  --blue-primary-alt: var(--theme);
+  --blue-accent: var(--theme-accent);
+  --blue-dark: var(--theme-dark);
+  --blue-hover: var(--theme-hover);
+}
+
+:root,
+[data-theme='terracotta'] {
+  --theme: #c77255;
+  --theme-rgb: 199, 114, 85;
+  --theme-hover: #a96148;
+  --theme-accent: #d18b74;
+  --theme-dark: #9f5b44;
+  --theme-wash: #f9efec;
+  --theme-wash-strong: #f4e3dd;
+  --border: #f3e0da;
+  --border-strong: #eacbc0;
+  --surface-tint: #fbf5f3;
+
+  --theme-alt: #343e36;
+  --theme-alt-rgb: 52, 62, 54;
+  --theme-alt-wash: #e8ebe8;
+  --theme-alt-wash-strong: #d7dbd7;
+}
+
+[data-theme='olive'] {
+  --theme: #343e36;
+  --theme-rgb: 52, 62, 54;
+  --theme-hover: #2c342e;
+  --theme-accent: #4a564c;
+  --theme-dark: #2a322c;
+  --theme-wash: #e8ebe8;
+  --theme-wash-strong: #d7dbd7;
+  --border: #d2d6d3;
+  --border-strong: #b3bab5;
+  --surface-tint: #f1f3f1;
+
+  --theme-alt: #c77255;
+  --theme-alt-rgb: 199, 114, 85;
+  --theme-alt-wash: #f9efec;
+  --theme-alt-wash-strong: #f4e3dd;
+}

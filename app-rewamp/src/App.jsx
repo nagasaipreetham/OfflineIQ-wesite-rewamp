@@ -15,7 +15,7 @@ function App() {
           <Route path="support" element={<SupportPage />} />
           <Route path="consultation" element={<ConsultationPage />} />
           <Route path="content-journey" element={<EmptyPage title="Content journey" />} />
-          <Route path="legal" element={<EmptyPage title="Legal" />} />
+          <Route path="security" element={<EmptyPage title="Security" />} />
           <Route path="healthcare" element={<HealthcarePage />} />
           <Route path="insurance" element={<EmptyPage title="Insurance" />} />
         </Route>

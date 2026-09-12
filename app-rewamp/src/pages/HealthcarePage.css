@@ -336,10 +336,10 @@
   padding: 9px 8px 10px;
   border-radius: 9px;
   background: color-mix(in srgb, var(--blue-primary) 6%, #ffffff);
-  border: 1px solid color-mix(in srgb, var(--blue-primary) 18%, #e8eef8);
+  border: 1px solid color-mix(in srgb, var(--blue-primary) 18%, var(--theme-wash));
   box-shadow:
-    0 2px 4px rgba(5, 98, 239, 0.08),
-    0 10px 22px rgba(5, 98, 239, 0.12);
+    0 2px 4px rgba(var(--theme-rgb), 0.08),
+    0 10px 22px rgba(var(--theme-rgb), 0.12);
   transform: translate(-50%, -50%) scale(var(--s, 1));
   transform-origin: center center;
   animation: hc-doc-float 4.6s var(--ease-in-out) var(--delay, 0s) infinite;
@@ -361,7 +361,7 @@
   width: 70%;
   height: 5px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--blue-primary) 22%, #d7e4f7);
+  background: color-mix(in srgb, var(--blue-primary) 22%, var(--theme-wash-strong));
 }
 
 .hc-doc__grid {
@@ -385,7 +385,7 @@
   width: 100%;
   height: 4px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--blue-primary) 18%, #d7e4f7);
+  background: color-mix(in srgb, var(--blue-primary) 18%, var(--theme-wash-strong));
 }
 
 .hc-scatter__target {
@@ -1029,7 +1029,7 @@
   transform-origin: top center;
   opacity: 0;
   background: var(--blue-primary);
-  box-shadow: 0 0 6px rgba(5, 98, 239, 0.6);
+  box-shadow: 0 0 6px rgba(var(--theme-rgb), 0.6);
 }
 
 .hc-ask__link-dot {
@@ -1048,7 +1048,7 @@
   height: 100%;
   border-radius: 50%;
   background: var(--blue-primary);
-  box-shadow: 0 0 8px 2px rgba(5, 98, 239, 0.65);
+  box-shadow: 0 0 8px 2px rgba(var(--theme-rgb), 0.65);
 }
 
 .hc-iqbox[data-phase='request'] .hc-ask__link-fill {
@@ -1228,7 +1228,7 @@
   flex: 0 0 auto;
   width: 11px;
   height: 11px;
-  border: 1.5px solid color-mix(in srgb, var(--blue-primary) 22%, #d7e4f4);
+  border: 1.5px solid color-mix(in srgb, var(--blue-primary) 22%, var(--theme-wash-strong));
   border-top-color: var(--blue-primary);
   border-radius: 50%;
   animation: hc-spin 700ms linear infinite;
@@ -1365,10 +1365,10 @@
   padding: 9px 8px 10px;
   border-radius: 9px;
   background: color-mix(in srgb, var(--blue-primary) 6%, #ffffff);
-  border: 1px solid color-mix(in srgb, var(--blue-primary) 18%, #e8eef8);
+  border: 1px solid color-mix(in srgb, var(--blue-primary) 18%, var(--theme-wash));
   box-shadow:
-    0 2px 4px rgba(5, 98, 239, 0.08),
-    0 10px 22px rgba(5, 98, 239, 0.1);
+    0 2px 4px rgba(var(--theme-rgb), 0.08),
+    0 10px 22px rgba(var(--theme-rgb), 0.1);
 }
 
 .hc-stack__card.is-gone {
@@ -1394,10 +1394,10 @@
   padding: 9px 8px 10px;
   border-radius: 9px;
   background: color-mix(in srgb, var(--blue-primary) 6%, #ffffff);
-  border: 1px solid color-mix(in srgb, var(--blue-primary) 18%, #e8eef8);
+  border: 1px solid color-mix(in srgb, var(--blue-primary) 18%, var(--theme-wash));
   box-shadow:
-    0 2px 4px rgba(5, 98, 239, 0.08),
-    0 10px 22px rgba(5, 98, 239, 0.1);
+    0 2px 4px rgba(var(--theme-rgb), 0.08),
+    0 10px 22px rgba(var(--theme-rgb), 0.1);
   opacity: 0;
   visibility: hidden;
   transform-origin: 0 0;

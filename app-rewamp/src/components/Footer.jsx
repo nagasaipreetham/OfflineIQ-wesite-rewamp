@@ -17,8 +17,8 @@ const PATH_CENTER =
 const FOOTER_LINKS = [
   { label: 'Support', to: '/support' },
   { label: 'Content journey', to: '/content-journey' },
-  { label: 'How it works', to: '/#how-it-works' },
-  { label: 'Architecture', to: '/#the-iq-box' },
+  { label: 'The Digital Twin', to: '/#how-it-works' },
+  { label: 'Architecture', to: '/#meet-fort-knox' },
   { label: 'Tools', to: '/#models' },
   { label: 'Use cases', to: '/#industries' },
   { label: 'Deployment', to: '/consultation' },

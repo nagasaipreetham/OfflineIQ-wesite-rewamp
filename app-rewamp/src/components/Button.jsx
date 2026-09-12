@@ -1,6 +1,6 @@
 import './Button.css'
 
-export const CTA_LABEL = 'Get Your Private AI'
+export const CTA_LABEL = 'Book a Discovery Call'
 export const CTA_HREF = '/consultation'
 
 export function ArrowRight() {

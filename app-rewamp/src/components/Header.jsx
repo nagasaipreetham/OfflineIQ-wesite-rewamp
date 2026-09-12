@@ -3,11 +3,65 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, SplitCta } from './Button.jsx'
 import './Header.css'
 
+const THEMES = [
+  { id: 'olive', color: '#343e36', label: 'Olive theme' },
+  { id: 'terracotta', color: '#c77255', label: 'Terracotta theme' },
+]
+
+const THEME_KEY = 'oiq-theme'
+
+function readTheme() {
+  if (typeof document === 'undefined') return 'terracotta'
+  const attr = document.documentElement.getAttribute('data-theme')
+  if (attr === 'olive' || attr === 'terracotta') return attr
+  try {
+    const stored = localStorage.getItem(THEME_KEY)
+    if (stored === 'olive' || stored === 'terracotta') return stored
+  } catch {
+    /* ignore */
+  }
+  return 'terracotta'
+}
+
+function applyTheme(id) {
+  document.documentElement.setAttribute('data-theme', id)
+  try {
+    localStorage.setItem(THEME_KEY, id)
+  } catch {
+    /* ignore */
+  }
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState(readTheme)
+
+  const select = (id) => {
+    setTheme(id)
+    applyTheme(id)
+  }
+
+  return (
+    <div className="theme-toggle" role="group" aria-label="Colour theme">
+      {THEMES.map(({ id, color, label }) => (
+        <button
+          key={id}
+          type="button"
+          className={`theme-toggle__swatch${theme === id ? ' is-active' : ''}`}
+          style={{ '--swatch': color }}
+          aria-label={label}
+          aria-pressed={theme === id}
+          onClick={() => select(id)}
+        />
+      ))}
+    </div>
+  )
+}
+
 const NAV_LINKS = [
-  { label: 'Product', to: '/#the-iq-box' },
+  { label: 'Product', to: '/#meet-fort-knox' },
   { label: 'Content journey', to: '/content-journey' },
   { label: 'Industries', to: '/#industries' },
-  { label: 'How it works', to: '/#how-it-works' },
+  { label: 'The Digital Twin', to: '/#how-it-works' },
 ]
 
 const SUPPORT_TO = '/support'
@@ -87,6 +141,8 @@ function Header() {
           </Link>
 
           <SplitCta className="site-header__cta" href="/consultation" />
+
+          <ThemeToggle />
 
           <button
             type="button"

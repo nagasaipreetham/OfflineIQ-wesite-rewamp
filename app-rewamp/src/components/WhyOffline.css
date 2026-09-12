@@ -137,7 +137,7 @@
   border-bottom: 0;
 }
 
-/* Elevated 2nd column — particle-blue lift; OfflineIQ stays bold */
+/* Elevated 2nd column — particle-theme lift; OfflineIQ stays bold */
 .why__table thead th:nth-child(2),
 .why__table tbody td:nth-child(2) {
   position: relative;
@@ -148,10 +148,11 @@
   background-image: url('/models-header.png');
   background-size: cover;
   background-position: center;
+  background-blend-mode: luminosity;
   border-bottom-color: rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 10px 28px rgba(5, 98, 239, 0.28),
-    0 2px 8px rgba(5, 98, 239, 0.18);
+    0 10px 28px rgba(var(--theme-rgb), 0.28),
+    0 2px 8px rgba(var(--theme-rgb), 0.18);
 }
 
 .why__table thead th:nth-child(2) {

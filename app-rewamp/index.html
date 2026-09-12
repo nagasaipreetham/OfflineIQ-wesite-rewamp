@@ -11,6 +11,16 @@
       rel="stylesheet"
     />
     <title>OfflineIQ</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('oiq-theme')
+          if (t === 'olive' || t === 'terracotta') {
+            document.documentElement.setAttribute('data-theme', t)
+          }
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

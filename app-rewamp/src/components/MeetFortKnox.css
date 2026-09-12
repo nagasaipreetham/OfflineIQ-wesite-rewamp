@@ -1,0 +1,322 @@
+.meet {
+  position: relative;
+  padding: 0 0 clamp(36px, 6vh, 72px);
+  background: var(--bg);
+}
+
+.meet__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4em;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.7rem, 1.05vw, 0.8125rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--blue-primary);
+  text-align: center;
+}
+
+.meet__label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meet__rule {
+  height: 0;
+  margin: clamp(6px, 1vw, 10px) calc(var(--container-pad) * -1) 0;
+  width: calc(100% + var(--container-pad) * 2);
+  border-top: 1px solid #000;
+  background: none;
+}
+
+.meet__intro {
+  max-width: min(100%, 980px);
+  margin: clamp(22px, 3vw, 36px) auto 0;
+  text-align: center;
+}
+
+.meet__heading {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.45rem, 3.2vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  color: #000;
+  text-wrap: balance;
+}
+
+.meet__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.92fr);
+  gap: clamp(28px, 4vw, 52px);
+  align-items: center;
+  margin-top: clamp(22px, 3.2vw, 36px);
+  padding-inline: clamp(0px, 4.2vw - 18px, 28px);
+}
+
+.meet__visual {
+  position: relative;
+  min-width: 0;
+}
+
+.meet__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: lighten;
+}
+
+.meet__tick {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--blue-primary);
+  pointer-events: none;
+}
+
+.meet__tick--tl {
+  top: 12px;
+  left: 12px;
+}
+
+.meet__tick--tr {
+  top: 12px;
+  right: 12px;
+}
+
+.meet__tick--bl {
+  bottom: 12px;
+  left: 12px;
+}
+
+.meet__tick--br {
+  bottom: 12px;
+  right: 12px;
+}
+
+.meet__copy {
+  min-width: 0;
+}
+
+.meet__subhead {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: #000;
+  text-wrap: balance;
+}
+
+.meet__body {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+  color: #000;
+  text-wrap: pretty;
+}
+
+.meet__tiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+  margin-top: clamp(28px, 4vw, 44px);
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.meet__tier {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(24px, 3.4vw, 40px) clamp(22px, 3vw, 36px);
+}
+
+.meet__tier--core {
+  background: #fff;
+}
+
+.meet__tier--enterprise {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background-color: var(--blue-primary);
+  background-image: url('/models-header.png');
+  background-size: auto 49px;
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-blend-mode: luminosity;
+  border-left: 1px solid #000;
+}
+
+.meet__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.meet__tier--enterprise .meet__eyebrow {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.meet__eyebrow-num {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: var(--blue-primary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  color: #fff;
+}
+
+.meet__tier--enterprise .meet__eyebrow-num {
+  background: #fff;
+  color: var(--blue-primary);
+}
+
+.meet__tier-name {
+  margin: 14px 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: #000;
+}
+
+.meet__tier--enterprise .meet__tier-name {
+  color: #fff;
+}
+
+.meet__tier-points {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+  margin: 18px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.meet__tier-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(0.88rem, 1.15vw, 1rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: #000;
+}
+
+.meet__tier--enterprise .meet__tier-points li {
+  color: #fff;
+}
+
+.meet__tier-points li::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin-top: 0.45em;
+  background: var(--blue-primary);
+}
+
+.meet__tier--enterprise .meet__tier-points li::before {
+  background: #fff;
+}
+
+.meet__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 12px 18px;
+  background: var(--blue-primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+  transition: background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.meet__cta svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.meet__cta:hover {
+  background: var(--blue-hover);
+}
+
+.meet__cta:hover svg {
+  transform: translateX(3px);
+}
+
+.meet__tier--enterprise .meet__cta {
+  background: #fff;
+  color: var(--blue-primary);
+}
+
+.meet__tier--enterprise .meet__cta:hover {
+  background: var(--surface-tint);
+}
+
+@media (max-width: 860px) {
+  .meet__split {
+    grid-template-columns: 1fr;
+  }
+
+  .meet__visual {
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .meet__tiers {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .meet__tier--enterprise {
+    border-left: 0;
+    border-top: 1px solid #000;
+  }
+
+  .meet__cta {
+    margin-top: 28px;
+  }
+}

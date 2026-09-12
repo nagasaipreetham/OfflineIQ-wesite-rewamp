@@ -1,31 +1,7 @@
+@import './theme.css';
+
 :root {
-  --bg: #ffffff;
-  --blue-primary: #0562ef;
-  --blue-primary-alt: #0263ef;
-  --blue-accent: #2f6bff;
-  --blue-dark: #1752e6;
-  --blue-hover: #0455d1;
-
-  --text: rgba(0, 0, 0, 0.92);
-  --text-secondary: rgba(0, 0, 0, 0.7);
-  --text-muted: rgba(0, 0, 0, 0.45);
-  --text-faint: rgba(0, 0, 0, 0.3);
-  --ink: #1a1f24;
-
-  /* hairlines are blue-tinted, never neutral gray */
-  --border: #c5dbf2;
-  --border-strong: #9dbfe8;
-
-  --surface-subtle: #fafafa;
-  --surface-gray: #f7f7f8;
-  --surface-tint: #f2f6ff;
-
-  /* blueprint dot field */
-  --dot: rgba(5, 98, 239, 0.3);
   --dot-pitch: 24px;
-
-  --on-blue-divider: rgba(255, 255, 255, 0.18);
-
   --header-h: 62px;
   --container: 1116px;
   --container-pad: 29px;

@@ -3,6 +3,8 @@ import './Hero.css'
 
 const CONTACT_HREF = '#contact'
 
+const HERO_BADGES = ['100% Offline', 'Stays On Your Servers', 'Every Answer Cited']
+
 function Hero() {
   return (
     <section className="hero" id="top">
@@ -11,25 +13,26 @@ function Hero() {
       <div className="hero__inner">
         <p className="hero__badge" style={{ '--i': 0 }}>
           <span className="hero__mark" aria-hidden="true" />
-          Pre-launch access is now open.
+          PRIVATE AI, ON YOUR HARDWARE
         </p>
 
         <h1 className="hero__title" style={{ '--i': 1 }}>
-          Stop Renting Intelligence.{' '}
+          Your AI. Inside your walls.{' '}
           <span className="hero__title-line">
-            Start <mark className="hero__highlight">Owning</mark> It.
+            <mark className="hero__highlight">Nothing</mark> leaves.
           </span>
         </h1>
 
         <p className="hero__caption" style={{ '--i': 2 }}>
-          Your Company, Powered by Its Own AI.
+          Fort Knox runs a full AI work surface on your own network. No cloud call, no
+          token bill, every answer cited back to source.
         </p>
 
-        <p className="hero__desc" style={{ '--i': 3 }}>
-          Run personalized AI model and agents inside your organization, where sensitive
-          information stays protected and AI works directly with the knowledge that
-          matters most
-        </p>
+        <ul className="hero__row" style={{ '--i': 3 }}>
+          {HERO_BADGES.map((label) => (
+            <li key={label}>{label}</li>
+          ))}
+        </ul>
 
         <div className="hero__actions" style={{ '--i': 4 }}>
           <a className="btn btn--secondary btn--lg" href={CONTACT_HREF}>
@@ -37,11 +40,6 @@ function Hero() {
           </a>
           <SplitCta size="lg" />
         </div>
-
-        <p className="hero__note" style={{ '--i': 5 }}>
-          <span className="hero__mark hero__mark--muted" aria-hidden="true" />
-          Be among the first organizations to deploy private, on-premise AI.
-        </p>
       </div>
     </section>
   )
