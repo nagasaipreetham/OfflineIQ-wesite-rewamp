@@ -10,7 +10,7 @@ function Models() {
         <SectionPin>
           <h2 className="models__title">
             <span className="models__num" aria-hidden="true">
-              {greekNumeral(3)}.
+              {greekNumeral(8)}.
             </span>
             <span className="models__label">Models</span>
           </h2>

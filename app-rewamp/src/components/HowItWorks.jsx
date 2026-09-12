@@ -85,7 +85,7 @@ function HowItWorks() {
         <SectionPin>
           <h2 className="how__title">
             <span className="how__num" aria-hidden="true">
-              {greekNumeral(1)}.
+              {greekNumeral(5)}.
             </span>
             <span className="how__label">The Digital Twin</span>
           </h2>

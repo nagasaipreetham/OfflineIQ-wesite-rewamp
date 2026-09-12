@@ -102,12 +102,12 @@
 
 .btn--primary {
   overflow: hidden;
-  background: var(--blue-primary);
+  background: var(--cta);
   color: #fff;
 }
 
 .btn--primary:hover {
-  background: var(--blue-hover);
+  background: var(--cta-hover);
 }
 
 /* white flash on press */
@@ -158,7 +158,7 @@
 
 /* hovering either half lights both and drives the arrow */
 .btn-split:hover .btn--primary {
-  background: var(--blue-hover);
+  background: var(--cta-hover);
 }
 
 .btn-split:hover .btn-split__arrow {

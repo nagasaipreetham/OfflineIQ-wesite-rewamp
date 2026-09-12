@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
+import { greekNumeral } from '../lib/greekNumerals.js'
 import './Connectors.css'
 
 const SIDES = ['top', 'right', 'bottom', 'left']
@@ -70,7 +71,7 @@ function dashPath(side, from, to) {
   const ty = to.y
 
   if (side === 'top' || side === 'bottom') {
-    const midY = sy + (ty - sy) * 0.55
+    const midY = sy + (ty - sy) * 0.3
     return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${sx.toFixed(1)} ${midY.toFixed(1)} L ${tx.toFixed(1)} ${midY.toFixed(1)} L ${tx.toFixed(1)} ${ty.toFixed(1)}`
   }
 
@@ -88,10 +89,15 @@ function Port({ portRef }) {
 
 function ConnectorCard({ name, src, side, portRef }) {
   return (
-    <article className={`conn__card conn__card--${side}`}>
+    <article
+      className={`conn__card conn__card--${side}`}
+      aria-label={name}
+    >
       <Port portRef={portRef} />
       <img className="conn__logo" src={src} alt="" />
-      <span className="conn__name">{name}</span>
+      <span className="conn__name" aria-hidden="true">
+        {name}
+      </span>
     </article>
   )
 }
@@ -154,6 +160,9 @@ function Connectors() {
       <ShellInner>
         <SectionPin>
           <h2 className="conn__title">
+            <span className="conn__num" aria-hidden="true">
+              {greekNumeral(7)}.
+            </span>
             <span className="conn__label">Connectors</span>
           </h2>
           <div className="conn__rule" aria-hidden="true" />

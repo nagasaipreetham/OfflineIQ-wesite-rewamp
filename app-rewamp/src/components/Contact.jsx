@@ -11,12 +11,28 @@ const DELETE_MS = 48
 const HOLD_MS = 2200
 const GAP_MS = 280
 
+const DEFAULT_HEADING = (
+  <>
+    Every deployment is sized in a{' '}
+    <mark className="contact__mark">conversation</mark>, not read off a pricing
+    page.
+  </>
+)
+
+const DEFAULT_DESCRIPTION =
+  'What Fort Knox costs depends on how many people are using it and what it\u2019s ingesting. Pilot in days, not months, once we know what we\u2019re building.'
+
+const DEFAULT_LEFT_HEADING = 'Tell us what you\u2019re working with.'
+
+const DEFAULT_CAPTION =
+  'Book a discovery call. We\u2019ll scope what Fort Knox needs to look like for the team, and what it takes to get one built.'
+
 function Contact({
-  heading = (
-    <>
-      <mark className="contact__mark">One Step</mark> Away From Protecting Your Data
-    </>
-  ),
+  heading = DEFAULT_HEADING,
+  description = DEFAULT_DESCRIPTION,
+  leftHeading = DEFAULT_LEFT_HEADING,
+  caption = DEFAULT_CAPTION,
+  numeral = 11,
 }) {
   const [displayed, setDisplayed] = useState('')
 
@@ -84,9 +100,11 @@ function Contact({
       <ShellInner>
         <SectionPin>
           <h2 className="contact__title">
-            <span className="contact__num" aria-hidden="true">
-              {greekNumeral(5)}.
-            </span>
+            {numeral != null && (
+              <span className="contact__num" aria-hidden="true">
+                {greekNumeral(numeral)}.
+              </span>
+            )}
             <span className="contact__label">Contact</span>
           </h2>
           <div className="contact__rule" aria-hidden="true" />
@@ -94,6 +112,7 @@ function Contact({
 
         <div className="contact__intro">
           <h3 className="contact__heading">{heading}</h3>
+          {description ? <p className="contact__description">{description}</p> : null}
         </div>
 
         <div className="contact__split">
@@ -105,11 +124,8 @@ function Contact({
                 <span className="contact__lead-caret" aria-hidden="true" />
               </span>
             </p>
-            <p className="contact__caption">
-              Your documents, your servers, your control. OfflineIQ helps your team draft,
-              review, summarize, and search company files without anything ever leaving your
-              network.
-            </p>
+            {leftHeading ? <h4 className="contact__subhead">{leftHeading}</h4> : null}
+            {caption ? <p className="contact__caption">{caption}</p> : null}
           </div>
 
           <div className="contact__right">

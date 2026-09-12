@@ -23,6 +23,10 @@
   --blue-accent: var(--theme-accent);
   --blue-dark: var(--theme-dark);
   --blue-hover: var(--theme-hover);
+
+  /* Discovery CTAs: a lighter wash of the olive, not the full ink. */
+  --cta: #676e68;
+  --cta-hover: #5a615c;
 }
 
 :root,

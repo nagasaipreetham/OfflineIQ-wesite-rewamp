@@ -9,6 +9,7 @@ import MeetFortKnox from '../components/MeetFortKnox.jsx'
 import HowItWorks from '../components/HowItWorks.jsx'
 import Agents from '../components/Agents.jsx'
 import Connectors from '../components/Connectors.jsx'
+import FindYourWorld from '../components/FindYourWorld.jsx'
 import Models from '../components/Models.jsx'
 import WhyOffline from '../components/WhyOffline.jsx'
 import BuiltFor from '../components/BuiltFor.jsx'
@@ -37,6 +38,8 @@ export default function HomePage() {
         <Connectors />
         <SectionSep />
         <Models />
+        <SectionSep />
+        <FindYourWorld />
         <SectionSep />
         <WhyOffline />
         <SectionSep />

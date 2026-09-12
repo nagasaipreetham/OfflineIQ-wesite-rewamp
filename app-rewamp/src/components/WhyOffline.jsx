@@ -53,7 +53,7 @@ function WhyOffline() {
         <SectionPin>
           <h2 className="why__title">
             <span className="why__num" aria-hidden="true">
-              {greekNumeral(4)}.
+              {greekNumeral(10)}.
             </span>
             <span className="why__label">Why Offline IQ</span>
           </h2>

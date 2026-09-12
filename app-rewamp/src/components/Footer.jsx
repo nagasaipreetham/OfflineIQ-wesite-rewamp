@@ -20,7 +20,7 @@ const FOOTER_LINKS = [
   { label: 'The Digital Twin', to: '/#how-it-works' },
   { label: 'Architecture', to: '/#meet-fort-knox' },
   { label: 'Tools', to: '/#models' },
-  { label: 'Use cases', to: '/#industries' },
+  { label: 'Use cases', to: '/#find-your-world' },
   { label: 'Deployment', to: '/consultation' },
   { label: 'Contact', to: '/#contact' },
 ]

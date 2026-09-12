@@ -10,6 +10,8 @@ export const GREEK_NUMERALS = [
   'ζʹ',
   'ηʹ',
   'θʹ',
+  'ιʹ',
+  'ιαʹ',
 ]
 
 export function greekNumeral(n) {

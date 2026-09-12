@@ -1280,6 +1280,10 @@ export default function HealthcarePage() {
               Trust
             </>
           }
+          description={null}
+          leftHeading={null}
+          caption="Your documents, your servers, your control. OfflineIQ helps your team draft, review, summarize, and search company files without anything ever leaving your network."
+          numeral={null}
         />
       </Shell>
     </main>
