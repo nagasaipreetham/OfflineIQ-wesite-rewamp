@@ -5,9 +5,7 @@ import { ArrowRight } from './Button.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import './MeetFortKnox.css'
 
-const CONSULT_HREF = '/consultation'
-
-const TIERS = [
+export const FORT_KNOX_TIERS = [
   {
     id: 'core',
     num: '1',
@@ -28,6 +26,8 @@ const TIERS = [
     cta: 'Book a 30-min scoping call',
   },
 ]
+
+const CONSULT_HREF = '/consultation'
 
 function MeetFortKnox() {
   return (
@@ -72,7 +72,7 @@ function MeetFortKnox() {
         </div>
 
         <div className="meet__tiers">
-          {TIERS.map((tier) => (
+          {FORT_KNOX_TIERS.map((tier) => (
             <article
               key={tier.id}
               className={`meet__tier meet__tier--${tier.id}`}
