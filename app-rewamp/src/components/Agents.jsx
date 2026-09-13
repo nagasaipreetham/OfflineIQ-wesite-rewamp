@@ -324,7 +324,7 @@ function Agents() {
         <SectionPin>
           <h2 className="agents__title">
             <span className="agents__num" aria-hidden="true">
-              {greekNumeral(6)}.
+              {greekNumeral(7)}.
             </span>
             <span className="agents__label">13 Agents</span>
           </h2>

@@ -6,6 +6,7 @@ import Contact from '../components/Contact.jsx'
 import { SplitCta } from '../components/Button.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
+import PipelineFlow from '../components/PipelineFlow.jsx'
 import './HowWorksPage.css'
 
 const TITLE = 'How It Works | The Fort Knox Pipeline | OfflineIQ'
@@ -67,47 +68,7 @@ const SOURCES = [
   },
 ]
 
-const PIPE = [
-  {
-    id: 'connect',
-    n: '01',
-    name: 'Connect',
-    body: 'Links to the repositories counsel already keeps: iManage, SharePoint, a share of executed MSAs. The files come in. They do not go back out.',
-  },
-  {
-    id: 'index',
-    n: '02',
-    name: 'Index',
-    body: 'Everything connected is processed into a structured private index: parties, clauses, dates, and how they point at each other. Not a dump. A map of the corpus.',
-  },
-  {
-    id: 'retrieve',
-    n: '03',
-    name: 'Retrieve',
-    body: 'A question about the liability cap finds Clause 4.2. It does not return every paragraph that merely sounds like \u201cliability.\u201d',
-  },
-  {
-    id: 'generate',
-    n: '04',
-    name: 'Generate',
-    body: 'The actual work is produced here: a memo, a summary, an extraction. Drafted from the retrieved evidence, not from a public model\u2019s guess.',
-  },
-  {
-    id: 'cite',
-    n: '05',
-    name: 'Cite',
-    body: 'Every finding is attributed back to the original source, down to the clause and the page. If it cannot be cited, it does not ship.',
-  },
-  {
-    id: 'verify',
-    n: '06',
-    name: 'Verify',
-    body: 'A human reviewer stays in control of what leaves the room. Fort Knox drafts. Counsel decides.',
-  },
-]
-
 const CHAR_MS = 26
-const PIPE_MS = 2800
 const CONF_STEPS = [71, 84, 92]
 
 function PinTitle({ n, label }) {
@@ -650,59 +611,6 @@ function CiteBoard() {
   )
 }
 
-function Pipeline() {
-  const [ref, on] = useInView(0.3)
-  const [at, setAt] = useState(0)
-  const [lit, setLit] = useState(0)
-
-  useEffect(() => {
-    if (!on) return undefined
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return undefined
-    let arrive = 0
-    const id = window.setInterval(() => {
-      setAt((prev) => {
-        const next = (prev + 1) % PIPE.length
-        window.clearTimeout(arrive)
-        arrive = window.setTimeout(() => setLit(next), 520)
-        return next
-      })
-    }, PIPE_MS)
-    return () => {
-      window.clearInterval(id)
-      window.clearTimeout(arrive)
-    }
-  }, [on])
-
-  const step = PIPE[lit]
-
-  return (
-    <div
-      className={`hw-pipe${on ? ' is-live' : ''}`}
-      ref={ref}
-      style={{ '--pipe-i': at, '--pipe-n': PIPE.length }}
-    >
-      <div className="hw-pipe__track" aria-hidden="true">
-        <span className="hw-pipe__token" />
-      </div>
-      <ol className="hw-pipe__steps">
-        {PIPE.map((item, i) => (
-          <li
-            key={item.id}
-            className={`hw-pipe__step${lit === i ? ' is-on' : ''}`}
-          >
-            <span>{item.n}</span>
-            <strong>{item.name}</strong>
-          </li>
-        ))}
-      </ol>
-      <p className="hw-pipe__detail" key={step.id}>
-        <b>{step.name}.</b> {step.body}
-      </p>
-    </div>
-  )
-}
-
 function Environment() {
   return (
     <div className="hw-env">
@@ -1065,7 +973,8 @@ function HowWorksPage() {
             <PinTitle n={1} label="The Pipeline" />
             <div className="hw-intro" data-reveal>
               <h1 className="hw-heading">
-                A six-stage pipeline, not a chat window
+                A <mark className="hw-heading__mark">six-stage pipeline</mark>, not
+                a chat window
               </h1>
               <p className="hw-caption">
                 Connect, index, retrieve, generate, cite, verify. The work is
@@ -1074,7 +983,7 @@ function HowWorksPage() {
               </p>
             </div>
             <div data-reveal>
-              <Pipeline />
+              <PipelineFlow />
             </div>
           </ShellInner>
         </section>

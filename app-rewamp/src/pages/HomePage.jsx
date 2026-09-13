@@ -6,6 +6,7 @@ import WhyItMatters from '../components/WhyItMatters.jsx'
 import AlreadyHappened from '../components/AlreadyHappened.jsx'
 import TheAnswer from '../components/TheAnswer.jsx'
 import MeetFortKnox from '../components/MeetFortKnox.jsx'
+import HowWorksHome from '../components/HowWorksHome.jsx'
 import HowItWorks from '../components/HowItWorks.jsx'
 import Agents from '../components/Agents.jsx'
 import Connectors from '../components/Connectors.jsx'
@@ -30,6 +31,8 @@ export default function HomePage() {
         <TheAnswer />
         <SectionSep />
         <MeetFortKnox />
+        <SectionSep />
+        <HowWorksHome />
         <SectionSep />
         <HowItWorks />
         <SectionSep />

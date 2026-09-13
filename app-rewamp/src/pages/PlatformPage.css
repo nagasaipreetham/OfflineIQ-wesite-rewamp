@@ -68,7 +68,7 @@
   font-size: clamp(1.35rem, 2.6vw, 2rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1.25;
+  line-height: 1.32;
   color: #000;
   text-wrap: balance;
 }

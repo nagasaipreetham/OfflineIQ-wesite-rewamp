@@ -76,7 +76,7 @@ function HowItWorks() {
   return (
     <section
       className="how"
-      id="how-it-works"
+      id="digital-twin"
       ref={sectionRef}
       data-phase={phase}
       data-layout={stacked ? 'stack' : 'row'}
@@ -85,7 +85,7 @@ function HowItWorks() {
         <SectionPin>
           <h2 className="how__title">
             <span className="how__num" aria-hidden="true">
-              {greekNumeral(5)}.
+              {greekNumeral(6)}.
             </span>
             <span className="how__label">The Digital Twin</span>
           </h2>

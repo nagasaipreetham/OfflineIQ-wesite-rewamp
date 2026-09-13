@@ -7,6 +7,7 @@ import { SplitCta } from '../components/Button.jsx'
 import { AgentIcon } from '../components/Agents.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
+import PipelineFlow from '../components/PipelineFlow.jsx'
 import './PlatformPage.css'
 
 const TITLE = 'The Platform | 13 AI Agents Trained on Your Data | OfflineIQ'
@@ -207,17 +208,6 @@ const TWIN_MS = {
   cite: 2400,
   clear: 600,
 }
-
-const PIPE_FLOW = [
-  { id: 'intake', n: '00', name: 'Intake', detail: 'Your corpus, on the box' },
-  { id: 'draft', n: '01', name: 'Draft', detail: null },
-  { id: 'review', n: '02', name: 'Review', detail: null },
-  { id: 'compare', n: '03', name: 'Compare', detail: null },
-  { id: 'extraction', n: '04', name: 'Extraction', detail: null },
-  { id: 'output', n: '05', name: 'Output', detail: 'Cited, still inside' },
-]
-
-const PIPE_STEP_MS = 1400
 
 function Tick({ pos }) {
   return <span className={`pl-tick pl-tick--${pos}`} aria-hidden="true" />
@@ -943,11 +933,8 @@ function PlatformPage() {
   const revealRef = useReveal()
   const [heroRef, heroOn] = useInView(0.2)
   const [layerRef, layersOn] = useInView(0.25)
-  const [pipeRef, pipeOn] = useInView(0.3)
   const [picked, setPicked] = useState('draft')
   const [count, setCount] = useState(13)
-  const [pipeAt, setPipeAt] = useState(0)
-  const [pipeLit, setPipeLit] = useState(0)
 
   usePageMeta({
     title: TITLE,
@@ -969,25 +956,6 @@ function PlatformPage() {
     }, 70)
     return () => window.clearInterval(id)
   }, [heroOn])
-
-  useEffect(() => {
-    if (!pipeOn) return undefined
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return undefined
-    let arrive = 0
-    const id = window.setInterval(() => {
-      setPipeAt((prev) => {
-        const next = (prev + 1) % PIPE_FLOW.length
-        window.clearTimeout(arrive)
-        arrive = window.setTimeout(() => setPipeLit(next), 700)
-        return next
-      })
-    }, PIPE_STEP_MS)
-    return () => {
-      window.clearInterval(id)
-      window.clearTimeout(arrive)
-    }
-  }, [pipeOn])
 
   return (
     <main className="pl" ref={revealRef}>
@@ -1025,7 +993,7 @@ function PlatformPage() {
             </p>
 
             <h1 className="pl-hero__title" id="pl-hero-title" style={{ '--i': 2 }}>
-              Thirteen agents.{' '}
+              <mark className="pl-hero__highlight">Thirteen agents</mark>.{' '}
               <span className="pl-hero__title-line">
                 One <mark className="pl-hero__highlight">private model</mark> of
                 your company.
@@ -1062,7 +1030,8 @@ function PlatformPage() {
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
-                Fort Knox doesn&rsquo;t answer from the internet.
+                <mark className="pl-hero__highlight">Fort Knox</mark> doesn&rsquo;t
+                answer from the internet.
               </h3>
               <p className="pl-caption">
                 It answers from a model built entirely out of what the organization
@@ -1107,7 +1076,8 @@ function PlatformPage() {
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
-                Thirteen agents, grouped by the work they do.
+                <mark className="pl-hero__highlight">Thirteen agents</mark>, grouped
+                by the work they do.
               </h3>
               <p className="pl-caption">
                 Each one is trained on your corpus. None of them call the internet
@@ -1154,13 +1124,14 @@ function PlatformPage() {
 
         <SectionSep />
 
-        <section className="pl-section" id="pipeline" ref={pipeRef}>
+        <section className="pl-section" id="pipeline">
           <ShellInner>
             <PinTitle n={4} label="Chain them" />
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
-                Chain them into a pipeline.
+                Chain them into a{' '}
+                <mark className="pl-hero__highlight">pipeline.</mark>
               </h3>
               <p className="pl-caption">
                 Run any agent standalone, or connect several into a sequence that
@@ -1169,31 +1140,8 @@ function PlatformPage() {
               </p>
             </div>
 
-            <div
-              className={`pl-pipe${pipeOn ? ' is-live' : ''}`}
-              style={{ '--pipe-i': pipeAt, '--pipe-n': PIPE_FLOW.length }}
-            >
-              <div className="pl-pipe__track" aria-hidden="true">
-                <span className="pl-pipe__token" />
-              </div>
-              <ol className="pl-pipe__steps">
-                {PIPE_FLOW.map((step, i) => (
-                  <li
-                    key={step.id}
-                    className={`pl-pipe__step${pipeLit === i ? ' is-on' : ''}${step.id === 'intake' ? ' pl-pipe__step--in' : ''}${step.id === 'output' ? ' pl-pipe__step--out' : ''}`}
-                  >
-                    <span className="pl-pipe__n">{step.n}</span>
-                    <strong>{step.name}</strong>
-                    {step.detail ? (
-                      <span>{step.detail}</span>
-                    ) : (
-                      <span className="pl-pipe__ico" aria-hidden="true">
-                        <AgentIcon name={step.id} />
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ol>
+            <div data-reveal>
+              <PipelineFlow />
             </div>
           </ShellInner>
         </section>
@@ -1229,7 +1177,7 @@ function PlatformPage() {
           numeral={6}
           heading={
             <>
-              Thirteen agents. Sized in a{' '}
+              <mark className="contact__mark">Thirteen agents</mark>. Sized in a{' '}
               <mark className="contact__mark">conversation</mark>, not a SKU list.
             </>
           }
