@@ -5,6 +5,7 @@ import SupportPage from './pages/SupportPage.jsx'
 import ConsultationPage from './pages/ConsultationPage.jsx'
 import HealthcarePage from './pages/HealthcarePage.jsx'
 import FortKnoxPage from './pages/FortKnoxPage.jsx'
+import PlatformPage from './pages/PlatformPage.jsx'
 import EmptyPage from './pages/EmptyPage.jsx'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="security" element={<EmptyPage title="Security" />} />
           <Route path="healthcare" element={<HealthcarePage />} />
           <Route path="fort-knox" element={<FortKnoxPage />} />
+          <Route path="platform" element={<PlatformPage />} />
           <Route path="legal" element={<EmptyPage title="Legal" />} />
           <Route path="finance" element={<EmptyPage title="Finance" />} />
           <Route path="research" element={<EmptyPage title="Research" />} />

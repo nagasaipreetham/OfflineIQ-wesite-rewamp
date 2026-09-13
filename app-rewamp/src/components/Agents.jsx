@@ -109,7 +109,7 @@ const GROUPS = [
 
 const DEFAULT_CAPTION = 'Coordinated intelligence on your hardware.'
 
-function AgentIcon({ name }) {
+export function AgentIcon({ name }) {
   const common = {
     viewBox: '0 0 24 24',
     fill: 'none',

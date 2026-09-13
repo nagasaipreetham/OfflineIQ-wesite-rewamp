@@ -58,10 +58,7 @@ function ThemeToggle() {
 }
 
 const NAV_LINKS = [
-  { label: 'Product', to: '/fort-knox' },
   { label: 'Content journey', to: '/content-journey' },
-  { label: 'Industries', to: '/#find-your-world' },
-  { label: 'The Digital Twin', to: '/#how-it-works' },
 ]
 
 const SUPPORT_TO = '/support'
