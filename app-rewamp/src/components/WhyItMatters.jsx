@@ -4,7 +4,7 @@ import { greekNumeral } from '../lib/greekNumerals.js'
 import './WhyItMatters.css'
 
 const ASK = 'Summarize our Q3 financials\u2026'
-const CHAR_MS = 36
+const CHAR_MS = 28
 
 const BILL = {
   employees: 250,
@@ -18,49 +18,43 @@ const STEPS = [
     num: '01',
     title: 'You ask a question.',
     body: 'You type a query into a cloud AI tool.',
-    blurb: 'A private question, typed like it never leaves the room.',
   },
   {
     id: 'leave',
     num: '02',
     title: 'It leaves your building.',
     body: 'Your data travels across the internet to a server you don\u2019t control.',
-    blurb: 'Your query, files and context are packed and sent over the internet.',
   },
   {
     id: 'cloud',
     num: '03',
     title: 'It gets processed by their systems.',
     body: 'Your data is handled, logged and may be stored \u2014 alongside millions of others.',
-    blurb: 'It reaches a server owned by a big tech company.',
   },
   {
     id: 'asset',
     num: '04',
     title: 'It becomes their asset.',
     body: 'Your data may be used for training, fine-tuning and product development \u2014 without your explicit control.',
-    blurb: 'Your data can be used to train and improve their models.',
   },
   {
     id: 'risks',
     num: '05',
     title: 'The real risks.',
     body: 'You risk losing control, exposing sensitive information, and giving away your competitive edge.',
-    blurb: 'It can resurface in unexpected ways.',
   },
   {
     id: 'bill',
     num: '06',
     title: 'You pay for it.',
     body: 'Your data fuels their growth. And you get billed back by the token.',
-    blurb: 'And in the end\u2026 you get the bill.',
   },
 ]
 
 const VENDORS = [
   { id: 'openai', name: 'OpenAI', src: '/why-it-matters/openai.svg' },
-  { id: 'google', name: 'Google', src: '/why-it-matters/google.svg' },
   { id: 'anthropic', name: 'Anthropic', src: '/why-it-matters/anthropic.svg' },
+  { id: 'google', name: 'Google', src: '/why-it-matters/google.svg' },
   { id: 'meta', name: 'Meta', src: '/why-it-matters/meta.svg' },
 ]
 
@@ -179,6 +173,15 @@ function ReloadIcon() {
   )
 }
 
+function SendPlane() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M22 2 11 13" />
+      <path d="M22 2 15 22l-4-9-9-4z" />
+    </svg>
+  )
+}
+
 function Ico({ name }) {
   if (name === 'file') {
     return (
@@ -276,24 +279,6 @@ function Ico({ name }) {
   )
 }
 
-function useInView(threshold = 0.22) {
-  const ref = useRef(null)
-  const [on, setOn] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return undefined
-    const io = new IntersectionObserver(
-      ([entry]) => setOn(entry.isIntersecting),
-      { threshold, rootMargin: '0px 0px -8% 0px' },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [threshold])
-
-  return [ref, on]
-}
-
 function useCount(on, to, ms) {
   const [n, setN] = useState(0)
 
@@ -334,16 +319,15 @@ function Wire({ hop, on }) {
       className={`matters__wire${on ? ' is-on' : ''}`}
       d={hop.d}
       style={{
-        '--wire-len': String(hop.len || 240),
         strokeDasharray: '5 6',
-        strokeDashoffset: on ? undefined : hop.len || 240,
+        strokeDashoffset: 0,
       }}
     />
   )
 }
 
 function WhyItMatters() {
-  const [boardRef, live] = useInView(0.18)
+  const boardRef = useRef(null)
   const sendRef = useRef(null)
   const packetRef = useRef(null)
   const serverRef = useRef(null)
@@ -361,9 +345,9 @@ function WhyItMatters() {
   const [wires, setWires] = useState(EMPTY_WIRES)
 
   const billing = phase === 'bill' || phase === 'hold'
-  const peopleN = useCount(billing, BILL.employees, 900)
-  const queryN = useCount(billing, BILL.queries, 900)
-  const monthN = useCount(billing, BILL.monthly, 1400)
+  const peopleN = useCount(billing, BILL.employees, 700)
+  const queryN = useCount(billing, BILL.queries, 700)
+  const monthN = useCount(billing, BILL.monthly, 1000)
 
   const sendOn = phase === 'send' || stepOn(phase, 'leave')
 
@@ -387,8 +371,6 @@ function WhyItMatters() {
   }, [])
 
   useEffect(() => {
-    if (!live && runId === 0) return undefined
-
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
       setAsk(ASK)
@@ -413,13 +395,13 @@ function WhyItMatters() {
           setAsk(ASK.slice(0, i))
           if (i < ASK.length) later(typeAsk, CHAR_MS)
           else {
-            later(() => setPhase('send'), 560)
-            later(() => setPhase('leave'), 1400)
-            later(() => setPhase('cloud'), 2500)
-            later(() => setPhase('asset'), 4000)
-            later(() => setPhase('risks'), 5800)
-            later(() => setPhase('bill'), 7400)
-            later(() => setPhase('hold'), 9600)
+            later(() => setPhase('send'), 400)
+            later(() => setPhase('leave'), 1100)
+            later(() => setPhase('cloud'), 2000)
+            later(() => setPhase('asset'), 3000)
+            later(() => setPhase('risks'), 4100)
+            later(() => setPhase('bill'), 5200)
+            later(() => setPhase('hold'), 6600)
           }
         }
         typeAsk()
@@ -431,7 +413,7 @@ function WhyItMatters() {
       cancelled = true
       clearTimers()
     }
-  }, [live, runId])
+  }, [runId])
 
   useLayoutEffect(() => {
     const board = boardRef.current
@@ -548,12 +530,12 @@ function WhyItMatters() {
           aria-hidden="true"
         >
           <Wire hop={wires.send} on={sendOn} />
-          <Wire hop={wires.pack} on={stepOn(phase, 'leave')} />
+          <Wire hop={wires.pack} on={stepOn(phase, 'cloud')} />
           {wires.feeds.map((hop, i) => (
             <Wire
               key={`feed-${ASSETS[i].id}`}
               hop={hop}
-              on={stepOn(phase, 'cloud')}
+              on={stepOn(phase, 'asset')}
             />
           ))}
           {wires.fans.map((hop, i) => (
@@ -577,10 +559,7 @@ function WhyItMatters() {
             <li
               key={step.id}
               className={`matters__step matters__step--${step.id}${
-                stepOn(phase, step.id) ||
-                (step.id === 'cloud' && stepOn(phase, 'leave')) ||
-                (step.id === 'asset' && stepOn(phase, 'cloud')) ||
-                phase === 'hold' ? ' is-on' : ''
+                stepOn(phase, step.id) || phase === 'hold' ? ' is-on' : ''
               }${phase === 'idle' && i === 0 ? ' is-on' : ''}`}
             >
               <div className="matters__visual">
@@ -608,7 +587,7 @@ function WhyItMatters() {
                           className={`matters__send${sendOn ? ' is-on' : ''}`}
                           ref={sendRef}
                         >
-                          →
+                          <SendPlane />
                         </span>
                       </div>
                     </div>
@@ -654,7 +633,7 @@ function WhyItMatters() {
                       </ul>
                       <i
                         className={`matters__rack${
-                          stepOn(phase, 'leave') ? ' is-on' : ''
+                          stepOn(phase, 'cloud') ? ' is-on' : ''
                         }`}
                         ref={serverRef}
                       />
@@ -685,7 +664,7 @@ function WhyItMatters() {
                       </ul>
                       <div
                         className={`matters__brain${
-                          stepOn(phase, 'cloud') ? ' is-on' : ''
+                          stepOn(phase, 'asset') ? ' is-on' : ''
                         }`}
                       >
                         <span className="matters__brain-ico">
@@ -740,7 +719,6 @@ function WhyItMatters() {
                   ) : null}
                 </div>
               </div>
-              <p className="matters__blurb">{step.blurb}</p>
               <p className="matters__step-num">{step.num}</p>
               <h4 className="matters__step-title">{step.title}</h4>
               <p className="matters__step-body">{step.body}</p>

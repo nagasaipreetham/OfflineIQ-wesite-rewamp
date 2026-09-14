@@ -919,7 +919,7 @@
 /* ---------- dashboard ---------- */
 
 .hw-dash {
-  --dash-line: #ececec;
+  --dash-line: #4f4f4f;
   --dash-ok: #3d9a5b;
   --dash-ok-wash: #eef6ef;
   display: grid;
