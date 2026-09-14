@@ -102,7 +102,6 @@
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: lighten;
 }
 
 .conn__stub {

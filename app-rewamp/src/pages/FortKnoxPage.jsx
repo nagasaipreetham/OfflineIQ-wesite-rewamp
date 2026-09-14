@@ -172,7 +172,7 @@ export default function FortKnoxPage() {
             <Tick pos="br" />
             <img
               className="fk-hero__image"
-              src="/fortknox-closed.png"
+              src="/fort-knox.png"
               alt="Fort Knox, the sealed OfflineIQ appliance"
             />
           </figure>
@@ -370,7 +370,7 @@ export default function FortKnoxPage() {
                 <span className="fk-lan__ring fk-lan__ring--3" />
                 <img
                   className="fk-lan__image"
-                  src="/fortknox-closed.png"
+                  src="/fort-knox.png"
                   alt=""
                 />
                 <p className="fk-lan__chip">On your LAN</p>

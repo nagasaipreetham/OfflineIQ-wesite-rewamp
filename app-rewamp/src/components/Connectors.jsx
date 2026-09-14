@@ -217,8 +217,8 @@ function Connectors() {
             <div className="conn__device">
               <img
                 className="conn__image"
-                src="/fortknox-closed.png"
-                alt="Fort Knox, closed"
+                src="/fort-knox.png"
+                alt="Fort Knox"
               />
               {SIDES.flatMap((side) =>
                 PLACED[side].map((item, i) => (

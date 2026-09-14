@@ -308,7 +308,6 @@
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: lighten;
 }
 
 /* ---------- what it is ---------- */
@@ -657,7 +656,6 @@
   z-index: 1;
   width: min(100%, 280px);
   height: auto;
-  mix-blend-mode: lighten;
 }
 
 .fk-lan__ring {

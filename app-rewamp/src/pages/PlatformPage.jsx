@@ -774,7 +774,7 @@ function FlowStage() {
       <figure className="pl-flow__unit">
         <img
           ref={unitRef}
-          src="/fortknox-closed.png"
+          src="/fort-knox.png"
           alt="Fort Knox, where ingested data stays"
         />
         <figcaption>Fort Knox · network boundary</figcaption>

@@ -1415,7 +1415,6 @@
   width: 100%;
   max-width: 280px;
   margin: 0 auto;
-  mix-blend-mode: lighten;
 }
 
 .pl-flow__unit figcaption {

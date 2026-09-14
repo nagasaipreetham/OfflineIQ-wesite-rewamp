@@ -622,7 +622,7 @@ function Environment() {
           corpus never leaves the chassis.
         </p>
         <figure>
-          <img src="/fortknox-closed.png" alt="Fort Knox sealed appliance" />
+          <img src="/fort-knox.png" alt="Fort Knox sealed appliance" />
           <figcaption>Your LAN · no WAN path · live within the hour</figcaption>
         </figure>
       </article>
@@ -957,7 +957,7 @@ function HowWorksPage() {
     title: TITLE,
     description: DESCRIPTION,
     keywords: KEYWORDS,
-    image: '/fortknox-closed.png',
+    image: '/fort-knox.png',
     path: '/how-it-works',
   })
 
