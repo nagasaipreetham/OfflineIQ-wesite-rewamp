@@ -23,7 +23,11 @@ export default function HomePage() {
 
       <Shell>
         <SectionSep />
-        <WhyItMatters />
+      </Shell>
+
+      <WhyItMatters />
+
+      <Shell>
         <SectionSep />
         <AlreadyHappened />
         <SectionSep />

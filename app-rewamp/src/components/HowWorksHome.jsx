@@ -20,8 +20,7 @@ function HowWorksHome() {
 
         <div className="hiw__intro">
           <h3 className="hiw__heading">
-            From your data to a{' '}
-            <mark className="hiw__mark">private company brain.</mark>
+            It ain&rsquo;t yet another RAG.
           </h3>
           <p className="hiw__lead">
             A proprietary pipeline that turns your documents and data into a
