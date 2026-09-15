@@ -2,6 +2,8 @@
   --port: 17px;
   --lead-out: clamp(28px, 3.4vw, 40px);
   --lead-out-x: 14px;
+  --laptop-w: min(38.4vw, 368px);
+  --top-gap: 8px;
   --in-x: 16%;
   --in-y: 18%;
   --cluster: 0.78;
@@ -159,7 +161,7 @@
 .hub__wires {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
   height: 100%;
   overflow: visible;
@@ -176,6 +178,25 @@
 .hub__wire--conn {
   stroke-width: 1;
   stroke-dasharray: 4 3.5;
+  animation: hub-wire-in 720ms linear infinite;
+}
+
+.hub__wire--link {
+  stroke-width: 1;
+  stroke-dasharray: 4 3.5;
+  animation: hub-wire-down 720ms linear infinite;
+}
+
+@keyframes hub-wire-in {
+  to {
+    stroke-dashoffset: 7.5;
+  }
+}
+
+@keyframes hub-wire-down {
+  to {
+    stroke-dashoffset: -7.5;
+  }
 }
 
 .hub__wire--agent {
@@ -185,10 +206,10 @@
 
 .hub__stage {
   position: relative;
-  z-index: 2;
+  z-index: auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  grid-template-rows: max-content max-content;
+  grid-template-rows: max-content max-content max-content;
   align-items: stretch;
   column-gap: clamp(10px, 1.4vw, 18px);
   row-gap: clamp(72px, 9vw, 104px);
@@ -201,15 +222,27 @@
 }
 
 .hub__core {
-  grid-column: 2;
-  grid-row: 2;
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(44vw, 420px);
   min-width: 0;
+}
+
+.hub__core--laptop {
+  grid-column: 2;
+  grid-row: 2;
+  width: var(--laptop-w);
+  max-width: 100%;
+}
+
+.hub__core--knox {
+  grid-column: 2;
+  grid-row: 3;
+  width: min(40vw, 380px);
+  justify-self: center;
+  margin-top: calc(clamp(4px, 1vw, 8px) - clamp(72px, 9vw, 104px));
 }
 
 .hub__device {
@@ -224,6 +257,13 @@
   width: 100%;
   height: auto;
   mix-blend-mode: lighten;
+}
+
+.hub__device--laptop {
+  --in-x: 16%;
+  --in-y: 8%;
+  --cluster: 0.52;
+  --cluster-y: 0.58;
 }
 
 .hub__stub {
@@ -274,7 +314,7 @@
     (50% - var(--cluster-y) * 50%) + (var(--i) + 0.5) / var(--count) *
       var(--cluster-y) * 100%
   );
-  height: calc(var(--in-y) + var(--lead-out) + var(--port));
+  height: calc(var(--in-y) + 6px + var(--port));
   flex-direction: column-reverse;
   translate: -50% 0;
 }
@@ -298,6 +338,32 @@
   width: 1px;
   height: auto;
   align-self: center;
+}
+
+.hub__stub--link {
+  z-index: 2;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.hub__stub--link .hub__lead {
+  width: 1px;
+  height: auto;
+  align-self: center;
+}
+
+.hub__stub--link-out {
+  top: auto;
+  bottom: 8%;
+  height: var(--port);
+  flex-direction: column;
+}
+
+.hub__stub--link-in {
+  top: 5%;
+  bottom: auto;
+  height: var(--port);
+  flex-direction: column-reverse;
 }
 
 .hub__agents-btn {
@@ -339,7 +405,7 @@
 
 .hub__side {
   display: grid;
-  z-index: 3;
+  z-index: 4;
 }
 
 .hub__side--top {
@@ -349,8 +415,8 @@
   justify-self: center;
   justify-items: stretch;
   align-items: end;
-  gap: 8px;
-  width: min(100%, calc(min(44vw, 420px) + clamp(96px, 14vw, 200px)));
+  gap: var(--top-gap);
+  width: min(100%, calc(var(--laptop-w) + clamp(72px, 11vw, 160px)));
   min-width: 0;
 }
 
@@ -388,6 +454,7 @@
   max-width: 100%;
 }
 
+.hub__side--top .hub__card,
 .hub__card--top {
   flex-direction: column;
   justify-content: center;
@@ -448,7 +515,7 @@
 
 .hub__agents {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   gap: clamp(18px, 2.4vw, 28px);
@@ -645,7 +712,7 @@
   .hub__stage {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     row-gap: 16px;
     column-gap: 10px;
   }
@@ -664,15 +731,28 @@
     display: contents;
   }
 
-  .hub__core {
+  .hub__core,
+  .hub__core--laptop,
+  .hub__core--knox {
     grid-column: 1 / -1;
-    grid-row: 2;
     width: 100%;
+  }
+
+  .hub__core--laptop {
+    grid-row: 2;
+  }
+
+  .hub__core--knox {
+    grid-row: 3;
   }
 
   .hub__device {
     width: min(100%, 360px);
     margin: 0 auto;
+  }
+
+  .hub__device--laptop {
+    width: min(100%, 336px);
   }
 
   .hub__stub,
@@ -713,7 +793,7 @@
   .hub__stage {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     row-gap: 16px;
   }
 
@@ -731,15 +811,28 @@
     display: contents;
   }
 
-  .hub__core {
+  .hub__core,
+  .hub__core--laptop,
+  .hub__core--knox {
     grid-column: 1 / -1;
-    grid-row: 2;
     width: 100%;
+  }
+
+  .hub__core--laptop {
+    grid-row: 2;
+  }
+
+  .hub__core--knox {
+    grid-row: 3;
   }
 
   .hub__device {
     width: min(100%, 360px);
     margin: 0 auto;
+  }
+
+  .hub__device--laptop {
+    width: min(100%, 336px);
   }
 
   .hub__stub,
@@ -872,8 +965,13 @@
 }
 
 @media (max-height: 700px) and (min-width: 961px) {
-  .hub__core {
-    width: min(36vw, 320px);
+  .hub {
+    --laptop-w: min(35.2vw, 336px);
+  }
+
+  .hub__core--knox {
+    width: min(36vw, 340px);
+    margin-top: calc(4px - 56px);
   }
 
   .hub__stage {
@@ -893,5 +991,10 @@
 @media (prefers-reduced-motion: reduce) {
   .hub__tile {
     transition: none;
+  }
+
+  .hub__wire--conn,
+  .hub__wire--link {
+    animation: none;
   }
 }

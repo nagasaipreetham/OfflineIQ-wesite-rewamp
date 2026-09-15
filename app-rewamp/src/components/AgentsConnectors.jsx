@@ -57,12 +57,33 @@ function dashPath(side, from, to) {
   const ty = to.y
 
   if (side === 'top') {
-    const midY = sy + (ty - sy) * 0.3
-    return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${sx.toFixed(1)} ${midY.toFixed(1)} L ${tx.toFixed(1)} ${midY.toFixed(1)} L ${tx.toFixed(1)} ${ty.toFixed(1)}`
+    const f = (n) => n.toFixed(1)
+    if (Math.abs(tx - sx) < 10) {
+      return `M ${f(sx)} ${f(sy)} L ${f(tx)} ${f(ty)}`
+    }
+    const cardY = Math.min(sy, ty)
+    const stubY = Math.max(sy, ty)
+    const cardX = ty <= sy ? tx : sx
+    const stubX = ty <= sy ? sx : tx
+    const midY = cardY + Math.max(22, (stubY - cardY) * 0.3)
+    return `M ${f(cardX)} ${f(cardY)} L ${f(cardX)} ${f(midY)} L ${f(stubX)} ${f(midY)} L ${f(stubX)} ${f(stubY)}`
   }
 
   const midX = sx + (tx - sx) * 0.55
   return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${midX.toFixed(1)} ${sy.toFixed(1)} L ${midX.toFixed(1)} ${ty.toFixed(1)} L ${tx.toFixed(1)} ${ty.toFixed(1)}`
+}
+
+function downPath(from, to) {
+  const f = (n) => n.toFixed(1)
+  const sx = from.x
+  const sy = from.y
+  const tx = to.x
+  const ty = to.y
+  if (Math.abs(tx - sx) < 12) {
+    return `M ${f(sx)} ${f(sy)} L ${f(tx)} ${f(ty)}`
+  }
+  const midY = sy + (ty - sy) * 0.3
+  return `M ${f(sx)} ${f(sy)} L ${f(sx)} ${f(midY)} L ${f(tx)} ${f(midY)} L ${f(tx)} ${f(ty)}`
 }
 
 function labelTop(el, origin) {
@@ -142,10 +163,13 @@ function AgentGroup({ group, activeId, setActiveId, labelRef }) {
 function AgentsConnectors() {
   const [activeId, setActiveId] = useState(null)
   const boardRef = useRef(null)
+  const laptopRef = useRef(null)
   const deviceRef = useRef(null)
   const labelRefs = useRef({})
   const stubPortRefs = useRef({})
   const cardPortRefs = useRef({})
+  const linkLaptopPortRef = useRef(null)
+  const linkKnoxPortRef = useRef(null)
   const agentStubRef = useRef(null)
   const agentsBtnRef = useRef(null)
   const [wires, setWires] = useState([])
@@ -157,8 +181,9 @@ function AgentsConnectors() {
 
   useLayoutEffect(() => {
     const board = boardRef.current
+    const laptop = laptopRef.current
     const device = deviceRef.current
-    if (!board || !device) return undefined
+    if (!board || !laptop || !device) return undefined
 
     const paint = () => {
       const origin = board.getBoundingClientRect()
@@ -189,6 +214,23 @@ function AgentsConnectors() {
           })
         })
       })
+
+      const laptopLink = linkLaptopPortRef.current
+      const knoxLink = linkKnoxPortRef.current
+      if (
+        laptopLink &&
+        knoxLink &&
+        laptopLink.getBoundingClientRect().width >= 4 &&
+        knoxLink.getBoundingClientRect().width >= 4
+      ) {
+        next.push({
+          kind: 'link',
+          d: downPath(
+            portAnchor(laptopLink, origin, 'bottom', 'stub'),
+            portAnchor(knoxLink, origin, 'top', 'stub'),
+          ),
+        })
+      }
 
       const agentStub = agentStubRef.current
       const agentsBtn = agentsBtnRef.current
@@ -239,16 +281,20 @@ function AgentsConnectors() {
     const frame = window.requestAnimationFrame(paint)
     const ro = new ResizeObserver(paint)
     ro.observe(board)
+    ro.observe(laptop)
     ro.observe(device)
     if (agentsBtnRef.current) ro.observe(agentsBtnRef.current)
     GROUPS.forEach((group) => {
       const el = labelRefs.current[group.id]
       if (el) ro.observe(el)
     })
+    const imgs = [...board.querySelectorAll('img')]
+    imgs.forEach((img) => img.addEventListener('load', paint))
     window.addEventListener('resize', paint)
     return () => {
       window.cancelAnimationFrame(frame)
       ro.disconnect()
+      imgs.forEach((img) => img.removeEventListener('load', paint))
       window.removeEventListener('resize', paint)
     }
   }, [])
@@ -318,12 +364,12 @@ function AgentsConnectors() {
               ))}
             </div>
 
-            <div className="hub__core">
-              <div className="hub__device" ref={deviceRef}>
+            <div className="hub__core hub__core--laptop">
+              <div className="hub__device hub__device--laptop" ref={laptopRef}>
                 <img
-                  className="hub__image"
-                  src="/fort-knox.png"
-                  alt="Fort Knox hardware"
+                  className="hub__image hub__image--laptop"
+                  src="/laptop.png"
+                  alt=""
                 />
                 {['top', 'left', 'right'].flatMap((side) =>
                   PLACED[side].map((item, i) => (
@@ -342,6 +388,30 @@ function AgentsConnectors() {
                     </span>
                   )),
                 )}
+                <span
+                  className="hub__stub hub__stub--link hub__stub--link-out"
+                  aria-hidden="true"
+                >
+                  <span className="hub__lead" />
+                  <Port portRef={linkLaptopPortRef} />
+                </span>
+              </div>
+            </div>
+
+            <div className="hub__core hub__core--knox">
+              <div className="hub__device hub__device--knox" ref={deviceRef}>
+                <img
+                  className="hub__image"
+                  src="/fort-knox.png"
+                  alt="Fort Knox hardware"
+                />
+                <span
+                  className="hub__stub hub__stub--link hub__stub--link-in"
+                  aria-hidden="true"
+                >
+                  <span className="hub__lead" />
+                  <Port portRef={linkKnoxPortRef} />
+                </span>
                 <span className="hub__stub hub__stub--bottom" aria-hidden="true">
                   <span className="hub__lead" />
                   <Port portRef={agentStubRef} />

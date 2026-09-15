@@ -212,16 +212,16 @@ export default function FortKnoxPage() {
           <ShellInner>
             <PinTitle label="What it is" />
 
-            <div className="fk-split" data-reveal>
-              <div className="fk-visual">
+            <div className="fk-split fk-split--stack" data-reveal>
+              <div className="fk-visual fk-visual--wide">
                 <Tick pos="tl" />
                 <Tick pos="tr" />
                 <Tick pos="bl" />
                 <Tick pos="br" />
                 <img
                   className="fk-visual__image"
-                  src="/fort-knox.png"
-                  alt="Fort Knox with the chassis open, showing internal compute and storage"
+                  src="/fortknox-exploded-view.png"
+                  alt="Fort Knox exploded view, showing cooling, compute, storage, and chassis"
                 />
               </div>
 

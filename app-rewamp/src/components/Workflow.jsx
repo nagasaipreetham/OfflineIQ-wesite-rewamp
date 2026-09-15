@@ -71,6 +71,17 @@ const EDGES = [
 ]
 
 const EMPTY_WIRES = EDGES.map(() => ({ d: '', x: 0, y: 0 }))
+const RUN_LIMIT_MS = 5 * 60 * 1000
+const PHASE_DELAY = {
+  idle: 280,
+  n1: 800,
+  n2: 800,
+  n3: 800,
+  n4: 800,
+  n5: 700,
+  n6: 800,
+  hold: 1800,
+}
 
 function phaseIndex(phase) {
   const i = PHASES.indexOf(phase)
@@ -129,11 +140,18 @@ function hopPath(from, to, stacked, branch, bias) {
   return `M ${x1} ${y1} L ${x2} ${y2}`
 }
 
-function ReloadIcon() {
+function PauseIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 12a8 8 0 1 1-2.2-5.5" />
-      <path d="M20 4.5V8.8h-4.3" />
+      <path className="is-solid" d="M7.2 5.5h3.2v13H7.2zM13.6 5.5h3.2v13h-3.2z" />
+    </svg>
+  )
+}
+
+function PlayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path className="is-solid" d="M8.2 5.6v12.8L18.4 12z" />
     </svg>
   )
 }
@@ -219,23 +237,14 @@ function Workflow() {
   const boardRef = useRef(null)
   const outRefs = useRef({})
   const inRefs = useRef({})
-  const timers = useRef([])
+  const startedAtRef = useRef(0)
+  const elapsedRef = useRef(0)
   const [runId, setRunId] = useState(0)
+  const [playing, setPlaying] = useState(true)
   const [stacked, setStacked] = useState(false)
   const [phase, setPhase] = useState('idle')
   const [box, setBox] = useState({ w: 0, h: 0 })
   const [wires, setWires] = useState(EMPTY_WIRES)
-
-  const clearTimers = () => {
-    timers.current.forEach((id) => window.clearTimeout(id))
-    timers.current = []
-  }
-
-  const later = (fn, ms) => {
-    const id = window.setTimeout(fn, ms)
-    timers.current.push(id)
-    return id
-  }
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 860px)')
@@ -265,40 +274,39 @@ function Workflow() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
       setPhase('hold')
+      setPlaying(false)
       return undefined
     }
-    if (runId === 0) return undefined
+    if (runId === 0 || !playing) return undefined
 
-    let cancelled = false
-    clearTimers()
-    setPhase('idle')
-    later(() => {
-      if (!cancelled) setPhase('n1')
-    }, 280)
-    later(() => {
-      if (!cancelled) setPhase('n2')
-    }, 1080)
-    later(() => {
-      if (!cancelled) setPhase('n3')
-    }, 1880)
-    later(() => {
-      if (!cancelled) setPhase('n4')
-    }, 2680)
-    later(() => {
-      if (!cancelled) setPhase('n5')
-    }, 3480)
-    later(() => {
-      if (!cancelled) setPhase('n6')
-    }, 4180)
-    later(() => {
-      if (!cancelled) setPhase('hold')
-    }, 4980)
-
-    return () => {
-      cancelled = true
-      clearTimers()
+    const now = Date.now()
+    if (!startedAtRef.current) startedAtRef.current = now
+    const elapsed = elapsedRef.current + (now - startedAtRef.current)
+    if (elapsed >= RUN_LIMIT_MS) {
+      elapsedRef.current = elapsed
+      startedAtRef.current = 0
+      setPhase('hold')
+      setPlaying(false)
+      return undefined
     }
-  }, [runId])
+
+    const next = phase === 'hold' ? 'n1' : PHASES[PHASES.indexOf(phase) + 1] || 'n1'
+    const delay = Math.min(PHASE_DELAY[phase] ?? 800, RUN_LIMIT_MS - elapsed)
+    const id = window.setTimeout(() => {
+      const t = Date.now()
+      const e = elapsedRef.current + (t - startedAtRef.current)
+      if (e >= RUN_LIMIT_MS) {
+        elapsedRef.current = e
+        startedAtRef.current = 0
+        setPhase('hold')
+        setPlaying(false)
+        return
+      }
+      setPhase(next)
+    }, delay)
+
+    return () => window.clearTimeout(id)
+  }, [runId, playing, phase])
 
   useLayoutEffect(() => {
     const board = boardRef.current
@@ -466,11 +474,25 @@ function Workflow() {
 
         <button
           type="button"
-          className="wf__reload"
-          onClick={() => setRunId((n) => n + 1)}
-          aria-label="Replay workflow"
+          className="wf__toggle"
+          onClick={() => {
+            setPlaying((on) => {
+              if (on) {
+                if (startedAtRef.current) {
+                  elapsedRef.current += Date.now() - startedAtRef.current
+                  startedAtRef.current = 0
+                }
+                return false
+              }
+              if (elapsedRef.current >= RUN_LIMIT_MS) elapsedRef.current = 0
+              startedAtRef.current = Date.now()
+              return true
+            })
+          }}
+          aria-pressed={!playing}
+          aria-label={playing ? 'Pause workflow' : 'Play workflow'}
         >
-          <ReloadIcon />
+          {playing ? <PauseIcon /> : <PlayIcon />}
         </button>
         <p className="wf__rail">Each step feeds the next</p>
         <p className="wf__rail wf__rail--right">On your hardware</p>

@@ -490,7 +490,7 @@
   background: var(--wf-c);
 }
 
-.wf__reload {
+.wf__toggle {
   position: absolute;
   z-index: 5;
   right: 18px;
@@ -500,24 +500,31 @@
   width: 34px;
   height: 34px;
   padding: 0;
-  border: 1px solid #d0d0d0;
-  background: #ececec;
-  color: #676e68;
+  border: 1px solid #343e36;
+  background: #343e36;
+  color: #fff;
   cursor: pointer;
 }
 
-.wf__reload svg {
+.wf__toggle svg {
   width: 15px;
   height: 15px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: currentColor;
+  stroke: none;
 }
 
-.wf__reload:hover {
-  background: #e4e4e4;
+.wf__toggle svg path:not(.is-solid) {
+  fill: none;
+  stroke: currentColor;
+}
+
+.wf__toggle:hover {
+  background: #2c342e;
+}
+
+.wf__toggle:focus-visible {
+  outline: 2px solid #343e36;
+  outline-offset: 2px;
 }
 
 .wf__board.is-stack {
