@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
 import { ArrowRight } from './Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './FindYourWorld.css'
 
 const WORLDS = [
@@ -65,9 +64,6 @@ function FindYourWorld() {
       <ShellInner>
         <SectionPin>
           <h2 className="world__title">
-            <span className="world__pin-num" aria-hidden="true">
-              {greekNumeral(9)}.
-            </span>
             <span className="world__label">Find Your World</span>
           </h2>
           <div className="world__rule" aria-hidden="true" />

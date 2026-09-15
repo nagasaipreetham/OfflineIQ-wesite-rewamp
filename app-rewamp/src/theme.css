@@ -7,11 +7,11 @@
 :root {
   /* Source hue at 50% strength over white — change the hex, keep the mix. */
   --bg: color-mix(in srgb, #D9E5D7 50%, white);
-  --text: rgba(0, 0, 0, 0.92);
-  --text-secondary: rgba(0, 0, 0, 0.7);
-  --text-muted: rgba(0, 0, 0, 0.45);
-  --text-faint: rgba(0, 0, 0, 0.3);
-  --ink: #1a1f24;
+  --text: rgba(0, 0, 0, 0.8);
+  --text-secondary: rgba(0, 0, 0, 0.8);
+  --text-muted: rgba(0, 0, 0, 0.8);
+  --text-faint: rgba(0, 0, 0, 0.8);
+  --ink: #111;
 
   --surface-subtle: #fafafa;
   --surface-gray: #f7f7f8;

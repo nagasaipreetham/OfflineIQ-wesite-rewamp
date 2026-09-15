@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { AgentIcon, GROUPS } from './Agents.jsx'
 import './AgentsConnectors.css'
 
@@ -255,21 +254,18 @@ function AgentsConnectors() {
   }, [])
 
   return (
-    <section className="hub" id="agents">
+    <section className="hub" id="apps">
       <div className="hub__jump" id="connectors" />
       <ShellInner>
         <SectionPin>
           <h2 className="hub__title">
-            <span className="hub__num" aria-hidden="true">
-              {greekNumeral(7)}.
-            </span>
-            <span className="hub__label">Agents &amp; Connectors</span>
+            <span className="hub__label">Apps &amp; Connectors</span>
           </h2>
           <div className="hub__rule" aria-hidden="true" />
         </SectionPin>
 
         <div className="hub__intro">
-          <p className="hub__kicker">13 specialized agents · 14 connectors</p>
+          <p className="hub__kicker">13 specialized apps · 14 connectors</p>
           <h3 className="hub__heading">
             Fort Knox pulls from where the data already lives.
           </h3>
@@ -351,7 +347,7 @@ function AgentsConnectors() {
                   <Port portRef={agentStubRef} />
                 </span>
                 <div className="hub__agents-btn" ref={agentsBtnRef}>
-                  AGENTS
+                  APPS
                 </div>
               </div>
             </div>

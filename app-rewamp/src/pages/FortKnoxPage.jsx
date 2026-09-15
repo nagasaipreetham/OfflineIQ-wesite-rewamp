@@ -6,7 +6,6 @@ import SectionPin from '../components/SectionPin.jsx'
 import Contact from '../components/Contact.jsx'
 import { ArrowRight, SplitCta } from '../components/Button.jsx'
 import { FORT_KNOX_TIERS } from '../components/MeetFortKnox.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import './FortKnoxPage.css'
 
@@ -131,13 +130,10 @@ function useReveal() {
   return ref
 }
 
-function PinTitle({ n, label }) {
+function PinTitle({ label }) {
   return (
     <SectionPin>
       <h2 className="fk-pin">
-        <span className="fk-pin__num" aria-hidden="true">
-          {greekNumeral(n)}.
-        </span>
         <span className="fk-pin__label">{label}</span>
       </h2>
       <div className="fk-pin__rule" aria-hidden="true" />
@@ -214,7 +210,7 @@ export default function FortKnoxPage() {
 
         <section className="fk-section" id="what-it-is">
           <ShellInner>
-            <PinTitle n={1} label="What it is" />
+            <PinTitle label="What it is" />
 
             <div className="fk-split" data-reveal>
               <div className="fk-visual">
@@ -248,7 +244,7 @@ export default function FortKnoxPage() {
 
         <section className="fk-section" id="whats-inside">
           <ShellInner>
-            <PinTitle n={2} label="What's inside" />
+            <PinTitle label="What's inside" />
 
             <div className="fk-intro" data-reveal>
               <h3 className="fk-heading fk-heading--center">
@@ -352,7 +348,7 @@ export default function FortKnoxPage() {
 
         <section className="fk-section" id="how-it-deploys">
           <ShellInner>
-            <PinTitle n={3} label="How it deploys" />
+            <PinTitle label="How it deploys" />
 
             <div className="fk-deploy" data-reveal>
               <div className="fk-deploy__copy">
@@ -400,7 +396,7 @@ export default function FortKnoxPage() {
 
         <section className="fk-section fk-section--last" id="what-it-will-not-do">
           <ShellInner>
-            <PinTitle n={4} label="What it will not do" />
+            <PinTitle label="What it will not do" />
 
             <div className="fk-intro" data-reveal>
               <h3 className="fk-heading fk-heading--center">
@@ -435,7 +431,7 @@ export default function FortKnoxPage() {
         </section>
 
         <SectionSep />
-        <Contact numeral={5} />
+        <Contact />
       </Shell>
     </main>
   )

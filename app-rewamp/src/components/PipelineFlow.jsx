@@ -106,7 +106,7 @@ const STEPS = [
     alt: 'Chat, workflow, and analytics blocks wired together',
     name: (
       <>
-        Agents +
+        Apps +
         <br />
         Workflows
       </>
@@ -115,7 +115,7 @@ const STEPS = [
       <>
         Purpose-built
         <br />
-        agents that
+        apps that
         <br />
         get work done.
       </>

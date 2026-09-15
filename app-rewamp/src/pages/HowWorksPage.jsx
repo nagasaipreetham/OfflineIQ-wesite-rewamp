@@ -4,15 +4,14 @@ import SectionSep from '../components/SectionSep.jsx'
 import SectionPin from '../components/SectionPin.jsx'
 import Contact from '../components/Contact.jsx'
 import { SplitCta } from '../components/Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import PipelineFlow from '../components/PipelineFlow.jsx'
 import './HowWorksPage.css'
 
-const TITLE = 'How It Works | The Fort Knox Pipeline | OfflineIQ'
+const TITLE = 'How It Works | The Fort Knox Workflow | OfflineIQ'
 const DESCRIPTION =
-  'A six-stage pipeline that turns your private document corpus into cited, sourced work, without a single byte leaving your network.'
-const KEYWORDS = 'how private AI works, zero-egress AI pipeline'
+  'A 7-stage workflow that turns your private document corpus into cited, sourced work, without a single byte leaving your network.'
+const KEYWORDS = 'how private AI works, zero-egress AI workflow'
 
 const ASK =
   'What is the liability cap in the current MSA, and did the 2024 amendment change it?'
@@ -71,13 +70,10 @@ const SOURCES = [
 const CHAR_MS = 26
 const CONF_STEPS = [71, 84, 92]
 
-function PinTitle({ n, label }) {
+function PinTitle({ label }) {
   return (
     <SectionPin>
       <h2 className="hw-pin">
-        <span className="hw-pin__num" aria-hidden="true">
-          {greekNumeral(n)}.
-        </span>
         <span className="hw-pin__label">{label}</span>
       </h2>
       <div className="hw-pin__rule" aria-hidden="true" />
@@ -631,7 +627,7 @@ function Environment() {
         <h3>Client-owned AWS VPC</h3>
         <p>
           For teams not ready for physical hardware: a private subnet, no
-          internet gateway. The pipeline is the same. The boundary is yours.
+          internet gateway. The workflow is the same. The boundary is yours.
         </p>
         <div className="hw-vpc" aria-hidden="true">
           <p className="hw-vpc__acct">Your AWS account</p>
@@ -655,7 +651,7 @@ const DASH_NAV = [
   { id: 'security', label: 'Security' },
   { id: 'usage', label: 'Usage' },
   { id: 'documents', label: 'Documents' },
-  { id: 'agents', label: 'Agents' },
+  { id: 'agents', label: 'Apps' },
   { id: 'audit', label: 'Audit trail' },
   { id: 'settings', label: 'Settings' },
 ]
@@ -970,10 +966,10 @@ function HowWorksPage() {
 
         <section className="hw-section" id="pipeline">
           <ShellInner>
-            <PinTitle n={1} label="The Pipeline" />
+            <PinTitle label="The Workflow" />
             <div className="hw-intro" data-reveal>
               <h1 className="hw-heading">
-                A <mark className="hw-heading__mark">six-stage pipeline</mark>, not
+                A <mark className="hw-heading__mark">7-stage workflow</mark>, not
                 a chat window
               </h1>
               <p className="hw-caption">
@@ -992,7 +988,7 @@ function HowWorksPage() {
 
         <section className="hw-section" id="environment">
           <ShellInner>
-            <PinTitle n={2} label="Runs in your environment, not ours" />
+            <PinTitle label="Runs in your environment, not ours" />
             <div className="hw-intro" data-reveal>
               <h3 className="hw-heading hw-heading--sub">
                 Fort Knox is the primary path. The same architecture can sit in
@@ -1014,7 +1010,7 @@ function HowWorksPage() {
 
         <section className="hw-section hw-section--last" id="check">
           <ShellInner>
-            <PinTitle n={3} label={"Don't take our word for it"} />
+            <PinTitle label="Don't take our word for it" />
             <div className="hw-intro" data-reveal>
               <h3 className="hw-heading hw-heading--sub">
                 A live dashboard confirms the private boundary and reports{' '}
@@ -1030,16 +1026,15 @@ function HowWorksPage() {
         <SectionSep />
 
         <Contact
-          numeral={4}
           heading={
             <>
-              A pipeline you can{' '}
+              A workflow you can{' '}
               <mark className="contact__mark">inspect</mark>, not a chat window
               you have to trust.
             </>
           }
-          description="Walk the six stages against your own corpus. If the citations do not hold, the work does not ship."
-          caption="Book a discovery call. We will map the pipeline onto the documents you already keep, and what it takes to run it inside your network."
+          description="Walk the 7 stages against your own corpus. If the citations do not hold, the work does not ship."
+          caption="Book a discovery call. We will map the workflow onto the documents you already keep, and what it takes to run it inside your network."
         />
       </Shell>
     </main>

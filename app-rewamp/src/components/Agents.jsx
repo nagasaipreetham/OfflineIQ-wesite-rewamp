@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './Agents.css'
 
 export const GROUPS = [
@@ -319,21 +318,18 @@ function Agents() {
   }, [])
 
   return (
-    <section className="agents" id="agents">
+    <section className="agents" id="apps">
       <ShellInner>
         <SectionPin>
           <h2 className="agents__title">
-            <span className="agents__num" aria-hidden="true">
-              {greekNumeral(7)}.
-            </span>
-            <span className="agents__label">13 Agents</span>
+            <span className="agents__label">13 Apps</span>
           </h2>
           <div className="agents__rule" aria-hidden="true" />
         </SectionPin>
 
         <div className="agents__intro">
-          <p className="agents__kicker">13 specialized agents</p>
-          <h3 className="agents__heading">Agent Workbench</h3>
+          <p className="agents__kicker">13 specialized apps</p>
+          <h3 className="agents__heading">App Workbench</h3>
         </div>
 
         <div className="agents__board" ref={boardRef}>

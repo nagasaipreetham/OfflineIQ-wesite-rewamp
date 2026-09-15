@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
 import { ArrowRight } from './Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './AlreadyHappened.css'
 
 const SLIDES = [
@@ -166,9 +165,6 @@ function AlreadyHappened() {
       <ShellInner>
         <SectionPin>
           <h2 className="happened__title">
-            <span className="happened__pin-num" aria-hidden="true">
-              {greekNumeral(2)}.
-            </span>
             <span className="happened__label">It&rsquo;s already happened</span>
           </h2>
           <div className="happened__rule" aria-hidden="true" />

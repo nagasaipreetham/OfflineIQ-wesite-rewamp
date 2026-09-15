@@ -70,7 +70,7 @@
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: var(--ink);
+  color: var(--text);
 }
 
 .hero__mark {
@@ -156,7 +156,7 @@
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.005em;
-  color: var(--ink);
+  color: var(--text);
   white-space: nowrap;
 }
 

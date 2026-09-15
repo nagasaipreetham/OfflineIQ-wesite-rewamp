@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './Workflow.css'
 
 const PHASES = ['idle', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'hold']
@@ -216,7 +215,7 @@ function FlowNode({ node, on, current, outRef, inRef }) {
   )
 }
 
-function Workflow({ numeral = 8 }) {
+function Workflow() {
   const boardRef = useRef(null)
   const outRefs = useRef({})
   const inRefs = useRef({})
@@ -354,22 +353,19 @@ function Workflow({ numeral = 8 }) {
       <ShellInner>
         <SectionPin>
           <h2 className="wf__title">
-            <span className="wf__num" aria-hidden="true">
-              {greekNumeral(numeral)}.
-            </span>
             <span className="wf__label">Workflow</span>
           </h2>
           <div className="wf__rule" aria-hidden="true" />
         </SectionPin>
 
         <div className="wf__intro">
-          <p className="wf__kicker">Agent workflows</p>
+          <p className="wf__kicker">App workflows</p>
           <h3 className="wf__heading">
-            One Agent Handles a Task.{' '}
+            One App Handles a Task.{' '}
             <mark className="wf__mark">A Workflow Handles the Job.</mark>
           </h3>
           <p className="wf__lead">
-            Bring multiple agents together to handle a complete process from the
+            Bring multiple apps together to handle a complete process from the
             first document to the final review. Each step feeds the next, so your
             team can build workflows around the way work actually gets done.
           </p>
@@ -378,7 +374,7 @@ function Workflow({ numeral = 8 }) {
       <div
         className={`wf__board is-${phase}${stacked ? ' is-stack' : ''}`}
         ref={boardRef}
-        aria-label="Agent workflow from intake to human approval"
+        aria-label="App workflow from intake to human approval"
       >
         <Tick pos="tl" />
         <Tick pos="tr" />

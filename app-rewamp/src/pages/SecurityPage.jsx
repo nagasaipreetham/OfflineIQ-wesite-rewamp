@@ -3,7 +3,6 @@ import Shell, { ShellInner } from '../components/Shell.jsx'
 import SectionSep from '../components/SectionSep.jsx'
 import SectionPin from '../components/SectionPin.jsx'
 import Contact from '../components/Contact.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import './SecurityPage.css'
 
@@ -226,13 +225,10 @@ const RECORD = [
 const ASK_MS = 32
 const REPLY_MS = 20
 
-function PinTitle({ n, label }) {
+function PinTitle({ label }) {
   return (
     <SectionPin>
       <h2 className="sc-pin">
-        <span className="sc-pin__num" aria-hidden="true">
-          {greekNumeral(n)}.
-        </span>
         <span className="sc-pin__label">{label}</span>
       </h2>
       <div className="sc-pin__rule" aria-hidden="true" />
@@ -871,7 +867,7 @@ export default function SecurityPage() {
 
         <section className="sc-section" id="guarantee">
           <ShellInner>
-            <PinTitle n={1} label="The Guarantee" />
+            <PinTitle label="The Guarantee" />
             <div className="sc-split" data-reveal>
               <div>
                 <h3 className="sc-heading">The route doesn&rsquo;t exist.</h3>
@@ -910,7 +906,7 @@ export default function SecurityPage() {
 
         <section className="sc-section" id="will-not">
           <ShellInner>
-            <PinTitle n={2} label="What Fort Knox will not do" />
+            <PinTitle label="What Fort Knox will not do" />
             <div className="sc-intro" data-reveal>
               <h3 className="sc-heading sc-heading--center">
                 Absences, not <mark className="sc-mark">settings</mark>
@@ -943,7 +939,7 @@ export default function SecurityPage() {
 
         <section className="sc-section" id="shows-work">
           <ShellInner>
-            <PinTitle n={3} label="Every answer shows its work" />
+            <PinTitle label="Every answer shows its work" />
             <div className="sc-split sc-split--cite" data-reveal>
               <div>
                 <h3 className="sc-heading">
@@ -986,13 +982,13 @@ export default function SecurityPage() {
 
         <section className="sc-section" id="audit">
           <ShellInner>
-            <PinTitle n={4} label="The Audit Layer" />
+            <PinTitle label="The Audit Layer" />
             <div className="sc-intro" data-reveal>
               <h3 className="sc-heading sc-heading--center">
                 Logged. Tamper-evident. <mark className="sc-mark">Inside</mark>
               </h3>
               <p className="sc-caption">
-                Every action across every agent is logged, tamper-evident,
+                Every action across every app is logged, tamper-evident,
                 reviewable, and stays inside the network like everything else.
               </p>
             </div>
@@ -1019,7 +1015,7 @@ export default function SecurityPage() {
 
         <section className="sc-section sc-section--last" id="record">
           <ShellInner>
-            <PinTitle n={5} label="The Full Record" />
+            <PinTitle label="The Full Record" />
             <div className="sc-intro" data-reveal>
               <h3 className="sc-heading sc-heading--center">
                 This isn&rsquo;t <mark className="sc-mark">hypothetical</mark>
@@ -1082,7 +1078,6 @@ export default function SecurityPage() {
         <SectionSep />
 
         <Contact
-          numeral={6}
           heading={
             <>
               <mark className="contact__mark">Inspect the architecture,</mark>{' '}

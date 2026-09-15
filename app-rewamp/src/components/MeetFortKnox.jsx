@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
 import { ArrowRight } from './Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './MeetFortKnox.css'
 
 export const FORT_KNOX_TIERS = [
@@ -40,9 +39,6 @@ function MeetFortKnox() {
       <ShellInner>
         <SectionPin>
           <h2 className="meet__title">
-            <span className="meet__pin-num" aria-hidden="true">
-              {greekNumeral(3)}.
-            </span>
             <span className="meet__label">Meet Fort Knox</span>
           </h2>
           <div className="meet__rule" aria-hidden="true" />

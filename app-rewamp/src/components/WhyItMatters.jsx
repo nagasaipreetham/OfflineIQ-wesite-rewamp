@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { SplitCta } from './Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './WhyItMatters.css'
 
 const ASK = 'Summarize our Q3 financials\u2026'
@@ -489,9 +488,6 @@ function WhyItMatters() {
     <section className="matters" id="why-it-matters">
       <div className="matters__pin">
         <h2 className="matters__title">
-          <span className="matters__num" aria-hidden="true">
-            {greekNumeral(1)}.
-          </span>
           <span className="matters__label">Why it matters</span>
         </h2>
       </div>

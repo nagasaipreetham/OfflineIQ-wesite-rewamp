@@ -176,7 +176,7 @@
   letter-spacing: 0.16em;
   line-height: 1;
   text-transform: uppercase;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .agents__group-label::after {
@@ -227,7 +227,7 @@
   height: 52px;
   border-radius: 11px;
   background: var(--theme-alt-wash-strong);
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   transition: transform var(--dur-fast) var(--ease-out),
     box-shadow var(--dur) var(--ease-out);
 }
@@ -256,7 +256,7 @@
   letter-spacing: -0.02em;
   line-height: 1.25;
   text-align: center;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   overflow-wrap: break-word;
 }
 
@@ -292,7 +292,7 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.05;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .agents__device {
@@ -335,7 +335,7 @@
 
 .agents__caption strong {
   font-weight: 600;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .agents__caption.is-agent {

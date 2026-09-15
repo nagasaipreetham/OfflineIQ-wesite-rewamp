@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './Connectors.css'
 
 const SIDES = ['top', 'right', 'bottom', 'left']
@@ -160,9 +159,6 @@ function Connectors() {
       <ShellInner>
         <SectionPin>
           <h2 className="conn__title">
-            <span className="conn__num" aria-hidden="true">
-              {greekNumeral(9)}.
-            </span>
             <span className="conn__label">Connectors</span>
           </h2>
           <div className="conn__rule" aria-hidden="true" />

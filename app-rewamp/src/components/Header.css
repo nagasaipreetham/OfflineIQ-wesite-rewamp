@@ -132,7 +132,7 @@
   font-size: 13px;
   font-weight: 400;
   letter-spacing: -0.005em;
-  color: var(--ink);
+  color: var(--text);
   white-space: nowrap;
   transition: color var(--dur) var(--ease-out);
 }
@@ -355,7 +355,7 @@
   font-size: 15px;
   font-weight: 400;
   letter-spacing: -0.005em;
-  color: var(--ink);
+  color: var(--text);
   border-bottom: 1px solid var(--border);
   /* closed: everything leaves together */
   opacity: 0;

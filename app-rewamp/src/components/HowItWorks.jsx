@@ -3,7 +3,6 @@ import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
 import IngestOrbit from './IngestOrbit.jsx'
 import ChatSim from './ChatSim.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import {
   SIM_SOURCES,
   capsModeFor,
@@ -84,9 +83,6 @@ function HowItWorks() {
       <ShellInner>
         <SectionPin>
           <h2 className="how__title">
-            <span className="how__num" aria-hidden="true">
-              {greekNumeral(6)}.
-            </span>
             <span className="how__label">The Digital Twin</span>
           </h2>
           <div className="how__rule" aria-hidden="true" />

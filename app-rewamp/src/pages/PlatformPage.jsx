@@ -5,18 +5,17 @@ import SectionPin from '../components/SectionPin.jsx'
 import Contact from '../components/Contact.jsx'
 import { SplitCta } from '../components/Button.jsx'
 import { AgentIcon } from '../components/Agents.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import PipelineFlow from '../components/PipelineFlow.jsx'
 import './PlatformPage.css'
 
-const TITLE = 'The Platform | 13 AI Agents Trained on Your Data | OfflineIQ'
+const TITLE = 'The Platform | 13 AI Apps Trained on Your Data | OfflineIQ'
 const DESCRIPTION =
-  'Draft, review, compare, and extract with 13 purpose-built AI agents, grounded in your own corpus, all running locally.'
-const KEYWORDS = 'private AI agents for enterprise, on-premise document AI'
+  'Draft, review, compare, and extract with 13 purpose-built AI apps, grounded in your own corpus, all running locally.'
+const KEYWORDS = 'private AI apps for enterprise, on-premise document AI'
 
 const HERO_CHIPS = [
-  'Private AI agents',
+  'Private AI apps',
   'On-premise document AI',
   'Every answer cited',
 ]
@@ -295,13 +294,10 @@ function useInView(threshold = 0.28) {
   return [ref, on]
 }
 
-function PinTitle({ n, label }) {
+function PinTitle({ label }) {
   return (
     <SectionPin>
       <h2 className="pl-pin">
-        <span className="pl-pin__num" aria-hidden="true">
-          {greekNumeral(n)}.
-        </span>
         <span className="pl-pin__label">{label}</span>
       </h2>
       <div className="pl-pin__rule" aria-hidden="true" />
@@ -970,7 +966,7 @@ function PlatformPage() {
             <Tick pos="br" />
             <p className="pl-hero__count">
               <span>{count}</span>
-              <small>agents</small>
+              <small>apps</small>
             </p>
             <div className="pl-mosaic" aria-hidden="true">
               {ALL_AGENTS.map((agent, i) => (
@@ -993,7 +989,7 @@ function PlatformPage() {
             </p>
 
             <h1 className="pl-hero__title" id="pl-hero-title" style={{ '--i': 2 }}>
-              <mark className="pl-hero__highlight">Thirteen agents</mark>.{' '}
+              <mark className="pl-hero__highlight">Thirteen apps</mark>.{' '}
               <span className="pl-hero__title-line">
                 One <mark className="pl-hero__highlight">private model</mark> of
                 your company.
@@ -1001,7 +997,7 @@ function PlatformPage() {
             </h1>
 
             <p className="pl-hero__caption" style={{ '--i': 3 }}>
-              Draft, review, compare, and extract with purpose-built agents,
+              Draft, review, compare, and extract with purpose-built apps,
               grounded in your own corpus, all running locally.
             </p>
 
@@ -1012,8 +1008,8 @@ function PlatformPage() {
             </ul>
 
             <div className="pl-hero__actions" style={{ '--i': 5 }}>
-              <a className="btn btn--secondary btn--lg" href="#thirteen-agents">
-                See the 13 agents
+              <a className="btn btn--secondary btn--lg" href="#thirteen-apps">
+                See the 13 apps
               </a>
               <SplitCta size="lg" />
             </div>
@@ -1026,7 +1022,7 @@ function PlatformPage() {
 
         <section className="pl-section" id="digital-twin">
           <ShellInner>
-            <PinTitle n={1} label="The Digital Twin" />
+            <PinTitle label="The Digital Twin" />
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
@@ -1049,7 +1045,7 @@ function PlatformPage() {
 
         <section className="pl-section" id="underneath" ref={layerRef}>
           <ShellInner>
-            <PinTitle n={2} label="Under every answer" />
+            <PinTitle label="Under every answer" />
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
@@ -1070,13 +1066,13 @@ function PlatformPage() {
 
         <SectionSep />
 
-        <section className="pl-section" id="thirteen-agents">
+        <section className="pl-section" id="thirteen-apps">
           <ShellInner>
-            <PinTitle n={3} label="The 13 agents" />
+            <PinTitle label="The 13 apps" />
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
-                <mark className="pl-hero__highlight">Thirteen agents</mark>, grouped
+                <mark className="pl-hero__highlight">Thirteen apps</mark>, grouped
                 by the work they do.
               </h3>
               <p className="pl-caption">
@@ -1126,15 +1122,15 @@ function PlatformPage() {
 
         <section className="pl-section" id="pipeline">
           <ShellInner>
-            <PinTitle n={4} label="Chain them" />
+            <PinTitle label="The Workflow" />
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
                 Chain them into a{' '}
-                <mark className="pl-hero__highlight">pipeline.</mark>
+                <mark className="pl-hero__highlight">workflow.</mark>
               </h3>
               <p className="pl-caption">
-                Run any agent standalone, or connect several into a sequence that
+                Run any app standalone, or connect several into a sequence that
                 matches an existing workflow, intake through to output, without
                 leaving Fort Knox.
               </p>
@@ -1150,7 +1146,7 @@ function PlatformPage() {
 
         <section className="pl-section pl-section--last" id="connectors">
           <ShellInner>
-            <PinTitle n={5} label="Connectors" />
+            <PinTitle label="Connectors" />
 
             <div className="pl-intro" data-reveal>
               <h3 className="pl-heading pl-heading--center">
@@ -1174,14 +1170,13 @@ function PlatformPage() {
 
         <SectionSep />
         <Contact
-          numeral={6}
           heading={
             <>
-              <mark className="contact__mark">Thirteen agents</mark>. Sized in a{' '}
+              <mark className="contact__mark">Thirteen apps</mark>. Sized in a{' '}
               <mark className="contact__mark">conversation</mark>, not a SKU list.
             </>
           }
-          description="We map the corpus, the workflow, and which agents actually get used — then we size the box to that, not the other way around."
+          description="We map the corpus, the workflow, and which apps actually get used — then we size the box to that, not the other way around."
         />
       </Shell>
     </main>

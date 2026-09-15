@@ -82,7 +82,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.35;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -315,7 +315,7 @@
   letter-spacing: 0.18em;
   line-height: 1;
   text-transform: uppercase;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   pointer-events: none;
 }
 
@@ -438,7 +438,7 @@
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hub__card--top .hub__card-name {
@@ -577,7 +577,7 @@
   letter-spacing: -0.02em;
   line-height: 1.25;
   text-align: center;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   overflow-wrap: break-word;
 }
 
@@ -612,7 +612,7 @@
 
 .hub__caption strong {
   font-weight: 600;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 1180px) {

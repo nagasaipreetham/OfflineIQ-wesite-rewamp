@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { useImageDisintegrate } from '../lib/useImageDisintegrate.js'
 import './IqBox.css'
 
@@ -174,9 +173,6 @@ function IqBox() {
       <ShellInner>
         <SectionPin>
           <h2 className="iqbox__title">
-            <span className="iqbox__num" aria-hidden="true">
-              {greekNumeral(2)}.
-            </span>
             <span className="iqbox__label">The IQ Box</span>
           </h2>
           <div className="iqbox__rule" aria-hidden="true" />
@@ -189,7 +185,7 @@ function IqBox() {
           </h3>
           <p className="iqbox__caption">
             IQ BOX is OfflineIQ&rsquo;s AI computing system, built in partnership with AMD
-            to run powerful AI models and agents directly within your environment.
+            to run powerful AI models and apps directly within your environment.
           </p>
         </div>
 

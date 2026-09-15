@@ -1,6 +1,5 @@
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import PipelineFlow from './PipelineFlow.jsx'
 import './HowWorksHome.css'
 
@@ -10,9 +9,6 @@ function HowWorksHome() {
       <ShellInner>
         <SectionPin>
           <h2 className="hiw__title">
-            <span className="hiw__num" aria-hidden="true">
-              {greekNumeral(5)}.
-            </span>
             <span className="hiw__label">How it works</span>
           </h2>
           <div className="hiw__rule" aria-hidden="true" />
@@ -23,7 +19,7 @@ function HowWorksHome() {
             It ain&rsquo;t yet another RAG.
           </h3>
           <p className="hiw__lead">
-            A proprietary pipeline that turns your documents and data into a
+            A proprietary workflow that turns your documents and data into a
             secure, working AI system — built for your business.
           </p>
         </div>

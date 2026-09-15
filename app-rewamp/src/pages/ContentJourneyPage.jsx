@@ -5,7 +5,6 @@ import SectionSep from '../components/SectionSep.jsx'
 import SectionPin from '../components/SectionPin.jsx'
 import Contact from '../components/Contact.jsx'
 import { ArrowRight, SplitCta } from '../components/Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import './ContentJourneyPage.css'
 
@@ -168,13 +167,10 @@ function useReveal() {
   return ref
 }
 
-function PinTitle({ n, label }) {
+function PinTitle({ label }) {
   return (
     <SectionPin>
       <h2 className="cj-pin">
-        <span className="cj-pin__num" aria-hidden="true">
-          {greekNumeral(n)}.
-        </span>
         <span className="cj-pin__label">{label}</span>
       </h2>
       <div className="cj-pin__rule" aria-hidden="true" />
@@ -277,7 +273,7 @@ export default function ContentJourneyPage() {
 
         <section className="cj-section" id="journey">
           <ShellInner>
-            <PinTitle n={1} label="Six capabilities" />
+            <PinTitle label="Six capabilities" />
 
             <div className="cj-trail">
               {PARTS.map((part) => {
@@ -313,7 +309,6 @@ export default function ContentJourneyPage() {
         <SectionSep />
 
         <Contact
-          numeral={2}
           heading={
             <>
               A trail you can{' '}

@@ -74,7 +74,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.32;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -116,8 +116,8 @@
   --cite-c: #e8a07a;
   --cite-sage: #e4ebe4;
   --cite-line: #e8e8e8;
-  --cite-ink: #1c1c1c;
-  --cite-muted: #8d8d8d;
+  --cite-ink: rgba(0, 0, 0, 0.8);
+  --cite-muted: rgba(0, 0, 0, 0.8);
   position: relative;
   isolation: isolate;
   overflow: visible;
@@ -174,7 +174,7 @@
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #b0b0b0;
+  color: rgba(0, 0, 0, 0.8);
   z-index: 4;
 }
 
@@ -324,7 +324,7 @@
   font-size: clamp(0.88rem, 1.1vw, 0.98rem);
   line-height: 1.55;
   letter-spacing: -0.01em;
-  color: #6b6b6b;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__card {
@@ -346,13 +346,13 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__card header time {
   margin-left: auto;
   letter-spacing: 0.06em;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__card p {
@@ -362,7 +362,7 @@
   font-size: 0.92rem;
   line-height: 1.55;
   letter-spacing: -0.015em;
-  color: #2a2a2a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__card--ask {
@@ -409,7 +409,7 @@
   font-family: var(--font-sans);
   font-size: 0.68rem;
   letter-spacing: -0.01em;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__card--reply footer span {
@@ -476,7 +476,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #b3b3b3;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__foot {
@@ -619,7 +619,7 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #4a4a4a;
+  color: rgba(0, 0, 0, 0.8);
   background: #fafafa;
 }
 
@@ -628,7 +628,7 @@
   font-size: 0.52rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
   text-align: center;
 }
 
@@ -656,7 +656,7 @@
   background: #f3f3f3;
   font-size: 0.58rem;
   font-weight: 600;
-  color: #666;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__src-meta {
@@ -666,7 +666,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__src-quote {
@@ -674,7 +674,7 @@
   font-family: var(--font-display);
   font-size: 0.78rem;
   line-height: 1.45;
-  color: #5a5a5a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-cite__src-quote mark {
@@ -770,7 +770,7 @@
 
 .hw-pipe__detail b {
   font-family: var(--font-sans);
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* ---------- environment ---------- */
@@ -892,7 +892,7 @@
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-vpc__cut i {
@@ -950,7 +950,7 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 0.98;
-  color: #1c1c1c;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__lede {
@@ -1045,12 +1045,12 @@
   border-radius: 8px;
   font-family: var(--font-sans);
   font-size: 0.72rem;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__nav span.is-on {
   background: #fff;
-  color: #1c1c1c;
+  color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 0 0 1px var(--dash-line);
 }
 
@@ -1073,7 +1073,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #8a8a8a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__head h4 {
@@ -1082,6 +1082,7 @@
   font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: -0.03em;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__head p {
@@ -1104,6 +1105,10 @@
   white-space: nowrap;
 }
 
+.hw-dash__head .hw-dash__live {
+  color: #2f6b3d;
+}
+
 .hw-dash__live i {
   width: 7px;
   height: 7px;
@@ -1118,7 +1123,7 @@
 .hw-dash__live time {
   font-weight: 500;
   letter-spacing: 0;
-  color: #8a8a8a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__kpis,
@@ -1154,6 +1159,7 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.25;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__kpis p,
@@ -1164,7 +1170,7 @@
   font-family: var(--font-display);
   font-size: 0.7rem;
   line-height: 1.35;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__kpis b,
@@ -1195,7 +1201,7 @@
 .hw-dash__kpis .hw-dash__ico,
 .hw-dash__facts .hw-dash__ico {
   margin-bottom: 6px;
-  color: #5a5a5a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__bound {
@@ -1217,7 +1223,7 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #8a8a8a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__flow {
@@ -1337,7 +1343,7 @@
   border-top: 1px solid var(--dash-line);
   font-family: var(--font-display);
   font-size: 0.72rem;
-  color: #5a5a5a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .hw-dash__foot span {
@@ -1355,7 +1361,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @keyframes hw-caret {

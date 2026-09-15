@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
 import { SplitCta } from './Button.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './Contact.css'
 
 const FLIP_WORDS = ['Data', 'AI', 'Intelligence']
@@ -32,7 +31,6 @@ function Contact({
   description = DEFAULT_DESCRIPTION,
   leftHeading = DEFAULT_LEFT_HEADING,
   caption = DEFAULT_CAPTION,
-  numeral = 11,
 }) {
   const [displayed, setDisplayed] = useState('')
 
@@ -100,11 +98,6 @@ function Contact({
       <ShellInner>
         <SectionPin>
           <h2 className="contact__title">
-            {numeral != null && (
-              <span className="contact__num" aria-hidden="true">
-                {greekNumeral(numeral)}.
-              </span>
-            )}
             <span className="contact__label">Contact</span>
           </h2>
           <div className="contact__rule" aria-hidden="true" />

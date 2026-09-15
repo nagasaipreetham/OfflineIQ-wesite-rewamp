@@ -1233,7 +1233,7 @@ export default function HealthcarePage() {
                 <span className="hc-more__num" aria-hidden="true">
                   1
                 </span>
-                <span>13 Specialized AI Agents</span>
+                <span>13 Specialized AI Apps</span>
               </h3>
               <p className="hc-more__card-body">
                 Handle everyday healthcare workflows—from clinical review and extraction to
@@ -1283,7 +1283,6 @@ export default function HealthcarePage() {
           description={null}
           leftHeading={null}
           caption="Your documents, your servers, your control. OfflineIQ helps your team draft, review, summarize, and search company files without anything ever leaving your network."
-          numeral={null}
         />
       </Shell>
     </main>

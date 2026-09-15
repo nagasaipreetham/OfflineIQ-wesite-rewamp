@@ -1,6 +1,5 @@
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './TheAnswer.css'
 
 const POINTS = [
@@ -14,9 +13,6 @@ function TheAnswer() {
       <ShellInner>
         <SectionPin>
           <h2 className="answer__title">
-            <span className="answer__pin-num" aria-hidden="true">
-              {greekNumeral(3)}.
-            </span>
             <span className="answer__label">The answer</span>
           </h2>
           <div className="answer__rule" aria-hidden="true" />

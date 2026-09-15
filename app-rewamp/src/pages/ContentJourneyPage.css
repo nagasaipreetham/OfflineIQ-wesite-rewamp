@@ -160,7 +160,7 @@
   font-size: 13px;
   font-weight: 400;
   letter-spacing: -0.005em;
-  color: var(--ink);
+  color: var(--text);
 }
 
 .cj-hero__mark {
@@ -227,7 +227,7 @@
   font-size: 14px;
   font-weight: 400;
   letter-spacing: -0.005em;
-  color: var(--ink);
+  color: var(--text);
 }
 
 .cj-hero__more svg {
@@ -375,7 +375,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.28;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -418,7 +418,7 @@
   font-size: clamp(0.9rem, 1.15vw, 1rem);
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 900px) {

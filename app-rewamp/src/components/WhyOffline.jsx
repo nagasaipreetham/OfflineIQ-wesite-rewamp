@@ -1,6 +1,5 @@
 import { ShellInner } from './Shell.jsx'
 import SectionPin from './SectionPin.jsx'
-import { greekNumeral } from '../lib/greekNumerals.js'
 import './WhyOffline.css'
 
 const ROWS = [
@@ -13,7 +12,7 @@ const ROWS = [
   ['Dedicated AI compute', true, false, true],
   ['Private document processing', true, false],
   ['Custom company knowledge', true, true, true],
-  ['Custom AI agents', true, true, true],
+  ['Custom AI apps', true, true, true],
   ['Runs on your infrastructure', true, false],
   ['Independent of cloud outages', true, false, true],
   ['Control over your AI environment', true, false],
@@ -52,9 +51,6 @@ function WhyOffline() {
       <ShellInner>
         <SectionPin>
           <h2 className="why__title">
-            <span className="why__num" aria-hidden="true">
-              {greekNumeral(10)}.
-            </span>
             <span className="why__label">Why OfflineIQ</span>
           </h2>
           <div className="why__rule" aria-hidden="true" />
@@ -63,7 +59,7 @@ function WhyOffline() {
         <div className="why__intro">
           <h3 className="why__heading">
             Built for Organizations That Need{' '}
-            <mark className="why__mark">Control</mark>.
+            <mark className="why__mark">Data Sovereignty.</mark>
           </h3>
           <p className="why__caption">
             Dedicated AI infrastructure designed for privacy, predictable access, and

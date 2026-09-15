@@ -54,7 +54,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.35;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -104,7 +104,7 @@
   font-size: clamp(0.76rem, 1.02vw, 0.875rem);
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .why__table thead th {
@@ -117,7 +117,7 @@
   text-align: left;
   font-family: var(--font-display);
   font-weight: 400;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   background: var(--bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -188,7 +188,7 @@
 }
 
 .why__dash {
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 560px) {

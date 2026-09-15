@@ -54,7 +54,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.3;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -118,7 +118,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.25;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -129,7 +129,7 @@
   font-weight: 400;
   line-height: 1.55;
   letter-spacing: -0.015em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: pretty;
 }
 
@@ -180,7 +180,7 @@
   font-weight: 400;
   line-height: 1.55;
   letter-spacing: -0.015em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: pretty;
 }
 
@@ -233,7 +233,7 @@
 }
 
 .meet__tier--enterprise .meet__eyebrow {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .meet__eyebrow-num {
@@ -264,7 +264,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.2;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .meet__tier--enterprise .meet__tier-name {
@@ -290,7 +290,7 @@
   font-weight: 400;
   line-height: 1.45;
   letter-spacing: -0.015em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .meet__tier--enterprise .meet__tier-points li {

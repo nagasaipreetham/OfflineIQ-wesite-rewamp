@@ -89,7 +89,7 @@
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.1;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -214,7 +214,7 @@
   font-size: 0.625rem;
   font-weight: 700;
   line-height: 1;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .subpage__step-title {
@@ -224,7 +224,7 @@
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .subpage__step-body {
@@ -270,7 +270,7 @@
   font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .form-panel__sub {

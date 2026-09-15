@@ -75,7 +75,7 @@
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.32;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -129,8 +129,8 @@
 
 .sc-hero {
   --sc-line: #5a5a5a;
-  --sc-ink: #1c1c1c;
-  --sc-muted: #8d8d8d;
+  --sc-ink: rgba(0, 0, 0, 0.8);
+  --sc-muted: rgba(0, 0, 0, 0.8);
   position: relative;
   isolation: isolate;
   overflow: visible;
@@ -187,7 +187,7 @@
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #b0b0b0;
+  color: rgba(0, 0, 0, 0.8);
   z-index: 4;
 }
 
@@ -286,7 +286,7 @@
   font-size: clamp(0.98rem, 1.25vw, 1.12rem);
   line-height: 1.45;
   letter-spacing: -0.02em;
-  color: #3a3a3a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-hero__body {
@@ -296,7 +296,7 @@
   font-size: clamp(0.88rem, 1.1vw, 0.98rem);
   line-height: 1.55;
   letter-spacing: -0.01em;
-  color: #6b6b6b;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-hero__note {
@@ -307,7 +307,7 @@
   letter-spacing: 0.14em;
   line-height: 1.55;
   text-transform: uppercase;
-  color: #b0b0b0;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-hero__caret {
@@ -415,7 +415,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-bound__label span {
@@ -435,7 +435,7 @@
   font-size: 0.58rem;
   letter-spacing: 0;
   text-transform: none;
-  color: #b0b0b0;
+  color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;
 }
 
@@ -524,7 +524,7 @@
   margin-top: 2px;
   font-family: var(--font-display);
   font-size: 0.62rem;
-  color: #8a8a8a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-bound__pipe {
@@ -550,7 +550,7 @@
   place-items: center;
   width: 28px;
   height: 18px;
-  color: #111;
+  color: rgba(0, 0, 0, 0.8);
   translate: 0 -50%;
   pointer-events: none;
 }
@@ -623,7 +623,7 @@
   font-size: 0.58rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: #8d8d8d;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-bound__chamber {
@@ -701,7 +701,7 @@
   letter-spacing: 0.04em;
   line-height: 1.2;
   text-transform: uppercase;
-  color: #555;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: balance;
 }
 
@@ -709,7 +709,7 @@
   flex: 0 0 16px;
   display: grid;
   place-items: center;
-  color: #111;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-bound__hop svg {
@@ -826,7 +826,7 @@
   letter-spacing: 0.1em;
   line-height: 1.35;
   text-transform: uppercase;
-  color: #6a6a6a;
+  color: rgba(0, 0, 0, 0.8);
   text-align: center;
   text-wrap: balance;
   opacity: 0;
@@ -882,7 +882,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;
   writing-mode: vertical-rl;
   rotate: 180deg;
@@ -930,7 +930,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-hero.is-block .sc-bound__ext,
@@ -967,7 +967,7 @@
 .sc-hero.is-local .sc-bound__ext span,
 .sc-hero.is-stats .sc-bound__ext span,
 .sc-hero.is-hold .sc-bound__ext span {
-  color: #8a8a8a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* ---------- pills / local / stats ---------- */
@@ -993,7 +993,7 @@
   font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: #444;
+  color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;
 }
 
@@ -1078,7 +1078,7 @@
   font-family: var(--font-mono);
   letter-spacing: 0;
   text-transform: none;
-  color: #b0b0b0;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-local__row {
@@ -1115,7 +1115,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-local__row p {
@@ -1174,7 +1174,7 @@
   background: #fafafa;
   font-family: var(--font-mono);
   font-size: 0.58rem;
-  color: #666;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-stats {
@@ -1215,7 +1215,7 @@
   letter-spacing: 0.04em;
   line-height: 1.25;
   text-transform: uppercase;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-stats > p {
@@ -1224,7 +1224,7 @@
   border-bottom: 0;
   border-top: 1px solid var(--sc-line);
   padding: 8px 12px;
-  color: #9a9a9a;
+  color: rgba(0, 0, 0, 0.8);
   letter-spacing: 0.08em;
   text-align: center;
 }
@@ -1364,7 +1364,7 @@
   font-size: clamp(0.9rem, 1.2vw, 1.02rem);
   line-height: 1.45;
   letter-spacing: -0.015em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 /* ---------- cite card ---------- */
@@ -1530,7 +1530,7 @@
 .sc-log span {
   font-family: var(--font-display);
   font-size: 0.88rem;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .sc-log em {
@@ -1599,7 +1599,7 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.25;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   overflow-wrap: break-word;
 }
 
@@ -1627,7 +1627,7 @@
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: -0.015em;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: pretty;
 }
 
@@ -1666,7 +1666,7 @@
   line-height: 1.55;
   letter-spacing: -0.015em;
   text-align: center;
-  color: #000;
+  color: rgba(0, 0, 0, 0.8);
   text-wrap: pretty;
 }
 
