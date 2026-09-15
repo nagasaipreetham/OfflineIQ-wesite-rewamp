@@ -81,6 +81,9 @@
 /* Brand is the only element set in Space Grotesk */
 .brand {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-sans);
   font-size: 22px;
   font-weight: 700;
@@ -88,6 +91,14 @@
   line-height: 1;
   color: var(--text);
   white-space: nowrap;
+}
+
+.brand__mark {
+  display: block;
+  width: 22px;
+  height: 26px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .brand__accent {
@@ -498,6 +509,11 @@
 @media (min-width: 1800px) {
   .brand {
     font-size: 24px;
+  }
+
+  .brand__mark {
+    width: 24px;
+    height: 28px;
   }
 
   .site-nav {

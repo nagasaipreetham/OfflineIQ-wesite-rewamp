@@ -121,7 +121,16 @@ function Header() {
     >
       <div className="site-header__inner">
         <Link className="brand" to="/" onClick={closeMenu}>
-          Offline<span className="brand__accent">IQ</span>
+          <img
+            className="brand__mark"
+            src="/offlineiq-dark-monogram.png"
+            alt=""
+            width="22"
+            height="26"
+          />
+          <span className="brand__name">
+            Offline<span className="brand__accent">IQ</span>
+          </span>
         </Link>
 
         <nav className="site-nav" aria-label="Primary">

@@ -161,7 +161,7 @@ function Connectors() {
         <SectionPin>
           <h2 className="conn__title">
             <span className="conn__num" aria-hidden="true">
-              {greekNumeral(8)}.
+              {greekNumeral(9)}.
             </span>
             <span className="conn__label">Connectors</span>
           </h2>
