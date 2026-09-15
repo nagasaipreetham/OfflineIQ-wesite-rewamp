@@ -29,6 +29,11 @@ export const FORT_KNOX_TIERS = [
 
 const CONSULT_HREF = '/consultation'
 
+const POINTS = [
+  'Fort Knox keeps all documents, queries, and outputs within your environment. Nothing is sent to external services, and there is no per-token usage cost.',
+  'The AI model runs directly on hardware inside your network. Queries and documents are processed locally, with no outbound connection required.',
+]
+
 function MeetFortKnox() {
   return (
     <section className="meet" id="meet-fort-knox">
@@ -36,7 +41,7 @@ function MeetFortKnox() {
         <SectionPin>
           <h2 className="meet__title">
             <span className="meet__pin-num" aria-hidden="true">
-              {greekNumeral(4)}.
+              {greekNumeral(3)}.
             </span>
             <span className="meet__label">Meet Fort Knox</span>
           </h2>
@@ -70,6 +75,17 @@ function MeetFortKnox() {
             </p>
           </div>
         </div>
+
+        <ol className="meet__points">
+          {POINTS.map((text, i) => (
+            <li key={i} className="meet__point">
+              <span className="meet__point-num" aria-hidden="true">
+                {i + 1}
+              </span>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ol>
 
         <div className="meet__tiers">
           {FORT_KNOX_TIERS.map((tier) => (

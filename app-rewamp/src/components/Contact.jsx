@@ -32,7 +32,7 @@ function Contact({
   description = DEFAULT_DESCRIPTION,
   leftHeading = DEFAULT_LEFT_HEADING,
   caption = DEFAULT_CAPTION,
-  numeral = 12,
+  numeral = 11,
 }) {
   const [displayed, setDisplayed] = useState('')
 

@@ -118,18 +118,18 @@
   font-family: var(--font-display);
   font-weight: 400;
   color: #000;
-  background: #fff;
-  border-bottom: 1px solid #e6e6e6;
+  background: var(--bg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .why__table thead th:first-child {
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .why__table tbody td {
   text-align: center;
-  border-bottom: 1px solid #e6e6e6;
-  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--bg);
 }
 
 .why__table tbody tr:last-child th,
@@ -158,6 +158,7 @@
 .why__table thead th:nth-child(2) {
   font-weight: 700;
   font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  letter-spacing: -0.04em;
   border-radius: 8px 8px 0 0;
 }
 
@@ -170,6 +171,7 @@
 .why__table tbody td:nth-child(3) {
   text-align: center;
   font-weight: 400;
+  background: var(--bg);
 }
 
 .why__tick {

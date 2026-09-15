@@ -5,7 +5,8 @@
  * Switch with data-theme="terracotta" | "olive" on <html>.
  */
 :root {
-  --bg: #ffffff;
+  /* Source hue at 50% strength over white — change the hex, keep the mix. */
+  --bg: color-mix(in srgb, #D9E5D7 50%, white);
   --text: rgba(0, 0, 0, 0.92);
   --text-secondary: rgba(0, 0, 0, 0.7);
   --text-muted: rgba(0, 0, 0, 0.45);

@@ -14,19 +14,27 @@ const PATH_DOWN =
 const PATH_CENTER =
   'M0-0.3C0-0.3,464,0,1139,0s1139-0.3,1139-0.3V683H0V-0.3z'
 
-const FOOTER_LINKS = [
+const FOOTER_META = [
+  { label: 'Contact', to: '/consultation' },
   { label: 'Support', to: '/support' },
-  { label: 'Content journey', to: '/content-journey' },
-  { label: 'The Digital Twin', to: '/platform' },
-  { label: 'Architecture', to: '/fort-knox' },
-  { label: 'Tools', to: '/#models' },
-  { label: 'Use cases', to: '/#find-your-world' },
-  { label: 'Deployment', to: '/consultation' },
-  { label: 'Contact', to: '/#contact' },
+]
+
+const FOOTER_PAGES_A = [
+  { label: 'Home', to: '/' },
+  { label: 'Security', to: '/security' },
+  { label: 'Fort Knox', to: '/fort-knox' },
+]
+
+const FOOTER_PAGES_B = [
+  { label: 'Platform', to: '/platform' },
+  { label: 'How It Works', to: '/how-it-works' },
+  { label: 'Content Journey', to: '/content-journey' },
 ]
 
 function Footer() {
   const footerRef = useRef(null)
+  const brandBoxRef = useRef(null)
+  const brandRef = useRef(null)
   const [brainActive, setBrainActive] = useState(false)
   const [brainMounted, setBrainMounted] = useState(false)
 
@@ -79,6 +87,29 @@ function Footer() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const box = brandBoxRef.current
+    const word = brandRef.current
+    if (!box || !word) return undefined
+
+    const fit = () => {
+      const available = box.clientWidth
+      if (available < 8) return
+      word.style.fontSize = '100px'
+      const natural = word.scrollWidth
+      if (natural < 8) return
+      const px = Math.max(28, Math.min((available / natural) * 100, 320))
+      word.style.fontSize = `${px}px`
+    }
+
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(box)
+    document.fonts?.ready?.then(fit)
+
+    return () => ro.disconnect()
+  }, [])
+
   useGSAP(
     () => {
       const footer = footerRef.current
@@ -129,21 +160,41 @@ function Footer() {
 
       <div className="site-footer__grid">
         <div className="site-footer__left-top">
-          <nav className="site-footer__nav" aria-label="Footer">
-            {FOOTER_LINKS.map(({ label, to }) => (
-              <Link key={to + label} className="site-footer__nav-link" to={to}>
-                {label}
-              </Link>
-            ))}
-          </nav>
-          <p className="site-footer__copy">&copy; 2026 OfflineIQ. All rights reserved.</p>
-          <a className="site-footer__site" href="https://offlineiq.ai">
-            offlineiq.ai
-          </a>
+          <div className="site-footer__cols">
+            <div className="site-footer__col site-footer__col--meta">
+              <nav className="site-footer__nav" aria-label="Footer contact">
+                {FOOTER_META.map(({ label, to }) => (
+                  <Link key={to + label} className="site-footer__nav-link" to={to}>
+                    {label}
+                  </Link>
+                ))}
+              </nav>
+              <p className="site-footer__copy">&copy; 2026 OfflineIQ. All rights reserved.</p>
+              <a className="site-footer__site" href="https://offlineiq.ai">
+                offlineiq.ai
+              </a>
+            </div>
+            <nav className="site-footer__col site-footer__nav" aria-label="Footer pages">
+              {FOOTER_PAGES_A.map(({ label, to }) => (
+                <Link key={to + label} className="site-footer__nav-link" to={to}>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+            <nav className="site-footer__col site-footer__nav" aria-label="Footer more">
+              {FOOTER_PAGES_B.map(({ label, to }) => (
+                <Link key={to + label} className="site-footer__nav-link" to={to}>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
 
-        <div className="site-footer__left-bottom">
-          <p className="site-footer__brand">OfflineIQ</p>
+        <div className="site-footer__left-bottom" ref={brandBoxRef}>
+          <p className="site-footer__brand" ref={brandRef}>
+            OfflineIQ
+          </p>
           <p className="site-footer__tagline">Private intelligence. Total control.</p>
         </div>
 

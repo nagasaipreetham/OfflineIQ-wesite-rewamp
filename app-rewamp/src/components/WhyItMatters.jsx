@@ -558,9 +558,8 @@ function WhyItMatters() {
           {STEPS.map((step, i) => (
             <li
               key={step.id}
-              className={`matters__step matters__step--${step.id}${
-                stepOn(phase, step.id) || phase === 'hold' ? ' is-on' : ''
-              }${phase === 'idle' && i === 0 ? ' is-on' : ''}`}
+              className={`matters__step matters__step--${step.id}${stepOn(phase, step.id) || phase === 'hold' ? ' is-on' : ''
+                }${phase === 'idle' && i === 0 ? ' is-on' : ''}`}
             >
               <div className="matters__visual">
                 <div className="matters__stage">
@@ -632,9 +631,8 @@ function WhyItMatters() {
                         ))}
                       </ul>
                       <i
-                        className={`matters__rack${
-                          stepOn(phase, 'cloud') ? ' is-on' : ''
-                        }`}
+                        className={`matters__rack${stepOn(phase, 'cloud') ? ' is-on' : ''
+                          }`}
                         ref={serverRef}
                       />
                     </div>
@@ -663,9 +661,8 @@ function WhyItMatters() {
                         ))}
                       </ul>
                       <div
-                        className={`matters__brain${
-                          stepOn(phase, 'asset') ? ' is-on' : ''
-                        }`}
+                        className={`matters__brain${stepOn(phase, 'asset') ? ' is-on' : ''
+                          }`}
                       >
                         <span className="matters__brain-ico">
                           <i className="matters__join matters__join--brain" ref={brainRef} />

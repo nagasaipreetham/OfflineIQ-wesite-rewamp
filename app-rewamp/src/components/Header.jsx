@@ -58,13 +58,16 @@ function ThemeToggle() {
 }
 
 const NAV_LINKS = [
-  { label: 'Content journey', to: '/content-journey' },
+  { label: 'Security', to: '/security' },
+  { label: 'Fort Knox', to: '/fort-knox' },
+  { label: 'Platform', to: '/platform' },
+  { label: 'How It Works', to: '/how-it-works' },
 ]
 
 const SUPPORT_TO = '/support'
 
 /* keep in sync with --nav-breakpoint in index.css */
-const NAV_QUERY = '(min-width: 1120px)'
+const NAV_QUERY = '(min-width: 1240px)'
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)

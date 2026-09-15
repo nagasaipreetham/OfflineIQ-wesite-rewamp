@@ -66,7 +66,7 @@ function FindYourWorld() {
         <SectionPin>
           <h2 className="world__title">
             <span className="world__pin-num" aria-hidden="true">
-              {greekNumeral(10)}.
+              {greekNumeral(9)}.
             </span>
             <span className="world__label">Find Your World</span>
           </h2>

@@ -6,7 +6,7 @@
   --container: 1116px;
   --container-pad: 29px;
   /* viewport width at which the centered nav still fits beside the actions */
-  --nav-breakpoint: 1120px;
+  --nav-breakpoint: 1240px;
 
   /* motion: precise and mechanical, never bouncy */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

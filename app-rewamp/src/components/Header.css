@@ -11,7 +11,7 @@
 }
 
 .site-header.is-scrolled {
-  background: rgba(255, 255, 255, 0.82);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
   border-bottom-color: var(--border-strong);
   backdrop-filter: blur(12px) saturate(1.4);
   -webkit-backdrop-filter: blur(12px) saturate(1.4);
@@ -122,7 +122,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .site-nav__link {
@@ -463,9 +463,9 @@
 /* ---------- breakpoints ---------- */
 
 /* tighten the centred nav before it has to collapse */
-@media (max-width: 1280px) {
+@media (max-width: 1400px) {
   .site-nav {
-    gap: 16px;
+    gap: 14px;
   }
 }
 
@@ -473,7 +473,7 @@
  * Below this width the centred nav would collide with the actions,
  * so it is replaced by the hamburger on the right.
  */
-@media (max-width: 1119px) {
+@media (max-width: 1239px) {
   .site-nav {
     display: none;
   }
@@ -517,7 +517,7 @@
   }
 
   .site-nav {
-    gap: 24px;
+    gap: 20px;
   }
 
   .site-nav__link {

@@ -9,13 +9,13 @@ const ROWS = [
   ['No per-token charges', true, false],
   ['No subscription usage caps', true, false],
   ['No API rate limits', true, false],
-  ['Unlimited internal usage*', true, false],
-  ['Dedicated AI compute', true, false],
+  ['Unlimited internal usage*', true, false, true],
+  ['Dedicated AI compute', true, false, true],
   ['Private document processing', true, false],
-  ['Custom company knowledge', true, true],
-  ['Custom AI agents', true, true],
+  ['Custom company knowledge', true, true, true],
+  ['Custom AI agents', true, true, true],
   ['Runs on your infrastructure', true, false],
-  ['Independent of cloud outages', true, false],
+  ['Independent of cloud outages', true, false, true],
   ['Control over your AI environment', true, false],
 ]
 
@@ -53,9 +53,9 @@ function WhyOffline() {
         <SectionPin>
           <h2 className="why__title">
             <span className="why__num" aria-hidden="true">
-              {greekNumeral(11)}.
+              {greekNumeral(10)}.
             </span>
-            <span className="why__label">Why Offline IQ</span>
+            <span className="why__label">Why OfflineIQ</span>
           </h2>
           <div className="why__rule" aria-hidden="true" />
         </SectionPin>
@@ -81,7 +81,7 @@ function WhyOffline() {
               </tr>
             </thead>
             <tbody>
-              {ROWS.map(([label, iq, cloud]) => (
+              {ROWS.filter((row) => !row[3]).map(([label, iq, cloud]) => (
                 <tr key={label}>
                   <th scope="row">{label}</th>
                   <td>

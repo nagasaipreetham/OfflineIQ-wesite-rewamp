@@ -4,13 +4,11 @@ import Shell from '../components/Shell.jsx'
 import SectionSep from '../components/SectionSep.jsx'
 import WhyItMatters from '../components/WhyItMatters.jsx'
 import AlreadyHappened from '../components/AlreadyHappened.jsx'
-import TheAnswer from '../components/TheAnswer.jsx'
 import MeetFortKnox from '../components/MeetFortKnox.jsx'
 import HowWorksHome from '../components/HowWorksHome.jsx'
 import HowItWorks from '../components/HowItWorks.jsx'
-import Agents from '../components/Agents.jsx'
+import AgentsConnectors from '../components/AgentsConnectors.jsx'
 import Workflow from '../components/Workflow.jsx'
-import Connectors from '../components/Connectors.jsx'
 import FindYourWorld from '../components/FindYourWorld.jsx'
 import WhyOffline from '../components/WhyOffline.jsx'
 import BuiltFor from '../components/BuiltFor.jsx'
@@ -32,19 +30,15 @@ export default function HomePage() {
         <SectionSep />
         <AlreadyHappened />
         <SectionSep />
-        <TheAnswer />
-        <SectionSep />
         <MeetFortKnox />
         <SectionSep />
         <HowWorksHome />
         <SectionSep />
         <HowItWorks />
         <SectionSep />
-        <Agents />
+        <AgentsConnectors />
         <SectionSep />
         <Workflow />
-        <SectionSep />
-        <Connectors />
         <SectionSep />
         <FindYourWorld />
         <SectionSep />

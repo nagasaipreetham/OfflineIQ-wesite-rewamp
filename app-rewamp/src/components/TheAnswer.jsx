@@ -54,12 +54,14 @@ function TheAnswer() {
               <span className="answer__tick answer__tick--bl" aria-hidden="true" />
               <span className="answer__tick answer__tick--br" aria-hidden="true" />
             </div>
+            {/*
             <p className="answer__note">
               At 250 employees running 50 queries a day, a metered cloud model lands in
               the range of $3,750 to $4,500 a month, and that range only grows as
               adoption grows. Fort Knox runs the same workload for one flat cost, whether
               the team asks ten questions today or ten thousand.
             </p>
+            */}
           </div>
         </div>
       </ShellInner>

@@ -4,7 +4,7 @@ import SectionPin from './SectionPin.jsx'
 import { greekNumeral } from '../lib/greekNumerals.js'
 import './Agents.css'
 
-const GROUPS = [
+export const GROUPS = [
   {
     id: 'creation',
     label: 'Creation',

@@ -133,6 +133,57 @@
   text-wrap: pretty;
 }
 
+.meet__points {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin: clamp(28px, 4vw, 44px) 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.meet__point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  padding: clamp(22px, 3vw, 32px) clamp(20px, 2.8vw, 32px);
+}
+
+.meet__point + .meet__point {
+  border-left: 1px solid #000;
+}
+
+.meet__point-num {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  background: var(--blue-primary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+
+.meet__point p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+  color: #000;
+  text-wrap: pretty;
+}
+
 .meet__tiers {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -317,6 +368,15 @@
   .meet__tiers {
     grid-template-columns: 1fr;
     grid-template-rows: none;
+  }
+
+  .meet__points {
+    grid-template-columns: 1fr;
+  }
+
+  .meet__point + .meet__point {
+    border-left: 0;
+    border-top: 1px solid #000;
   }
 
   .meet__tier--enterprise {
